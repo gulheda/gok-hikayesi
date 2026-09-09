@@ -19,10 +19,26 @@ MODEL_PRICING_USD = {
 
 DEFAULT_MODEL = "claude-opus-5"
 
+# Ücretsiz katmanda ya da yerel çalışan sağlayıcılar. Bunlar için maliyet
+# sıfır raporlanır; günlük harcama tavanı da doğal olarak devreye girmez.
+UCRETSIZ_SAGLAYICILAR = {"gemini_ucretsiz", "openai_uyumlu"}
+
+VARSAYILAN_MODELLER = {
+    "anthropic": "claude-opus-5",
+    # Gemini model adları zamanla değişiyor; kullanılabilir listeyi görmek için:
+    #   curl "https://generativelanguage.googleapis.com/v1beta/models?key=ANAHTAR"
+    "gemini": "gemini-3-flash",
+    "openai_uyumlu": "llama3.1:8b",
+}
+
 
 @dataclass(frozen=True)
 class Settings:
     anthropic_api_key: Optional[str]
+    llm_saglayici: str
+    gemini_api_key: Optional[str]
+    llm_temel_adres: Optional[str]
+    llm_api_key: Optional[str]
     story_model: str
     max_output_tokens: int
     tts_provider: str
@@ -40,9 +56,21 @@ class Settings:
 
     @property
     def llm_available(self) -> bool:
-        # Anahtar ortamda yoksa SDK `ant auth login` profilini de deneyebilir;
-        # bu yüzden yokluğu kesin bir engel değil, yalnızca bir ipucu.
+        """Sağlayıcının kurulu görünüp görünmediği.
+
+        Kesin değil, ipucu: Anthropic SDK anahtar ortamda yokken `ant auth
+        login` profilini de deneyebilir, yerel bir uç anahtar istemez.
+        """
+        if self.llm_saglayici == "gemini":
+            return bool(self.gemini_api_key)
+        if self.llm_saglayici == "openai_uyumlu":
+            return bool(self.llm_temel_adres)
         return bool(self.anthropic_api_key)
+
+    @property
+    def ucretsiz_saglayici(self) -> bool:
+        """Sağlayıcı ücretsiz katmanda ya da yerel mi çalışıyor."""
+        return self.llm_saglayici in ("gemini", "openai_uyumlu")
 
     @property
     def tts_available(self) -> bool:
@@ -54,9 +82,16 @@ class Settings:
 
 
 def get_settings() -> Settings:
+    saglayici = os.getenv("LLM_SAGLAYICI", "anthropic").strip().lower()
     return Settings(
         anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"),
-        story_model=os.getenv("STORY_MODEL", DEFAULT_MODEL),
+        llm_saglayici=saglayici,
+        gemini_api_key=os.getenv("GEMINI_API_KEY"),
+        llm_temel_adres=os.getenv("LLM_TEMEL_ADRES"),
+        llm_api_key=os.getenv("LLM_API_KEY"),
+        story_model=os.getenv(
+            "STORY_MODEL", VARSAYILAN_MODELLER.get(saglayici, DEFAULT_MODEL)
+        ),
         max_output_tokens=int(os.getenv("STORY_MAX_TOKENS", "8000")),
         tts_provider=os.getenv("TTS_PROVIDER", "google"),
         elevenlabs_api_key=os.getenv("ELEVENLABS_API_KEY"),

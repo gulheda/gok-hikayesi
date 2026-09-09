@@ -14,7 +14,7 @@ dokunmaz.
 | Faz | Kapsam | Durum |
 |---|---|---|
 | 1 | Astronomik hesaplama motoru | ✅ Tamam, üç bağımsız çıpayla doğrulandı |
-| 2 | Hikâye üretim katmanı | ✅ Kod tamam — canlı çalıştırma `ANTHROPIC_API_KEY` bekliyor |
+| 2 | Hikâye üretim katmanı | ✅ Kod tamam — Anthropic / Gemini / yerel model / elle |
 | 3 | Seslendirme katmanı | ✅ Kod tamam — canlı çalıştırma TTS anahtarı bekliyor |
 | 4 | Backend API (FastAPI) | ✅ Tamam, uçtan uca test edildi |
 | 5 | iOS uygulaması (SwiftUI) | ✅ Simülatörde derlenip çalıştırıldı |
@@ -22,7 +22,7 @@ dokunmaz.
 | — | İstek sınırlama + harcama tavanı | ✅ Tamam |
 | — | Erişilebilirlik + uygulama ikonu | ✅ Tamam |
 
-102 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
+121 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
 
 ## Hızlı başlangıç
 
@@ -42,13 +42,28 @@ python3 -m venv .venv
 # http://127.0.0.1:8000/docs
 ```
 
-Hikâye ve ses için `.env` dosyası:
+### Hikâye üretmek
+
+**Para harcamadan:** promptu üretip herhangi bir ücretsiz sohbete yapıştır,
+çıkan metni geri okut.
+
+```bash
+.venv/bin/python backend/tools/cli.py --tarih 2003-07-03 --saat 09:00 \
+    --yer Denizli --prompt-yaz          # panoya kopyalanır
+.venv/bin/python backend/tools/cli.py --tarih 2003-07-03 --saat 09:00 \
+    --yer Denizli --hikaye-oku hikaye.txt --ios-ornek
+```
+
+**Otomatik üretim için** `.env` dosyası — sağlayıcı değiştirilebilir:
 
 ```
+LLM_SAGLAYICI=anthropic      # veya gemini (ücretsiz katman), openai_uyumlu
 ANTHROPIC_API_KEY=sk-ant-...
-TTS_PROVIDER=google          # veya elevenlabs
+TTS_PROVIDER=google
 GOOGLE_TTS_API_KEY=...
 ```
+
+Ücretsiz seçeneklerin ayrıntısı: [docs/ucretsiz-secenekler.md](docs/ucretsiz-secenekler.md)
 
 iOS uygulaması: `open ios/AstroHikaye.xcodeproj` — simülatörde çalışması için
 backend'in `127.0.0.1:8000` üzerinde ayakta olması gerekir.
@@ -63,7 +78,7 @@ backend/
   app/tts/        seslendirme + maliyet
   app/api/        FastAPI uçları
   tools/          CLI ve bağımsız efemeris çapraz kontrolü
-  tests/          102 test
+  tests/          121 test
   data/ephe/      Swiss Ephemeris veri dosyaları (1800–2399)
   data/jpl/       JPL DE440s (yalnızca doğrulama için)
 ios/AstroHikaye/  SwiftUI uygulaması
