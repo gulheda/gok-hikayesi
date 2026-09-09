@@ -3,7 +3,7 @@
 Swiss Ephemeris'e doğrudan bağlanmak yerine dar bir arayüzün arkasına
 alıyoruz. Sebep lisans: pyswisseph AGPL-3.0 altında; kapalı kaynak ticari
 bir servis için Astrodienst'ten profesyonel lisans alınması gerekir
-(bkz. docs/lisans-notu.md). O karar ertelenebilir olsun diye sağlayıcı
+(bkz. docs/kararlar.md, madde 1). O karar ertelenebilir olsun diye sağlayıcı
 değiştirilebilir tutuluyor - Skyfield tabanlı bir sağlayıcı aynı arayüzü
 uygulayarak devreye girebilir.
 """
