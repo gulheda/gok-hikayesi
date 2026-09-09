@@ -17,6 +17,7 @@ from datetime import date
 from typing import List, Optional
 
 from ..astro.chart import NatalChart
+from .signature import collect as collect_signatures, common_traits
 
 # Hikâyeye girecek açı sayısı. Tümü verilirse model önemsiz açılara da
 # eşit ağırlık verip anlatıyı dağıtıyor; en güçlü birkaçı odak sağlıyor.
@@ -172,5 +173,26 @@ def llm_brifingi(chart: NatalChart) -> str:
             "Hiç yerleşim almayan element(ler): "
             + ", ".join(chart.balance.missing_elements)
         )
+    satirlar.append("")
+
+    # Ayırt edici yapılar. Hikâyenin kişiye ait hissettirmesi buradan gelir:
+    # model yaygın olana değil, ender olana tutunmalı.
+    imzalar = collect_signatures(chart)
+    if imzalar:
+        satirlar.append("BU HARİTAYA ÖZGÜ YAPILAR (belirginlik sırasına göre):")
+        for imza in imzalar:
+            satirlar.append(f"- [{imza.rarity}] {imza.label}")
+            if imza.note:
+                satirlar.append(f"  ({imza.note})")
+        satirlar.append("")
+
+    yaygin = common_traits(chart)
+    if yaygin:
+        satirlar.append(
+            "ÜZERİNE HİKÂYE KURULMAMASI GEREKENLER — bunlar milyonlarca "
+            "insanla paylaşılıyor, dolayısıyla kişiye ait hissettirmez:"
+        )
+        for t in yaygin:
+            satirlar.append(f"- {t}")
 
     return "\n".join(satirlar)
