@@ -38,23 +38,30 @@ enum Tema {
     )
 
     // MARK: Tipografi
+    //
+    // Punto sabit verilmiyor, metin stiline bağlanıyor. `.system(size:)`
+    // kullanıcının yazı boyutu ayarını yok sayar; 800 kelimelik bir metni
+    // okunamaz punto ile sabitlemek erişilebilirlik açısından kabul edilemez.
+    // Stil tabanlı fontlar Dynamic Type ile birlikte ölçeklenir ve ayar
+    // değiştiğinde SwiftUI görünümü kendiliğinden yeniden çizer.
 
-    /// Hikâye gövdesi: serif, geniş satır aralığı.
-    static func govde(_ boyut: CGFloat = 18) -> Font {
-        .system(size: boyut, weight: .regular, design: .serif)
+    /// Hikâye ve genel metin: serif.
+    static func govde(_ stil: Font.TextStyle = .body) -> Font {
+        .system(stil, design: .serif)
     }
 
-    static func baslik(_ boyut: CGFloat = 34) -> Font {
-        .system(size: boyut, weight: .semibold, design: .serif)
+    static func baslik(_ stil: Font.TextStyle = .largeTitle) -> Font {
+        .system(stil, design: .serif).weight(.semibold)
     }
 
     /// Sayısal veri: rakamların hizalanması için tek aralıklı.
-    static func veri(_ boyut: CGFloat = 14) -> Font {
-        .system(size: boyut, weight: .regular, design: .monospaced)
+    static func veri(_ stil: Font.TextStyle = .caption) -> Font {
+        .system(stil, design: .monospaced)
     }
 
-    static func etiket(_ boyut: CGFloat = 12) -> Font {
-        .system(size: boyut, weight: .medium, design: .default)
+    /// Küçük büyük harfli etiketler.
+    static func etiket(_ stil: Font.TextStyle = .caption2) -> Font {
+        .system(stil, design: .default).weight(.medium)
     }
 
     static let satirAraligi: CGFloat = 9

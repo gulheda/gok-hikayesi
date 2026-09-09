@@ -13,11 +13,11 @@ struct HataView: View {
 
                 VStack(spacing: 12) {
                     Text("Hikâye oluşturulamadı")
-                        .font(Tema.baslik(24))
+                        .font(Tema.baslik(.title2))
                         .foregroundStyle(Tema.metin)
 
                     Text(mesaj)
-                        .font(Tema.govde(15))
+                        .font(Tema.govde(.subheadline))
                         .foregroundStyle(Tema.metinIkincil)
                         .multilineTextAlignment(.center)
                         .lineSpacing(4)

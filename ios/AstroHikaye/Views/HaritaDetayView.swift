@@ -17,7 +17,7 @@ struct HaritaDetayView: View {
                             HStack(alignment: .top, spacing: 8) {
                                 Text("•").foregroundStyle(Tema.altinSolgun)
                                 Text(u)
-                                    .font(Tema.govde(13))
+                                    .font(Tema.govde(.footnote))
                                     .foregroundStyle(Tema.metinIkincil)
                                     .lineSpacing(3)
                             }
@@ -34,21 +34,24 @@ struct HaritaDetayView: View {
                                 .frame(width: 20, alignment: .center)
 
                             Text(cisim.ad)
-                                .font(Tema.govde(14))
+                                .font(Tema.govde(.subheadline))
                                 .foregroundStyle(Tema.metin)
 
                             Spacer(minLength: 8)
 
                             Text(cisim.gosterim)
-                                .font(Tema.veri(12))
+                                .font(Tema.veri(.caption))
                                 .foregroundStyle(Tema.metinIkincil)
 
                             Text(cisim.ev.map { "\($0)" } ?? "–")
-                                .font(Tema.veri(11))
+                                .font(Tema.veri(.caption2))
                                 .foregroundStyle(Tema.altinSolgun.opacity(0.8))
                                 .frame(width: 18, alignment: .trailing)
                         }
                         .padding(.vertical, 3)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("\(cisim.ad), \(cisim.gosterim)"
+                            + (cisim.ev.map { ", \($0). ev" } ?? ""))
                     }
                 }
 
@@ -64,7 +67,7 @@ struct HaritaDetayView: View {
                     } else {
                         Text(yanit.harita.evler.yoklugoSebebi
                              ?? "Ev sistemi hesaplanmadı.")
-                            .font(Tema.govde(13))
+                            .font(Tema.govde(.footnote))
                             .foregroundStyle(Tema.metinIkincil)
                             .lineSpacing(3)
                     }
@@ -78,18 +81,22 @@ struct HaritaDetayView: View {
                                     .fill(Tema.aciRengi(aci.dogas))
                                     .frame(width: 6, height: 6)
                                 Text("\(aci.a) – \(aci.b)")
-                                    .font(Tema.govde(13))
+                                    .font(Tema.govde(.footnote))
                                     .foregroundStyle(Tema.metin)
                                 Spacer(minLength: 6)
                                 Text(aci.tur)
-                                    .font(Tema.etiket(11))
+                                    .font(Tema.etiket(.caption2))
                                     .foregroundStyle(Tema.metinIkincil)
                                 Text(String(format: "%.2f°", aci.orb))
-                                    .font(Tema.veri(11))
+                                    .font(Tema.veri(.caption2))
                                     .foregroundStyle(Tema.metinIkincil.opacity(0.7))
                                     .frame(width: 44, alignment: .trailing)
                             }
                             .padding(.vertical, 2)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel(
+                                "\(aci.a) ile \(aci.b) arasında \(aci.tur), "
+                                + String(format: "sapma %.2f derece", aci.orb))
                         }
                     }
                 }
@@ -99,7 +106,7 @@ struct HaritaDetayView: View {
                         let sayi = yanit.harita.denge.elementler[e] ?? 0
                         HStack(spacing: 10) {
                             Text(e)
-                                .font(Tema.govde(14))
+                                .font(Tema.govde(.subheadline))
                                 .foregroundStyle(sayi == 0 ? Tema.metinIkincil : Tema.metin)
                                 .frame(width: 58, alignment: .leading)
 
@@ -116,18 +123,21 @@ struct HaritaDetayView: View {
                                     .frame(maxHeight: .infinity, alignment: .center)
                             }
                             .frame(height: 14)
+                            .accessibilityHidden(true)
 
                             Text("\(sayi)")
-                                .font(Tema.veri(12))
+                                .font(Tema.veri(.caption))
                                 .foregroundStyle(Tema.metinIkincil)
                                 .frame(width: 14, alignment: .trailing)
                         }
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel("\(e): \(sayi) yerleşim")
                     }
 
                     if !yanit.harita.denge.eksikElementler.isEmpty {
                         Text("Yerleşim almayan: "
                              + yanit.harita.denge.eksikElementler.joined(separator: ", "))
-                            .font(Tema.govde(12))
+                            .font(Tema.govde(.caption))
                             .foregroundStyle(Tema.altinSolgun)
                             .padding(.top, 4)
                     }
@@ -136,7 +146,7 @@ struct HaritaDetayView: View {
                 bolum("HAM HESAPLAMA") {
                     ScrollView(.horizontal, showsIndicators: false) {
                         Text(yanit.olgusalPanel)
-                            .font(Tema.veri(10))
+                            .font(Tema.veri(.caption2))
                             .foregroundStyle(Tema.metinIkincil)
                             .textSelection(.enabled)
                     }
@@ -156,7 +166,7 @@ struct HaritaDetayView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(spacing: 10) {
                 Text(baslik)
-                    .font(Tema.etiket(11))
+                    .font(Tema.etiket(.caption2))
                     .tracking(1.4)
                     .foregroundStyle(Tema.altinSolgun)
                 Rectangle().fill(Tema.cizgi).frame(height: 1)
@@ -168,11 +178,11 @@ struct HaritaDetayView: View {
     private func satir(_ etiket: String, _ deger: String) -> some View {
         HStack {
             Text(etiket)
-                .font(Tema.govde(14))
+                .font(Tema.govde(.subheadline))
                 .foregroundStyle(Tema.metin)
             Spacer()
             Text(deger)
-                .font(Tema.veri(12))
+                .font(Tema.veri(.caption))
                 .foregroundStyle(Tema.metinIkincil)
         }
     }

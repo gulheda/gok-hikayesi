@@ -3,6 +3,7 @@ import SwiftUI
 struct GirisView: View {
     @Bindable var model: DeneyimModeli
     @FocusState private var odak: Alan?
+    @Environment(\.dynamicTypeSize) private var puntoBoyutu
 
     private enum Alan { case ad, yer }
 
@@ -42,13 +43,7 @@ struct GirisView: View {
                     }
 
                     kart {
-                        Toggle(isOn: $model.saatBiliniyor.animation(.easeInOut(duration: 0.25))) {
-                            Text("Doğum saatimi biliyorum")
-                                .font(Tema.govde(16))
-                                .foregroundStyle(Tema.metin)
-                        }
-                        .tint(Tema.altin)
-                        .padding(.vertical, 4)
+                        saatAnahtari
 
                         if model.saatBiliniyor {
                             AyracCizgi()
@@ -86,14 +81,46 @@ struct GirisView: View {
 
     // MARK: Parçalar
 
+    /// Doğum saati anahtarı.
+    ///
+    /// Erişilebilirlik puntolarında etiket ile anahtar yan yana sığmıyor ve
+    /// etiket birkaç satıra bölünüyor. Bu boyutlarda iOS'un kendi kalıbını
+    /// izliyoruz: etiket üstte, anahtar altında.
+    @ViewBuilder
+    private var saatAnahtari: some View {
+        let baglama = $model.saatBiliniyor.animation(.easeInOut(duration: 0.25))
+
+        if puntoBoyutu.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Doğum saatimi biliyorum")
+                    .font(Tema.govde(.callout))
+                    .foregroundStyle(Tema.metin)
+                    .accessibilityHidden(true)
+                Toggle("Doğum saatimi biliyorum", isOn: baglama)
+                    .labelsHidden()
+                    .tint(Tema.altin)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 4)
+        } else {
+            Toggle(isOn: baglama) {
+                Text("Doğum saatimi biliyorum")
+                    .font(Tema.govde(.callout))
+                    .foregroundStyle(Tema.metin)
+            }
+            .tint(Tema.altin)
+            .padding(.vertical, 4)
+        }
+    }
+
     private var baslikBolumu: some View {
         VStack(spacing: 10) {
             Text("Gök Hikâyesi")
-                .font(Tema.baslik(40))
+                .font(Tema.baslik(.largeTitle))
                 .foregroundStyle(Tema.metin)
 
             Text("doğduğun anın gökyüzünden")
-                .font(Tema.govde(15))
+                .font(Tema.govde(.subheadline))
                 .foregroundStyle(Tema.metinIkincil)
                 .italic()
         }
@@ -119,7 +146,7 @@ struct GirisView: View {
     private var aciklama: some View {
         if model.saatBiliniyor {
             Text("Yükselen burç dört dakikada bir derece ilerler; saat ne kadar kesinse harita o kadar doğru olur.")
-                .font(Tema.govde(13))
+                .font(Tema.govde(.footnote))
                 .foregroundStyle(Tema.metinIkincil)
                 .frame(maxWidth: .infinity, alignment: .leading)
         } else {
@@ -128,7 +155,7 @@ struct GirisView: View {
                     .foregroundStyle(Tema.altinSolgun)
                     .font(.system(size: 14))
                 Text(model.saatsizUyarisi)
-                    .font(Tema.govde(13))
+                    .font(Tema.govde(.footnote))
                     .foregroundStyle(Tema.metinIkincil)
             }
             .padding(14)
@@ -136,6 +163,7 @@ struct GirisView: View {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(Tema.altin.opacity(0.07))
             )
+            .accessibilityElement(children: .combine)
         }
     }
 
@@ -157,6 +185,9 @@ struct GirisView: View {
                 )
         }
         .disabled(!model.gonderilebilir)
+        .accessibilityHint(model.gonderilebilir
+                           ? "Doğum haritanı hesaplar ve hikâyeni yazar"
+                           : "Önce doğum yerini girmelisin")
         .animation(.easeInOut(duration: 0.2), value: model.gonderilebilir)
     }
 
@@ -165,8 +196,9 @@ struct GirisView: View {
             Rectangle()
                 .fill(Tema.cizgi)
                 .frame(width: 40, height: 1)
+                .accessibilityHidden(true)
             Text(BilgiMetinleri.katmanAyrimi)
-                .font(Tema.govde(12))
+                .font(Tema.govde(.caption))
                 .foregroundStyle(Tema.metinIkincil.opacity(0.85))
                 .multilineTextAlignment(.center)
                 .lineSpacing(4)
@@ -192,17 +224,20 @@ private struct MetinAlani: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(etiket)
-                .font(Tema.etiket(11))
+                .font(Tema.etiket(.caption2))
                 .tracking(1.2)
                 .foregroundStyle(Tema.altinSolgun.opacity(0.9))
 
             TextField("", text: $metin, prompt:
                 Text(ipucu).foregroundStyle(Tema.metinIkincil.opacity(0.55))
             )
-            .font(Tema.govde(17))
+            .font(Tema.govde(.body))
             .foregroundStyle(Tema.metin)
             .textInputAutocapitalization(.words)
             .autocorrectionDisabled()
+            // Etiket görsel olarak alanın üstünde duruyor; VoiceOver alanın
+            // kendisini okuduğunda o etiketi görmez, bu yüzden bağlıyoruz.
+            .accessibilityLabel(etiket)
         }
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -218,7 +253,7 @@ private struct TarihAlani: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(etiket)
-                .font(Tema.etiket(11))
+                .font(Tema.etiket(.caption2))
                 .tracking(1.2)
                 .foregroundStyle(Tema.altinSolgun.opacity(0.9))
 
@@ -236,6 +271,7 @@ private struct TarihAlani: View {
             }
             .colorScheme(.dark)
             .tint(Tema.altin)
+            .accessibilityLabel(etiket)
         }
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)

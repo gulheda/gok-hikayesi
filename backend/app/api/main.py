@@ -9,7 +9,7 @@ import base64
 import logging
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from ..astro.chart import BirthInput, calculate_chart
@@ -28,6 +28,7 @@ from ..tts.base import TTSError
 from ..tts.factory import build_provider
 from ..tts.pricing import CHARS_PER_SECOND, compare_all
 from ..tts.providers import synthesize
+from .koruma import gunluk_tavan, pahali_uc, ucuz_uc
 from .schemas import (
     DogumGirdisi,
     HaritaYaniti,
@@ -106,17 +107,20 @@ def saglik() -> SaglikYaniti:
         tts_yapilandirildi=settings.tts_available,
         tts_saglayici=settings.tts_provider,
         desteklenen_ev_sistemleri=sorted(HOUSE_SYSTEMS),
+        gunluk_tavan=gunluk_tavan.durum(),
     )
 
 
-@app.post("/api/harita", response_model=HaritaYaniti, tags=["hesaplama"])
+@app.post("/api/harita", response_model=HaritaYaniti, tags=["hesaplama"],
+          dependencies=[Depends(ucuz_uc)])
 def harita_hesapla(girdi: DogumGirdisi) -> HaritaYaniti:
     """Yalnızca astronomik hesaplama yapar; LLM çağrısı içermez."""
     yer, chart = _harita_kur(girdi)
     return HaritaYaniti(yer=yer, harita=chart.to_dict())
 
 
-@app.post("/api/hikaye", response_model=HikayeYaniti, tags=["hikaye"])
+@app.post("/api/hikaye", response_model=HikayeYaniti, tags=["hikaye"],
+          dependencies=[Depends(pahali_uc)])
 def hikaye_uret(girdi: DogumGirdisi) -> HikayeYaniti:
     """Haritayı hesaplar ve hikâyeye dönüştürür."""
     yer, chart = _harita_kur(girdi)
@@ -126,11 +130,15 @@ def hikaye_uret(girdi: DogumGirdisi) -> HikayeYaniti:
     except StoryServiceNotConfigured as exc:
         # Kurulum eksikliği yukarı akış arızasından ayrılıyor: 503, geçici
         # olmayan bir yapılandırma sorununu doğru anlatır.
-        logger.error("Hikâye servisi yapılandırılmamış: %s", exc)
+        logger.error("%s", exc)
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     except StoryGenerationError as exc:
         logger.exception("Hikâye üretimi başarısız")
         raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    # Tavan tahminle değil gerçekleşen tutarla işlesin diye maliyet burada
+    # ekleniyor; hikâye uzunluğu değiştikçe çağrı başına maliyet de değişir.
+    gunluk_tavan.harcama_ekle(story.cost_usd)
 
     return HikayeYaniti(
         yer=yer,
@@ -150,7 +158,8 @@ def hikaye_uret(girdi: DogumGirdisi) -> HikayeYaniti:
     )
 
 
-@app.post("/api/seslendir", response_model=SeslendirmeYaniti, tags=["ses"])
+@app.post("/api/seslendir", response_model=SeslendirmeYaniti, tags=["ses"],
+          dependencies=[Depends(pahali_uc)])
 def seslendir(istek: SeslendirmeIstegi) -> SeslendirmeYaniti:
     """Metni sese çevirir.
 
@@ -165,6 +174,8 @@ def seslendir(istek: SeslendirmeIstegi) -> SeslendirmeYaniti:
             provider, "voice_name", getattr(provider, "voice_id", "varsayilan")))
     except TTSError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    gunluk_tavan.harcama_ekle(sonuc.cost_usd)
 
     return SeslendirmeYaniti(
         ses_base64=base64.b64encode(sonuc.audio).decode("ascii"),

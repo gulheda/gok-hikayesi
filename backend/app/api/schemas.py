@@ -109,3 +109,4 @@ class SaglikYaniti(BaseModel):
     tts_yapilandirildi: bool
     tts_saglayici: str
     desteklenen_ev_sistemleri: List[str]
+    gunluk_tavan: Dict[str, Any]

@@ -19,8 +19,10 @@ dokunmaz.
 | 4 | Backend API (FastAPI) | ✅ Tamam, uçtan uca test edildi |
 | 5 | iOS uygulaması (SwiftUI) | ✅ Simülatörde derlenip çalıştırıldı |
 | 6 | Kapalı beta, KVKK metinleri | ⬜ Yapılmadı |
+| — | İstek sınırlama + harcama tavanı | ✅ Tamam |
+| — | Erişilebilirlik + uygulama ikonu | ✅ Tamam |
 
-75 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
+102 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
 
 ## Hızlı başlangıç
 
@@ -61,7 +63,7 @@ backend/
   app/tts/        seslendirme + maliyet
   app/api/        FastAPI uçları
   tools/          CLI ve bağımsız efemeris çapraz kontrolü
-  tests/          75 test
+  tests/          102 test
   data/ephe/      Swiss Ephemeris veri dosyaları (1800–2399)
   data/jpl/       JPL DE440s (yalnızca doğrulama için)
 ios/AstroHikaye/  SwiftUI uygulaması

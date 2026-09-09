@@ -34,6 +34,30 @@ struct HaritaCarkiView: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
+        // Canvas VoiceOver için tamamen görünmezdir; içeriği sözlü bir özete
+        // çevirmezsek çark ekran okuyucu kullanan biri için hiç yok demektir.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(sesliTanim)
+    }
+
+    /// Çarkın ekran okuyucuya okunacak özeti.
+    ///
+    /// Tüm gök cisimlerini tek tek saymıyoruz - onlar zaten çarkın altındaki
+    /// listede ayrı ayrı okunabiliyor. Burada yalnızca çarkın bir bakışta
+    /// verdiği bilgi var: yerleşimin genel şekli.
+    private var sesliTanim: String {
+        var parcalar = ["Doğum haritası çarkı."]
+        if harita.evler.mevcut, let yukselen = harita.evler.yukselenBurc {
+            parcalar.append("Yükselen \(yukselen).")
+            if let mc = harita.evler.mcBurc { parcalar.append("Tepe noktası \(mc).") }
+            parcalar.append("Ev sistemi \(harita.evler.sistem).")
+        } else {
+            parcalar.append("Doğum saati bilinmediği için ev çemberi çizilmedi.")
+        }
+        parcalar.append("\(harita.gokCisimleri.count) gök cismi ve "
+                        + "\(harita.acilar.count) açı gösteriliyor.")
+        parcalar.append("Ayrıntılar aşağıdaki listede.")
+        return parcalar.joined(separator: " ")
     }
 
     // MARK: - Geometri

@@ -8,6 +8,11 @@ struct YildizAlaniView: View {
     var yildizSayisi: Int = 140
     var parlama: Bool = true
 
+    /// Sürekli yanıp sönen noktalar vestibüler rahatsızlığı tetikleyebilir ve
+    /// dikkat sorunu olan kullanıcılar için metni okumayı zorlaştırır. Sistem
+    /// ayarı açıksa yıldızlar sabit çizilir - görsel dil korunur, hareket gider.
+    @Environment(\.accessibilityReduceMotion) private var hareketAzalt
+
     private let yildizlar: [Yildiz]
 
     init(yildizSayisi: Int = 140, parlama: Bool = true, tohum: UInt64 = 20030703) {
@@ -25,13 +30,15 @@ struct YildizAlaniView: View {
         }
     }
 
+    private var canlandir: Bool { parlama && !hareketAzalt }
+
     var body: some View {
-        TimelineView(.animation(minimumInterval: parlama ? 1.0 / 12.0 : nil)) { zaman in
+        TimelineView(.animation(minimumInterval: canlandir ? 1.0 / 12.0 : nil)) { zaman in
             Canvas { baglam, boyut in
                 let t = zaman.date.timeIntervalSinceReferenceDate
                 for yildiz in yildizlar {
                     // Her yıldız kendi fazında, çok hafif nefes alıyor.
-                    let salinim = parlama
+                    let salinim = canlandir
                         ? 0.75 + 0.25 * sin(t * 0.7 + yildiz.faz)
                         : 1.0
                     let nokta = CGRect(
@@ -48,6 +55,8 @@ struct YildizAlaniView: View {
             }
         }
         .allowsHitTesting(false)
+        // Dekoratif: VoiceOver'ın üzerinden geçmesine gerek yok.
+        .accessibilityHidden(true)
     }
 
     private struct Yildiz {

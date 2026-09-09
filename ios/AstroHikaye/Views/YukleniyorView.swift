@@ -22,10 +22,11 @@ struct YukleniyorView: View {
             VStack(spacing: 44) {
                 DonenHalka()
                     .frame(width: 190, height: 190)
+                    .accessibilityHidden(true)
 
                 VStack(spacing: 14) {
                     Text(adimlar[adimIndeksi])
-                        .font(Tema.govde(16))
+                        .font(Tema.govde(.callout))
                         .foregroundStyle(Tema.metin)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: 260)
@@ -44,6 +45,12 @@ struct YukleniyorView: View {
                         }
                     }
                 }
+                // Adım metni ve noktalar tek bir duyuru olarak okunsun.
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(
+                    "\(adimlar[adimIndeksi]). Adım \(adimIndeksi + 1) / \(adimlar.count)."
+                )
+                .accessibilityAddTraits(.updatesFrequently)
             }
         }
         .onReceive(zamanlayici) { _ in
@@ -58,7 +65,7 @@ struct YukleniyorView: View {
 
 /// Yavaşça dönen burç halkası.
 private struct DonenHalka: View {
-    @State private var aci: Double = 0
+    @Environment(\.accessibilityReduceMotion) private var hareketAzalt
 
     var body: some View {
         TimelineView(.animation) { zaman in
@@ -66,7 +73,7 @@ private struct DonenHalka: View {
                 let merkez = CGPoint(x: boyut.width / 2, y: boyut.height / 2)
                 let R = min(boyut.width, boyut.height) / 2
                 let t = zaman.date.timeIntervalSinceReferenceDate
-                let donme = t * 6 // saniyede 6 derece
+                let donme = hareketAzalt ? 0 : t * 6 // saniyede 6 derece
 
                 func nokta(_ derece: Double, _ r: CGFloat) -> CGPoint {
                     let a = (derece + donme) * .pi / 180
