@@ -1,0 +1,12 @@
+pyswisseph==2.10.3.2
+timezonefinder==8.2.0
+fastapi==0.128.8
+uvicorn[standard]==0.39.0
+pydantic==2.13.5
+httpx==0.28.1
+python-dotenv==1.2.1
+anthropic==0.125.0
+
+# Yalnızca doğrulama için: bağımsız efemeris çapraz kontrolü
+skyfield==1.55
+pytest==8.4.2
