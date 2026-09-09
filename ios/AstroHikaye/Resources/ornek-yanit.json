@@ -1,0 +1,455 @@
+{
+ "yer": {
+  "sorgu": "Denizli",
+  "cozumlenen_ad": "Denizli, Türkiye",
+  "enlem": 37.7765,
+  "boylam": 29.0864,
+  "kaynak": "offline_tr"
+ },
+ "harita": {
+  "giris": {
+   "ad": "Gülheda",
+   "tarih": "2003-07-03",
+   "saat": "09:00:00",
+   "saat_biliniyor": true,
+   "yer": "Denizli, Türkiye",
+   "enlem": 37.7765,
+   "boylam": 29.0864
+  },
+  "zaman": {
+   "saat_dilimi": "Europe/Istanbul",
+   "utc_ofset_saat": 3.0,
+   "yaz_saati": true,
+   "utc": "2003-07-03T06:00:00+00:00",
+   "julian_day": 2452823.75
+  },
+  "gok_cisimleri": [
+   {
+    "anahtar": "Sun",
+    "ad": "Güneş",
+    "boylam": 100.924,
+    "burc": "Yengeç",
+    "burc_derece": 10.924,
+    "gosterim": "Yengeç 10°55'",
+    "element": "Su",
+    "nitelik": "Öncü",
+    "ev": 11,
+    "ev_temasi": "topluluk, gelecek tasavvuru, dostluk",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Moon",
+    "ad": "Ay",
+    "boylam": 142.1136,
+    "burc": "Aslan",
+    "burc_derece": 22.1136,
+    "gosterim": "Aslan 22°07'",
+    "element": "Ateş",
+    "nitelik": "Sabit",
+    "ev": 1,
+    "ev_temasi": "kimlik, dışa vuruş, ilk izlenim",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Mercury",
+    "ad": "Merkür",
+    "boylam": 98.2582,
+    "burc": "Yengeç",
+    "burc_derece": 8.2582,
+    "gosterim": "Yengeç 8°15'",
+    "element": "Su",
+    "nitelik": "Öncü",
+    "ev": 11,
+    "ev_temasi": "topluluk, gelecek tasavvuru, dostluk",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Venus",
+    "ad": "Venüs",
+    "boylam": 88.1835,
+    "burc": "İkizler",
+    "burc_derece": 28.1835,
+    "gosterim": "İkizler 28°11'",
+    "element": "Hava",
+    "nitelik": "Değişken",
+    "ev": 11,
+    "ev_temasi": "topluluk, gelecek tasavvuru, dostluk",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Mars",
+    "ad": "Mars",
+    "boylam": 335.9313,
+    "burc": "Balık",
+    "burc_derece": 5.9313,
+    "gosterim": "Balık 5°56'",
+    "element": "Su",
+    "nitelik": "Değişken",
+    "ev": 7,
+    "ev_temasi": "ortaklık, ilişki, öteki",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Jupiter",
+    "ad": "Jüpiter",
+    "boylam": 138.3742,
+    "burc": "Aslan",
+    "burc_derece": 18.3742,
+    "gosterim": "Aslan 18°22'",
+    "element": "Ateş",
+    "nitelik": "Sabit",
+    "ev": 12,
+    "ev_temasi": "içsel dünya, geri çekilme, bilinçdışı",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Saturn",
+    "ad": "Satürn",
+    "boylam": 93.7709,
+    "burc": "Yengeç",
+    "burc_derece": 3.7709,
+    "gosterim": "Yengeç 3°46'",
+    "element": "Su",
+    "nitelik": "Öncü",
+    "ev": 11,
+    "ev_temasi": "topluluk, gelecek tasavvuru, dostluk",
+    "gerileme": false
+   },
+   {
+    "anahtar": "Uranus",
+    "ad": "Uranüs",
+    "boylam": 332.5571,
+    "burc": "Balık",
+    "burc_derece": 2.5571,
+    "gosterim": "Balık 2°33' R",
+    "element": "Su",
+    "nitelik": "Değişken",
+    "ev": 7,
+    "ev_temasi": "ortaklık, ilişki, öteki",
+    "gerileme": true
+   },
+   {
+    "anahtar": "Neptune",
+    "ad": "Neptün",
+    "boylam": 312.61,
+    "burc": "Kova",
+    "burc_derece": 12.61,
+    "gosterim": "Kova 12°37' R",
+    "element": "Hava",
+    "nitelik": "Sabit",
+    "ev": 6,
+    "ev_temasi": "gündelik düzen, emek, sağlık",
+    "gerileme": true
+   },
+   {
+    "anahtar": "Pluto",
+    "ad": "Plüton",
+    "boylam": 258.0015,
+    "burc": "Yay",
+    "burc_derece": 18.0015,
+    "gosterim": "Yay 18°00' R",
+    "element": "Ateş",
+    "nitelik": "Değişken",
+    "ev": 5,
+    "ev_temasi": "yaratıcılık, oyun, kendini ifade",
+    "gerileme": true
+   },
+   {
+    "anahtar": "TrueNode",
+    "ad": "Kuzey Ay Düğümü",
+    "boylam": 58.658,
+    "burc": "Boğa",
+    "burc_derece": 28.658,
+    "gosterim": "Boğa 28°39' R",
+    "element": "Toprak",
+    "nitelik": "Sabit",
+    "ev": 10,
+    "ev_temasi": "kamusal rol, hedef, iz bırakma",
+    "gerileme": true
+   },
+   {
+    "anahtar": "Chiron",
+    "ad": "Chiron",
+    "boylam": 285.5078,
+    "burc": "Oğlak",
+    "burc_derece": 15.5078,
+    "gosterim": "Oğlak 15°30' R",
+    "element": "Toprak",
+    "nitelik": "Öncü",
+    "ev": 5,
+    "ev_temasi": "yaratıcılık, oyun, kendini ifade",
+    "gerileme": true
+   }
+  ],
+  "evler": {
+   "mevcut": true,
+   "sistem": "Placidus",
+   "yukselen": 139.4872,
+   "yukselen_burc": "Aslan",
+   "mc": 42.3846,
+   "mc_burc": "Boğa",
+   "yoklugu_sebebi": null,
+   "sistem_degisim_sebebi": null,
+   "ev_listesi": [
+    {
+     "no": 1,
+     "boylam": 139.4872,
+     "burc": "Aslan",
+     "tema": "kimlik, dışa vuruş, ilk izlenim"
+    },
+    {
+     "no": 2,
+     "boylam": 162.1874,
+     "burc": "Başak",
+     "tema": "kaynaklar, değerler, sahip olunanlar"
+    },
+    {
+     "no": 3,
+     "boylam": 189.7317,
+     "burc": "Terazi",
+     "tema": "iletişim, yakın çevre, öğrenme"
+    },
+    {
+     "no": 4,
+     "boylam": 222.3846,
+     "burc": "Akrep",
+     "tema": "kök, aile, yuva"
+    },
+    {
+     "no": 5,
+     "boylam": 257.3849,
+     "burc": "Yay",
+     "tema": "yaratıcılık, oyun, kendini ifade"
+    },
+    {
+     "no": 6,
+     "boylam": 290.3754,
+     "burc": "Oğlak",
+     "tema": "gündelik düzen, emek, sağlık"
+    },
+    {
+     "no": 7,
+     "boylam": 319.4872,
+     "burc": "Kova",
+     "tema": "ortaklık, ilişki, öteki"
+    },
+    {
+     "no": 8,
+     "boylam": 342.1874,
+     "burc": "Balık",
+     "tema": "dönüşüm, ortak kaynaklar, derinlik"
+    },
+    {
+     "no": 9,
+     "boylam": 9.7317,
+     "burc": "Koç",
+     "tema": "anlam arayışı, uzak ufuklar, inanç"
+    },
+    {
+     "no": 10,
+     "boylam": 42.3846,
+     "burc": "Boğa",
+     "tema": "kamusal rol, hedef, iz bırakma"
+    },
+    {
+     "no": 11,
+     "boylam": 77.3849,
+     "burc": "İkizler",
+     "tema": "topluluk, gelecek tasavvuru, dostluk"
+    },
+    {
+     "no": 12,
+     "boylam": 110.3754,
+     "burc": "Yengeç",
+     "tema": "içsel dünya, geri çekilme, bilinçdışı"
+    }
+   ]
+  },
+  "acilar": [
+   {
+    "a": "Jüpiter",
+    "b": "Plüton",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 0.373,
+    "guc": 0.938,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Satürn",
+    "b": "Uranüs",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 1.214,
+    "guc": 0.798,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Güneş",
+    "b": "Merkür",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 2.666,
+    "guc": 0.733,
+    "dogas": "nötr",
+    "yaklasan": true
+   },
+   {
+    "a": "Mars",
+    "b": "Satürn",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 2.16,
+    "guc": 0.64,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Ay",
+    "b": "Jüpiter",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 3.739,
+    "guc": 0.626,
+    "dogas": "nötr",
+    "yaklasan": false
+   },
+   {
+    "a": "Merkür",
+    "b": "Mars",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 2.327,
+    "guc": 0.612,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Mars",
+    "b": "Uranüs",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 3.374,
+    "guc": 0.578,
+    "dogas": "nötr",
+    "yaklasan": false
+   },
+   {
+    "a": "Ay",
+    "b": "Plüton",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 4.112,
+    "guc": 0.486,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Merkür",
+    "b": "Satürn",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 4.487,
+    "guc": 0.439,
+    "dogas": "nötr",
+    "yaklasan": false
+   },
+   {
+    "a": "Güneş",
+    "b": "Mars",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 4.993,
+    "guc": 0.376,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   },
+   {
+    "a": "Venüs",
+    "b": "Satürn",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 5.587,
+    "guc": 0.302,
+    "dogas": "nötr",
+    "yaklasan": true
+   },
+   {
+    "a": "Güneş",
+    "b": "Satürn",
+    "tur": "Kavuşum",
+    "tur_anahtar": "conjunction",
+    "orb": 7.153,
+    "guc": 0.285,
+    "dogas": "nötr",
+    "yaklasan": false
+   },
+   {
+    "a": "Venüs",
+    "b": "Uranüs",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 4.374,
+    "guc": 0.271,
+    "dogas": "uyumlu",
+    "yaklasan": true
+   },
+   {
+    "a": "Jüpiter",
+    "b": "Neptün",
+    "tur": "Karşıt",
+    "tur_anahtar": "opposition",
+    "orb": 5.764,
+    "guc": 0.177,
+    "dogas": "gergin",
+    "yaklasan": false
+   },
+   {
+    "a": "Merkür",
+    "b": "Uranüs",
+    "tur": "Üçgen",
+    "tur_anahtar": "trine",
+    "orb": 5.701,
+    "guc": 0.05,
+    "dogas": "uyumlu",
+    "yaklasan": false
+   }
+  ],
+  "denge": {
+   "elementler": {
+    "Ateş": 3,
+    "Toprak": 0,
+    "Hava": 2,
+    "Su": 5
+   },
+   "nitelikler": {
+    "Öncü": 3,
+    "Sabit": 3,
+    "Değişken": 4
+   },
+   "baskin_element": "Su",
+   "baskin_nitelik": "Değişken",
+   "eksik_elementler": [
+    "Toprak"
+   ]
+  },
+  "meta": {
+   "efemeris_modu": "swiss_ephemeris_files",
+   "uyarilar": []
+  }
+ },
+ "baslik": "Kapıda Duran İkisi",
+ "metin": "3 Temmuz 2003 sabahı, Denizli'de saatler dokuzu gösterdiğinde, evrensel zamanda\nhenüz altıydı; o yıl Türkiye yaz saati uyguluyordu. Gökyüzü açıktı, gündüzdü ve\nanlatılacak hiçbir şey görünmüyordu.\n\nDoğu ufkunda, tam o dakikada, Jüpiter yeni yükselmişti. Ufkun bir derece kadar\nüstündeydi — birkaç dakika önce çıkmıştı ve gündüzün içinde eriyordu. Ondan üç\nbuçuk derece geride Ay vardı, henüz doğmamıştı; ufkun altında bekliyordu ve\nyaklaşık on dakika sonra o da çıkacaktı. Üç buçuk derece, bir kapı genişliğidir.\nİkisi o kapının iki yanındaydı: biri geçmiş, biri geçmemiş.\n\nGüneş, Yengeç burcunun onuncu derecesini yeni aşmıştı, gökyüzünde çoktan\nyükselmişti. Merkür ona iki buçuk derece uzaktaydı, neredeyse aynı noktada.\nSatürn Güneş'e yalnızca yedi derece mesafedeydi — o hafta boyunca hiç kimse\nSatürn'ü göremezdi, çünkü ışığın içinde kaybolmuştu. Venüs, Güneş'in on üç\nderece önünden gitmişti; şafaktan biraz önce doğmuş, ilk aydınlıkta silinmişti.\n\nVe Mars. O sabah Mars, Dünya'ya 0,55 astronomi birimi uzaklıktaydı ve her gün\nbiraz daha yaklaşıyordu. Aynı yılın ağustosunda 0,37 birime inecek, altmış bin\nyıldır olmadığı kadar yakından geçecekti. 3 Temmuz sabahı, o yaklaşmanın tam\nortasındaydı.\n\nBuraya kadarı ölçümdür. Bundan sonrası değildir.\n\n—\n\nGülheda, o sabah bir ülkeye doğdun ve o ülkenin ilk özelliği bir kapıydı.\n\nHer ülkenin bir kapısı olur — dışarıdan gelen önce oradan bakar, ve bir ülke\nhakkındaki ilk şeyi hep o kapıdan öğrenir. Senin ülkende kapının iki yanında\niki figür duruyordu. Dışarıda, eşiği yeni geçmiş olan Jüpiter vardı; içeride,\neşiğe henüz varmamış Ay. Aralarında üç buçuk derece vardı ve ikisi de kendi\nseçimiyle orada değildi. Kapı öyle kurulmuştu.\n\nBunun anlamı şuydu: seni ilk gören, senin adına ilk konuşan bu ikisi oldu. Sen\nonları seçmedin. Onlar zaten oradaydılar, sen geldiğinde. Jüpiter kapının\ndışında yüksek sesle konuşur, gelenlere ülkenin büyüklüğünden söz eder,\ndavetkârdır. Ay içeride durur ve gelenin yüzüne bakar. Ülkeye dair ilk izlenim\nbu ikisinin toplamıdır ve sen o izlenimin ne yazık ki hiçbir zaman tam sahibi\nolmadın; kapı senden önce oradaydı.\n\nBu, ülkenin ikinci ve daha tuhaf özelliğini doğurur. Ülkenin gerçek sahibi\nkapıda değildir.\n\nÜlkeyi yöneten Güneş'ti — kapı Aslan işaretini taşıdığı için yönetim ona\ndüşmüştü. Ama Güneş kapıda durmuyordu. Güneş, ülkenin çok uzağındaki bir\nbölgede, Meclis'teydi: dostlukların kurulduğu, geleceğin tasarlandığı, gelenin\ngitmediği yer. Ve orada yalnız değildi. Meclis'te dört kişi vardı.\n\nGüneş ile Merkür yan yana oturuyorlardı, o kadar yakın ki biri cümleye\nbaşladığında öteki bitiriyordu; hangisinin ne söylediğini kimse ayıramazdı.\nVenüs biraz uzakta, havanın son sınırında duruyordu — Meclis'e aitti ama\nMeclis'in diliyle konuşmuyordu, kendi kelimelerini getiriyordu. Dördüncüsü\nSatürn'dü ve Satürn görünmezdi. Güneş'e fazla yakın oturmuştu, ışık onu\nyutuyordu. Kararlar alınırken ağırlığı hissediliyor, bir teklif fazla hafifse\nbirinin sesi olmadan geri çevriliyordu; ama kimse onu göremiyordu. Meclis'te\nyıllarca şu tartışıldı: Satürn gerçekten var mı, yoksa Güneş kendi kendine mi\nitiraz ediyor? Satürn bu tartışmaya hiç katılmadı. Görünmez olmanın, var\nolmamakla aynı şey olmadığını bilenler tartışmaya girmezler.\n\nYani ülkenin dört sakini tek bir bölgedeydi ve o bölge kapıdan uzaktı. Ülkenin\nağırlık merkezi, kapısının olduğu yerde değildi. Gelenler kapıyı görüyor,\nJüpiter'i duyuyor, Ay'ın baktığını hissediyor ve içeride bir yerlerde asıl işin\ndöndüğünü bilmiyorlardı. Sen de uzun süre kapıyla Meclis'in aynı ülke olduğuna\ninanmakta zorlandın. Aynı ülkeydiler.\n\nBütün bunların arasından geçen tek bir düz çizgi vardı ve o çizgi kusursuzdu.\n\nKapının dışındaki Jüpiter ile, ülkenin öbür ucundaki bir bölgede oturan\nPlüton'un arasındaydı bu hat. Plüton, yapma ve oyun bölgesinde yaşıyordu:\nelinden bir şey çıkarmayı seven, ama çıkardığını bitirmeden bir öncekine dönen\nbiri. İkisi de aynı dereceden geçen bir hattın üstündeydi ve aralarındaki sapma\nbir derecenin üçte birinden azdı. Ülkedeki en kesin, en düzgün, en tereddütsüz\nşey buydu. İkisi hiç buluşmadılar. Buluşmalarına gerek yoktu; hat zaten\noradaydı. Kapıda yüksek sesle konuşulan şeyle atölyede sessizce yapılan şey\narasında, kimsenin çekmediği bir çizgi vardı ve o çizgi hiç eğrilmedi.\n\nVe ülkenin son özelliği, sahip olmadığı şeydi.\n\nHer ülkenin dört maddesi olur: ateş, hava, su, toprak. Sayım yapıldığında su\nbeş çıktı, ateş üç, hava iki. Toprak sıfır. Bütün ülkede tek bir taş yoktu. Tek\nbir tarla, tek bir temel, tek bir duran şey. Yollar vardı ama yolların altında\nzemin yoktu; evler vardı ama hiçbiri aynı yerde iki kez bulunmuyordu. Ülkenin\nsakinleri bunu bir felaket saymıyorlardı, çünkü başka türlüsünü bilmiyorlardı.\nYalnızca bir alışkanlıkları vardı: bir şey söylerken elleriyle havada bir biçim\nçizer, sonra o biçimin dağılmasını beklerlerdi. Toprağı olmayan ülkelerde söz,\nkalıcı olabilecek tek şeydir; bu yüzden orada herkes dikkatli konuşurdu.\n\nZamanla ülke bir şey öğrendi, Gülheda. Toprağı olmayan yerlerde sağlamlık\nmaddeden gelmez, ilişkiden gelir. Hiçbir şey tek başına duramadığı için her şey\nbirbirine tutunmak zorundadır. Meclis ayakta kaldı çünkü Güneş ile Merkür aynı\ncümleyi söylüyordu. Kapı ayakta kaldı çünkü iki yanında birer kişi vardı. Ve o\ndüz hat ayakta kaldı çünkü iki ucu da yerinden kımıldamadı.\n\nO sabah, Denizli'nin üstünde, saat dokuzda, bunların hiçbiri görünmüyordu.\nJüpiter doğu ufkunun bir derece üstünde, gündüzün içinde eriyordu. Ay henüz\nçıkmamıştı, on dakikası vardı. Satürn ışığın içinde kayboluyordu, Venüs çoktan\nsilinmişti. Toprak hiçbir yerde yoktu ve bir daha da olmayacaktı.\n\nSen o kapıdan içeri girdin ve kapı arkandan kapanmadı. Öyle bir kapı değildi.\n\n—",
+ "olgusal_panel": "HESAPLANAN VERİ (astronomik)\n\nTarih ve yer : 03.07.2003, Denizli, Türkiye\nYerel saat   : 09:00 (UTC+3, yaz saati)\nEvrensel saat: 03.07.2003 06:00 UTC\nJulian Day   : 2452823.75000\nEfemeris     : Swiss Ephemeris (swiss_ephemeris_files)\n\nGök cismi konumları (geosentrik ekliptik boylam):\n  Güneş              Yengeç 10°55'    100.924°  11. ev\n  Ay                 Aslan 22°07'     142.114°   1. ev\n  Merkür             Yengeç 8°15'      98.258°  11. ev\n  Venüs              İkizler 28°11'    88.183°  11. ev\n  Mars               Balık 5°56'      335.931°   7. ev\n  Jüpiter            Aslan 18°22'     138.374°  12. ev\n  Satürn             Yengeç 3°46'      93.771°  11. ev\n  Uranüs             Balık 2°33' R    332.557°   7. ev\n  Neptün             Kova 12°37' R    312.610°   6. ev\n  Plüton             Yay 18°00' R     258.001°   5. ev\n  Kuzey Ay Düğümü    Boğa 28°39' R     58.658°  10. ev\n  Chiron             Oğlak 15°30' R   285.508°   5. ev\n\nEv sistemi   : Placidus\nYükselen     : Aslan 19.49°\nTepe (MC)    : Boğa 12.38°\n\nAçılar (tam açıdan sapma = orb):\n  Jüpiter – Plüton: Üçgen (120°, orb 0.37°)\n  Satürn – Uranüs: Üçgen (120°, orb 1.21°)\n  Güneş – Merkür: Kavuşum (0°, orb 2.67°)\n  Mars – Satürn: Üçgen (120°, orb 2.16°)\n  Ay – Jüpiter: Kavuşum (0°, orb 3.74°)\n  Merkür – Mars: Üçgen (120°, orb 2.33°)\n  Mars – Uranüs: Kavuşum (0°, orb 3.37°)\n  Ay – Plüton: Üçgen (120°, orb 4.11°)\n\nElement dengesi: Ateş 3, Toprak 0, Hava 2, Su 5\nNitelik dengesi: Öncü 3, Sabit 3, Değişken 4",
+ "ton": "yetiskin",
+ "yas": 23,
+ "model": "ornek-veri",
+ "prompt_surumu": "2.0.0",
+ "kelime_sayisi": 813,
+ "karakter_sayisi": 5686,
+ "girdi_token": 0,
+ "cikti_token": 0,
+ "maliyet_usd": 0.0
+}

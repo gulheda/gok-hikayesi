@@ -16,7 +16,7 @@ struct RootView: View {
                 HataView(mesaj: mesaj) { model.basaDon() }
             }
         }
-        .tint(.orange)
+        .tint(Tema.altin)
         .task {
             #if DEBUG
             // Geliştirmede uçtan uca akışı elle dokunmadan çalıştırmak için.

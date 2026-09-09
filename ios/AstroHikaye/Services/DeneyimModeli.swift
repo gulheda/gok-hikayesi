@@ -39,6 +39,12 @@ final class DeneyimModeli {
             bicim.locale = Locale(identifier: "en_US_POSIX")
             if let d = bicim.date(from: tarih) { dogumTarihi = d }
         }
+        // Tasarım üzerinde çalışırken hikâye ekranını API çağrısı yapmadan
+        // açabilmek için, uygulamayla gelen örnek yanıt yüklenir. Gerçek
+        // veriyle üretilmiş bir harita taşır; yayın derlemesinde yer almaz.
+        if ortam["ON_DOLDUR_ORNEK"] == "1", let ornek = Self.ornekYanit() {
+            durum = .hazir(ornek)
+        }
         if let saat = ortam["ON_DOLDUR_SAAT"] {
             let bicim = DateFormatter()
             bicim.dateFormat = "HH:mm"
@@ -98,4 +104,13 @@ final class DeneyimModeli {
     func basaDon() {
         durum = .giris
     }
+
+    #if DEBUG
+    static func ornekYanit() -> HikayeYaniti? {
+        guard let adres = Bundle.main.url(forResource: "ornek-yanit",
+                                          withExtension: "json"),
+              let veri = try? Data(contentsOf: adres) else { return nil }
+        return try? JSONDecoder().decode(HikayeYaniti.self, from: veri)
+    }
+    #endif
 }

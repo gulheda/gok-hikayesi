@@ -32,6 +32,7 @@ struct YerBilgisi: Decodable {
 struct GokCismi: Decodable, Identifiable {
     let anahtar: String
     let ad: String
+    let boylam: Double        // ekliptik boylam; çarkı çizmek için gerekli
     let burc: String
     let burcDerece: Double
     let gosterim: String
@@ -44,7 +45,7 @@ struct GokCismi: Decodable, Identifiable {
     var id: String { anahtar }
 
     enum CodingKeys: String, CodingKey {
-        case anahtar, ad, burc, gosterim, element, nitelik, ev, gerileme
+        case anahtar, ad, boylam, burc, gosterim, element, nitelik, ev, gerileme
         case burcDerece = "burc_derece"
         case evTemasi = "ev_temasi"
     }
@@ -52,6 +53,7 @@ struct GokCismi: Decodable, Identifiable {
 
 struct Ev: Decodable, Identifiable {
     let no: Int
+    let boylam: Double        // ev başlangıcının ekliptik boylamı
     let burc: String
     let tema: String
     var id: Int { no }
@@ -60,13 +62,15 @@ struct Ev: Decodable, Identifiable {
 struct EvBilgisi: Decodable {
     let mevcut: Bool
     let sistem: String
+    let yukselen: Double?
+    let mc: Double?
     let yukselenBurc: String?
     let mcBurc: String?
     let yoklugoSebebi: String?
     let evListesi: [Ev]
 
     enum CodingKeys: String, CodingKey {
-        case mevcut, sistem
+        case mevcut, sistem, yukselen, mc
         case yukselenBurc = "yukselen_burc"
         case mcBurc = "mc_burc"
         case yoklugoSebebi = "yoklugu_sebebi"
@@ -78,10 +82,17 @@ struct Aci: Decodable, Identifiable {
     let a: String
     let b: String
     let tur: String
+    let turAnahtar: String
     let orb: Double
+    let guc: Double
     let dogas: String
 
     var id: String { "\(a)-\(b)-\(tur)" }
+
+    enum CodingKeys: String, CodingKey {
+        case a, b, tur, orb, guc, dogas
+        case turAnahtar = "tur_anahtar"
+    }
 }
 
 struct Denge: Decodable {
