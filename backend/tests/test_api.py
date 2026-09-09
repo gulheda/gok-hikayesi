@@ -65,3 +65,18 @@ def test_bulunamayan_yer_422_dondurur():
         "yer": "Qxzvbnm Olmayan Sehir 12345",
     })
     assert r.status_code == 422
+
+
+def test_llm_yapilandirilmamissa_503_dondurur(monkeypatch):
+    """Kimlik bilgisi eksikse bu bir kurulum hatasıdır, sunucu çöküşü değil.
+
+    SDK bu durumu istek anında `TypeError` olarak atıyor; yakalanmazsa
+    500'e dönüşüp gerçek sebebi gizler.
+    """
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+    r = client.post("/api/hikaye", json={
+        "tarih": "2003-07-03", "saat": "09:00", "yer": "Denizli",
+    })
+    assert r.status_code == 503
+    assert "ANTHROPIC_API_KEY" in r.json()["detail"]

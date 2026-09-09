@@ -24,6 +24,16 @@ class StoryGenerationError(RuntimeError):
     pass
 
 
+class StoryServiceNotConfigured(StoryGenerationError):
+    """Kimlik bilgisi eksik olduğu için hikâye servisi kullanılamıyor.
+
+    Bu durum "yukarıdaki servis çöktü"den farklıdır: kurulum eksikliğidir
+    ve farklı bir HTTP durumu ile farklı bir kullanıcı mesajı hak eder.
+    SDK bu hatayı istek anında `TypeError` olarak atıyor; genel bir
+    `except` ile yutulursa 500'e dönüşüp gerçek sebebi gizliyor.
+    """
+
+
 @dataclass
 class Story:
     title: str
@@ -91,7 +101,12 @@ def generate_story(
     """Doğum haritasından hikâye üretir."""
     settings = get_settings()
     model = model or settings.story_model
-    client = client or anthropic.Anthropic()
+    try:
+        client = client or anthropic.Anthropic()
+    except anthropic.AnthropicError as exc:
+        raise StoryServiceNotConfigured(
+            "Hikâye servisi yapılandırılmamış: ANTHROPIC_API_KEY tanımlı değil."
+        ) from exc
 
     age = yas_hesapla(chart.birth.birth_date, today)
     tone: ToneProfile = tone_for_age(age)
@@ -116,6 +131,14 @@ def generate_story(
         raise StoryGenerationError(
             f"Hikâye servisine ulaşılamadı: {exc}"
         ) from exc
+    except TypeError as exc:
+        # SDK kimlik bilgisi çözemediğinde istek anında TypeError atıyor.
+        if "authentication method" in str(exc):
+            raise StoryServiceNotConfigured(
+                "Hikâye servisi yapılandırılmamış: ANTHROPIC_API_KEY tanımlı "
+                "değil. Ortam değişkenini ayarlayın veya .env dosyasına ekleyin."
+            ) from exc
+        raise
 
     if message.stop_reason == "refusal":
         raise StoryGenerationError(

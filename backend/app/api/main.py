@@ -19,7 +19,11 @@ from ..astro.timeutil import TimeResolutionError
 from ..config import get_settings
 from ..geo.geocode import GeocodingError, geocode
 from ..story.brief import olgusal_panel
-from ..story.generator import StoryGenerationError, generate_story
+from ..story.generator import (
+    StoryGenerationError,
+    StoryServiceNotConfigured,
+    generate_story,
+)
 from ..tts.base import TTSError
 from ..tts.factory import build_provider
 from ..tts.pricing import CHARS_PER_SECOND, compare_all
@@ -119,6 +123,11 @@ def hikaye_uret(girdi: DogumGirdisi) -> HikayeYaniti:
 
     try:
         story = generate_story(chart, name=girdi.ad)
+    except StoryServiceNotConfigured as exc:
+        # Kurulum eksikliği yukarı akış arızasından ayrılıyor: 503, geçici
+        # olmayan bir yapılandırma sorununu doğru anlatır.
+        logger.error("Hikâye servisi yapılandırılmamış: %s", exc)
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except StoryGenerationError as exc:
         logger.exception("Hikâye üretimi başarısız")
         raise HTTPException(status_code=502, detail=str(exc)) from exc
