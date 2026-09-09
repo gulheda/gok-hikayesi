@@ -8,3 +8,4 @@ out/
 DerivedData/
 *.xcuserstate
 xcuserdata/
+backend/data/jpl/*.bsp
