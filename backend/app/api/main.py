@@ -5,6 +5,7 @@ API anahtarı taşımaz.
 """
 from __future__ import annotations
 
+import base64
 import logging
 from typing import Optional
 
@@ -19,11 +20,18 @@ from ..config import get_settings
 from ..geo.geocode import GeocodingError, geocode
 from ..story.brief import olgusal_panel
 from ..story.generator import StoryGenerationError, generate_story
+from ..tts.base import TTSError
+from ..tts.factory import build_provider
+from ..tts.pricing import CHARS_PER_SECOND, compare_all
+from ..tts.providers import synthesize
 from .schemas import (
     DogumGirdisi,
     HaritaYaniti,
     HikayeYaniti,
+    MaliyetTahminiYaniti,
     SaglikYaniti,
+    SeslendirmeIstegi,
+    SeslendirmeYaniti,
     YerBilgisi,
 )
 
@@ -91,6 +99,8 @@ def saglik() -> SaglikYaniti:
         efemeris_modu=provider.mode,
         efemeris_dosyalari_var=provider.has_data_files,
         llm_yapilandirildi=settings.llm_available,
+        tts_yapilandirildi=settings.tts_available,
+        tts_saglayici=settings.tts_provider,
         desteklenen_ev_sistemleri=sorted(HOUSE_SYSTEMS),
     )
 
@@ -128,4 +138,56 @@ def hikaye_uret(girdi: DogumGirdisi) -> HikayeYaniti:
         girdi_token=story.input_tokens,
         cikti_token=story.output_tokens,
         maliyet_usd=story.cost_usd,
+    )
+
+
+@app.post("/api/seslendir", response_model=SeslendirmeYaniti, tags=["ses"])
+def seslendir(istek: SeslendirmeIstegi) -> SeslendirmeYaniti:
+    """Metni sese çevirir.
+
+    Ses, base64 olarak JSON içinde döner. Bir hikâye yaklaşık 10 dakikalık
+    ses ediyor; kalıcı depolama (S3/R2) devreye girene kadar bu yeterli,
+    ama dosya büyüdükçe akış tabanlı bir uca geçmek gerekecek.
+    """
+    settings = get_settings()
+    try:
+        provider = build_provider(settings)
+        sonuc = synthesize(provider, istek.metin, voice=getattr(
+            provider, "voice_name", getattr(provider, "voice_id", "varsayilan")))
+    except TTSError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+    return SeslendirmeYaniti(
+        ses_base64=base64.b64encode(sonuc.audio).decode("ascii"),
+        mime_turu=sonuc.mime_type,
+        saglayici=sonuc.provider,
+        ses_karakteri=sonuc.voice,
+        karakter_sayisi=sonuc.characters,
+        parca_sayisi=sonuc.chunk_count,
+        tahmini_sure_saniye=round(sonuc.estimated_seconds, 1),
+        maliyet_usd=sonuc.cost_usd,
+        uyarilar=sonuc.warnings,
+    )
+
+
+@app.get("/api/ses-maliyeti", response_model=MaliyetTahminiYaniti, tags=["ses"])
+def ses_maliyeti(karakter: int) -> MaliyetTahminiYaniti:
+    """Verilen uzunluk için TTS sağlayıcılarının maliyetini karşılaştırır.
+
+    Hiçbir API anahtarı gerektirmez; sağlayıcı seçimi hesap açmadan
+    değerlendirilebilsin diye ayrı bir uç olarak duruyor.
+    """
+    if karakter <= 0:
+        raise HTTPException(status_code=422, detail="karakter pozitif olmalı")
+    return MaliyetTahminiYaniti(
+        karakter_sayisi=karakter,
+        tahmini_sure_dakika=round(karakter / CHARS_PER_SECOND / 60.0, 2),
+        saglayicilar=[
+            {
+                "saglayici": e.provider,
+                "maliyet_usd": round(e.usd, 4),
+                "dakika": round(e.estimated_minutes, 2),
+            }
+            for e in compare_all(karakter)
+        ],
     )

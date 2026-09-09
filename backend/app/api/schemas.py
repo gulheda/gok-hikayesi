@@ -74,6 +74,28 @@ class HikayeYaniti(BaseModel):
     maliyet_usd: Optional[float]
 
 
+class SeslendirmeIstegi(BaseModel):
+    metin: str = Field(..., min_length=1, max_length=40000)
+
+
+class SeslendirmeYaniti(BaseModel):
+    ses_base64: str
+    mime_turu: str
+    saglayici: str
+    ses_karakteri: str
+    karakter_sayisi: int
+    parca_sayisi: int
+    tahmini_sure_saniye: float
+    maliyet_usd: Optional[float]
+    uyarilar: List[str]
+
+
+class MaliyetTahminiYaniti(BaseModel):
+    karakter_sayisi: int
+    tahmini_sure_dakika: float
+    saglayicilar: List[Dict[str, Any]]
+
+
 class HataYaniti(BaseModel):
     hata: str
     detay: Optional[str] = None
@@ -84,4 +106,6 @@ class SaglikYaniti(BaseModel):
     efemeris_modu: str
     efemeris_dosyalari_var: bool
     llm_yapilandirildi: bool
+    tts_yapilandirildi: bool
+    tts_saglayici: str
     desteklenen_ev_sistemleri: List[str]
