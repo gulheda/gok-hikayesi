@@ -119,3 +119,53 @@ def test_hicbir_ag_cagrisi_yapilmaz(monkeypatch):
     monkeypatch.setattr(httpx, "post", patla)
     monkeypatch.setattr(httpx, "get", patla)
     uret(SAATLI)
+
+
+# --------------------------------------------------------------------------
+# Masal biçimi (v2.0.0): kişi baş kahraman
+# --------------------------------------------------------------------------
+
+def test_kisi_edilgen_degil_eden_taraf():
+    """Masalın baş kahramanı bir şeyler YAPAR; ona bir şeyler olmaz."""
+    _, govde = uret(SAATLI)
+    eylemler = ["girdin", "açtın", "yürüdün", "vardın", "gittin", "geçtin"]
+    bulunan = [e for e in eylemler if e in govde]
+    assert len(bulunan) >= 3, f"kişi yeterince eylemde bulunmuyor: {bulunan}"
+
+
+def test_kisi_ovulmez():
+    """Övgü hem genellik testinden geçemez hem baş kahramanlığı sıfattan
+    türetir. Baş kahraman överek değil yaparak baş kahraman olur."""
+    ovguler = ["cesursun", "özelsin", "güçlüsün", "lidersin", "duygusalsın",
+               "sezgilerin güçlü", "yeteneklisin", "zekisin"]
+    for harita in (SAATLI, SAATSIZ, BASKA):
+        _, govde = uret(harita)
+        for ovgu in ovguler:
+            assert ovgu not in govde, f"övgü bulundu: {ovgu}"
+
+
+def test_masal_esikle_baslar_varisla_biter():
+    _, govde = uret(SAATLI)
+    paragraflar = govde.split("\n\n")
+    olgusal_son = next(i for i, p in enumerate(paragraflar)
+                       if "Buraya kadarı ölçümdür" in p)
+    yolculuk = "\n".join(paragraflar[olgusal_son + 1:])
+    assert "girdin" in yolculuk        # eşik
+    assert paragraflar[-1]             # varış paragrafı var
+
+
+def test_eksik_element_arayisa_donusur():
+    """Eksik element motorun elindeki en güçlü malzeme: aranan şey."""
+    _, govde = uret(SAATLI)   # bu haritada Toprak eksik
+    assert "aradın" in govde
+    assert "bulamadın" in govde
+
+
+def test_gelecekten_soz_edilmez():
+    """Kehanet yok: masal geçmiş ve şimdiki zamanda kalmalı."""
+    gelecek = ["olacaksın", "yapacaksın", "bulacaksın", "göreceksin",
+               "kazanacaksın", "seni bekliyor"]
+    for harita in (SAATLI, SAATSIZ, BASKA):
+        _, govde = uret(harita)
+        for kalip in gelecek:
+            assert kalip not in govde, f"gelecek zaman ifadesi: {kalip}"

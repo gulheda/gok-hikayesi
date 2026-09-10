@@ -9,7 +9,13 @@ hamleleri göstermek demektir - ki "bu hikâye sana özel" iddiasını en hızl�
 seçiliyor: yığınlaşması olmayan bir haritada "meclis" bölümü hiç yok,
 açısız gök cismi olan bir haritada "yalnız" bölümü var.
 
-**İkincisi: rastgelelik haritadan türetilir.** Aynı harita her zaman aynı
+**İkincisi: kişi yürür.** Bölümler birer durak; kişi ülkeye girer,
+kapıyı açar, karşılaşır, arar. Masalın baş kahramanı edilgen olamaz -
+ona bir şeyler olmaz, o bir şeyler yapar. Buna karşılık ÖVÜLMEZ de:
+"sen cesursun" cümlesi hem genellik testinden geçemez hem de baş
+kahramanlığı yapmaktan değil sıfattan türetir.
+
+**Üçüncüsü: rastgelelik haritadan türetilir.** Aynı harita her zaman aynı
 hikâyeyi verir (kişi ikinci kez baktığında metin değişmemeli), ama farklı
 haritalar farklı ifadeler seçer.
 
@@ -47,7 +53,7 @@ from .sozluk import (
     MEKANLAR,
 )
 
-SABLON_SURUMU = "1.0.0"
+SABLON_SURUMU = "2.0.0"
 
 
 @dataclass
@@ -155,16 +161,19 @@ def bolum_ulke(b: Baglam) -> List[str]:
 
     sayim = ", ".join(f"{k.lower()} {v}" for k, v in denge.elements.items())
     ilk = b.hitapla(
-        f"o gün gökyüzünde duran şey bir ülkeye çevrilirse, o ülkenin "
-        f"ilk özelliği neyden yapıldığıdır. Sayım yapıldığında {sayim} çıktı. "
-        f"Ülkenin ağırlığı {madde} tarafındaydı; {madde} {nitelik}."
+        f"o gün gökyüzünde duran şeyi bir ülke say. Sen o ülkeye girdin ve "
+        f"eşiği geçtikten sonra geri dönmedin. İçerideki her şey {madde}"
+        f"tan yapılmıştı; {madde} {nitelik}. Sayım yapıldığında {sayim} "
+        "çıkıyordu."
     )
 
     paragraflar = [ilk]
     for eksik in denge.missing_elements:
         secenekler = EKSIK_ELEMENT.get(eksik)
         if secenekler:
-            paragraflar.append(b.sec(secenekler))
+            paragraflar.append(
+                b.sec(secenekler) + " Yolun geri kalanında onu aradın."
+            )
     return paragraflar
 
 
@@ -195,23 +204,24 @@ def bolum_kapi(b: Baglam) -> List[str]:
     rol = karakter.rol if karakter else "orada duran kişi"
 
     satirlar.append(
-        f"Her ülkenin bir {iyelik3(kurgu)} olur; dışarıdan gelen önce oradan "
-        f"bakar ve ülke hakkındaki ilk şeyi hep oradan öğrenir. Senin ülkende "
-        f"{bulunma(kurgu)} {cisim_adi} duruyordu: {rol}."
+        f"İlk durağın {kurgu} oldu. Onu sen açtın; içeriden açan olmadı. "
+        f"{bulunma(kurgu).capitalize()} {cisim_adi} bekliyordu: {rol}. "
+        "Seni görünce şaşırmadı, çünkü orada bekliyor olmasının sebebi "
+        "zaten senin geleceğindi."
     )
 
     if len(kullanilan) > 1:
         ikinci_adi = kullanilan[1][0].label.split(",")[0]
         satirlar.append(
             f"Yalnız değildi. {ikinci_adi} {de_baglaci(ikinci_adi)} oradaydı, "
-            "birkaç adım ötede. "
-            f"Seni ilk gören, senin adına ilk konuşan bu ikisi oldu ve sen "
-            "onları seçmedin; geldiğinde zaten oradaydılar."
+            "birkaç adım ötede. İkisinin arasından geçtin. Hangisinin sana "
+            "yol gösterdiğini, hangisinin yalnızca baktığını sonradan da "
+            "ayıramadın."
         )
     else:
         satirlar.append(
-            f"Seni ilk gören, senin adına ilk konuşan {cisim_adi} oldu ve sen "
-            "onu seçmedin; geldiğinde zaten oradaydı."
+            f"{cisim_adi} yol gösterdi ama peşinden gitmedi. Ülkeye tek "
+            "başına girdin."
         )
     return satirlar
 
@@ -236,16 +246,21 @@ def bolum_meclis(b: Baglam) -> List[str]:
     if len(adlar) < 3:
         return []
 
+    # İmza etiketi "11. evde (topluluk, gelecek tasavvuru, dostluk) ..."
+    # biçiminde; ev temasını parantez içinden alıyoruz.
     tema = ""
-    if "ev (" in imza.label:
-        tema = imza.label.split("ev (")[1].split(")")[0]
+    if "evde (" in imza.label:
+        tema = imza.label.split("evde (")[1].split(")")[0].split(",")[0].strip()
 
-    yer_tarifi = f"tek bir bölgede — {tema} bölgesinde" if tema else "tek bir bölgede"
+    yer_tarifi = (
+        f"{tema} bölgesinde" if tema else "tek bir bölgede"
+    )
     satirlar = [
-        f"Ülkenin ağırlık merkezi kapıda değildi. "
-        f"{sayi_sifat(len(adlar)).capitalize()} kişi "
-        f"{yer_tarifi} toplanmıştı: {', '.join(adlar)}. Ülkede olan biten "
-        "orada olup bitiyordu ve dışarıdan bakan bunu göremiyordu."
+        f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
+        f"{yer_tarifi.capitalize()} "
+        f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
+        "Kapıyı çalmadan girdin ve konuşma kesilmedi; sanki bekleniyordun, "
+        "sanki senin gelmen konuşmanın bir parçasıydı."
     ]
 
     # Yığındaki cisimlerden birinin görünmez olması en güçlü ayrıntıdır.
@@ -264,10 +279,11 @@ def bolum_meclis(b: Baglam) -> List[str]:
                     k = KARAKTERLER.get(body.key)
                     eylem = k.fiil_anlati if k else "karar verirdi"
                     satirlar.append(
-                        f"Ama {body.name_tr} görünmüyordu. Güneş'e fazla yakın "
-                        "oturmuştu ve ışık onu yutuyordu. Ağırlığı "
-                        f"hissedilirdi, {eylem}; yine de kimse onu göremezdi. "
-                        "Görünmez olmak, var olmamakla aynı şey değildir."
+                        f"İçlerinden birini göremedin: {body.name_tr}. "
+                        "Güneş'e fazla yakın oturmuştu ve ışık onu yutuyordu. "
+                        f"Ağırlığını hissettin, {eylem}; ama yüzünü hiç "
+                        "görmedin. Odadan çıkarken orada olup olmadığını "
+                        "sordun ve kimse cevap vermedi."
                     )
                     break
     return satirlar
@@ -298,10 +314,10 @@ def bolum_yonetici(b: Baglam) -> List[str]:
     k = KARAKTERLER[anahtar]
     nerede = mekan_bulunma(mekan.ad, mekan.iyelikli)
     return [
-        f"Ülkeyi yöneten {gecmis_kopula(ad, ozel_ad=True)}; yönetim ona "
-        f"düşmüştü. Ama {ad} kapıda "
-        f"durmuyordu. {nerede.capitalize()}ydı — {mekan.nitelik} bir yer. "
-        f"Ülkeyi oradan, uzaktan {k.fiil_anlati}."
+        f"Ülkeyi yönetenin {ad} olduğunu söylediler, sen de onu aramaya "
+        f"gittin. {nerede.capitalize()}ydı — {mekan.nitelik} bir yer. "
+        f"Ülkeyi oradan, uzaktan {k.fiil_anlati}. Neden kapıda durmadığını "
+        "sorduğunda, kapının kendisini görmediğini söyledi."
     ]
 
 
@@ -324,9 +340,10 @@ def bolum_bag(b: Baglam) -> List[str]:
         else f"{en_dar.orb:.2f} dereceydi"
     )
     return [
-        f"Bütün bunların arasından geçen en kesin şey şuydu: {iliski}. "
-        f"Tam açıdan sapma {sapma} — ülkedeki hiçbir şey bu kadar düzgün "
-        "değildi."
+        f"Ülkeden geçen dümdüz bir yol vardı ve o yolu yürüdün: {iliski}. "
+        f"Tam açıdan sapma {sapma}; ülkedeki hiçbir şey bu kadar düzgün "
+        "değildi. Yolun iki ucu da yerinden kımıldamadığı için yürümek "
+        "kolaydı — zor olan, nereye gittiğini bilmemekti."
     ]
 
 
@@ -343,9 +360,10 @@ def bolum_yalniz(b: Baglam) -> List[str]:
     if not k:
         return []
     return [
-        f"Bir kişi vardı ki ülkenin geri kalanıyla hiçbir bağı yoktu: {ad}. "
-        f"Ne bir ittifakı, ne bir çekişmesi. {k.yalnizken.capitalize()}. "
-        "Ülkede herkes onun orada olduğunu bilir, kimse onunla konuşmazdı."
+        f"Yolun kenarında birine rastladın: {ad}. Ülkenin geri kalanıyla "
+        f"hiçbir bağı yoktu; ne bir ittifakı, ne bir çekişmesi. "
+        f"{k.yalnizken.capitalize()}. Yanına oturdun ve bir şey sormadın. "
+        "Ülkede onunla konuşan ilk kişi sendin."
     ]
 
 
@@ -362,14 +380,25 @@ def bolum_geri(b: Baglam) -> List[str]:
     if not k or not k.gerilerken:
         return []
     return [
-        f"{ad} geri yürüyordu. Yüzü ileriye dönüktü ama adımları geriye "
-        f"gidiyordu: {k.gerilerken}. Kimse ona sebebini soramadı, çünkü her "
-        "soruluşta bir adım daha uzaklaşıyordu."
+        f"Bir de {ad} vardı ve sen ona yaklaştıkça o uzaklaşıyordu. Yüzü "
+        f"ileriye dönüktü ama adımları geriye gidiyordu: {k.gerilerken}. "
+        "Sebebini sormaya kalktığında bir adım daha geriledi. Peşinden "
+        "gitmedin; ülkede kovalanmayı istemeyen birinin olduğunu öğrendin."
     ]
 
 
 def bolum_kapanis(b: Baglam) -> List[str]:
-    return [b.sec(KAPANISLAR).format(yer=b.yer_kisa)]
+    """Varış. Masal biter ama sonuçlanmaz; kapanış hüküm değil, sahnedir."""
+    eksik = b.chart.balance.missing_elements
+    if eksik:
+        kapanis = (
+            f"Aradığın şeyi ülkede bulamadın. {eksik[0]} hiçbir yerde yoktu "
+            "ve olmayacaktı. Çıkarken, onu içeri kendinin getirmiş olduğunu "
+            "fark ettin."
+        )
+    else:
+        kapanis = b.sec(KAPANISLAR).format(yer=b.yer_kisa)
+    return [kapanis]
 
 
 # Bölümlerin sırası ve hangi imzaya bağlı oldukları. Sıra sabit ama
