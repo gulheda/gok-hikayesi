@@ -29,6 +29,7 @@ from typing import Dict, List, Optional
 from ..astro.aspects import angular_separation
 from ..astro.chart import NatalChart, PlacedBody
 from ..astro.constants import CORE_BODY_KEYS, SIGN_NAMES_TR, SIGN_RULERS, sign_index
+from .desenler import hepsi as desenleri_bul
 from .nadirlik import (
     ACI_KADEMELERI,
     ACISAL_KADEMELER,
@@ -342,6 +343,29 @@ def unaspected_bodies(chart: NatalChart) -> List[Signature]:
     ]
 
 
+def patterns(chart: NatalChart) -> List[Signature]:
+    """Geometrik ve klasik desenleri imzaya çevirir.
+
+    Bunlar tek bir yerleşim değil, cisimler arasındaki ilişkiden doğan
+    yapılardır: tutulma, T-kare, büyük üçgen, kâse şekli, Güneş'e
+    gömülülük, kendi burcunda duran gezegen. Anlatı değerleri yüksek
+    olduğu için ayrı toplanıyorlar - bir gezegenin nerede durduğu bir
+    cümledir, üç gezegenin bir üçgen kurması bir sahnedir.
+    """
+    bulunanlar: List[Signature] = []
+    for desen in desenleri_bul(chart):
+        olcum = olc(desen.anahtar)
+        bulunanlar.append(
+            Signature(
+                key=desen.anahtar,
+                label=desen.tanim,
+                olcum=olcum,
+                note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+            )
+        )
+    return bulunanlar
+
+
 def common_traits(chart: NatalChart) -> List[str]:
     """Yaygın olduğu için üzerine hikâye kurulmaması gereken özellikler."""
     satirlar: List[str] = []
@@ -363,6 +387,7 @@ def collect(chart: NatalChart) -> List[Signature]:
     """Tüm imzaları toplayıp belirginlik ağırlığına göre sıralar."""
     hepsi: List[Signature] = []
     for uretici in (
+        patterns,
         angular_bodies,
         unaspected_bodies,
         tight_aspects,

@@ -112,6 +112,12 @@ def kademe_anahtari(taban: str, deger: float, kademeler) -> str:
     Kalibrasyon aynı kademeleri kullandığı için anahtarlar birebir
     örtüşür; kademe listesi iki yerde ayrı tutulursa arama sessizce
     boşa düşer ve her yapı "ölçülmemiş" görünür.
+
+    Bilinen sınır: kalibrasyon "haritada bu kademeye düşen EN AZ BİR yapı
+    var mı" diye sayıyor; buradaki arama ise tek bir yapının seyrekliğini
+    soruyor. İkisi tam olarak aynı soru değil. Sıralama için yeterli bir
+    yaklaşım, ama oranı "bu tam konfigürasyon şu kadar kişide görülür"
+    diye okumak yanlış olur.
     """
     for kademe in kademeler:
         if deger <= kademe:

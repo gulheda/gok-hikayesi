@@ -33,7 +33,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from app.astro.chart import BirthInput, calculate_chart
 from app.astro.timeutil import TimeResolutionError
 from app.geo.places import TURKIYE_IL_MERKEZLERI
-from app.story.signature import collect
+from app.story.desenler import hepsi as desenleri_bul
 
 CIKTI = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -138,23 +138,10 @@ def olcum_anahtarlari(chart) -> set:
            if b.key in ("Mercury", "Venus", "Mars")):
         bulunan.add("ic_gezegen_gerileme")
 
-    # Ay evresi uçları
-    gunes, ay = chart.body("Sun"), chart.body("Moon")
-    if gunes and ay:
-        faz = (ay.longitude - gunes.longitude) % 360
-        if faz < 12 or faz > 348:
-            bulunan.add("yeni_ay_dogumu")
-        elif 168 < faz < 192:
-            bulunan.add("dolunay_dogumu")
-
-    # Güneş'e gömülü (görünmez) gök cismi
-    if gunes:
-        for body in chart.bodies:
-            if body.key in ("Sun", "Moon") or body.key not in CEKIRDEK:
-                continue
-            if angular_separation(body.longitude, gunes.longitude) <= 3.0:
-                bulunan.add("gunese_gomulu")
-                break
+    # Geometrik ve klasik desenler (tutulma, T-kare, büyük üçgen,
+    # kâse şekli, kendi burcunda gezegen, Güneş'e gömülülük, ay evresi)
+    for desen in desenleri_bul(chart):
+        bulunan.add(desen.anahtar)
 
     return bulunan
 

@@ -55,14 +55,17 @@ def test_seyreklik_olculur_tahmin_edilmez():
     fazlasında çıktı. Yaygın bir özelliği ender sanmak, hikâyeyi
     milyonlarca kişiye uyan bir şeyin üzerine kurar.
     """
-    for imza in angular_bodies(SAATLI):
-        if "Jüpiter" in imza.label and "Yükselen" in imza.label:
-            assert imza.oran is not None, "ölçüm bulunamadı"
-            assert 0.0 < imza.oran < 1.0
-            # 1,1 derece yakınlık ender ama "çok ender" değil.
-            assert imza.rarity == BELIRGIN_ORTA
-            return
-    pytest.fail("Jüpiter-Yükselen imzası bulunamadı")
+    jupiter = next(
+        (i for i in angular_bodies(SAATLI)
+         if "Jüpiter" in i.label and "Yükselen" in i.label), None
+    )
+    assert jupiter is not None, "Jüpiter-Yükselen imzası bulunamadı"
+    assert jupiter.oran is not None, "ölçüm bulunamadı"
+    assert 0.0 < jupiter.oran < 1.0
+    # Etiket eşiğe denk gelebildiği için etiket değil ORAN sınanıyor:
+    # 1,1 derecelik açısal yakınlık haritaların beşte birinde görülüyor,
+    # yani elle konan "çok ender" etiketi yanlıştı.
+    assert jupiter.oran > 0.10, "açısal yakınlık sanıldığı kadar ender değil"
 
 
 def test_gun_dogumu_ayri_ve_cok_ender_olcuur():
@@ -78,6 +81,34 @@ def test_gun_dogumu_ayri_ve_cok_ender_olcuur():
     assert gunes_imzasi.rarity == BELIRGIN_COK
     assert gunes_imzasi.oran < 0.05
     assert "gün doğumunda" in gunes_imzasi.note
+
+
+def test_gun_dogumu_siradan_acisal_yakinliktan_ender():
+    """Ölçümün ürettiği en önemli ayrım.
+
+    Güneş'in Yükselen'e yakınlığı, herhangi bir cismin açısal noktaya
+    yakınlığından bir kat daha seyrek. Bu ayrım olmadan hikâye, her beş
+    kişiden birinde bulunan bir şeyin üzerine kurulur.
+    """
+    afyon = calculate_chart(BirthInput(
+        birth_date=date(2004, 2, 1), birth_time=time(7, 30),
+        latitude=38.7507, longitude=30.5567, place_name="Afyonkarahisar"))
+    gunes = next(i for i in angular_bodies(afyon)
+                 if i.label.startswith("Güneş") and "Yükselen" in i.label)
+    digerleri = [i for i in angular_bodies(SAATLI) if i.oran is not None]
+    assert digerleri
+    assert gunes.oran < min(d.oran for d in digerleri)
+
+
+def test_tutulma_dogumu_en_ender_yapilardan():
+    """Tutulmada doğmak ölçümde %1 civarında çıkıyor; motorun bulabildiği
+    en seyrek olgulardan biri."""
+    from app.story.nadirlik import olc
+    for anahtar in ("gunes_tutulmasi", "ay_tutulmasi"):
+        o = olc(anahtar)
+        assert o.oran is not None, f"{anahtar} ölçülmemiş"
+        assert o.oran < 0.05
+        assert o.etiket == BELIRGIN_COK
 
 
 def test_en_seyrek_yapi_en_uste_cikar():
@@ -167,3 +198,91 @@ def test_brifing_ozgu_ve_yaygin_bolumlerini_icerir():
 def test_brifing_olculen_orani_yuzdeyle_verir():
     b = llm_brifingi(SAATLI)
     assert "%" in b.split("BU HARİTAYA ÖZGÜ YAPILAR")[1]
+
+
+# --------------------------------------------------------------------------
+# Geometrik ve klasik desenler
+# --------------------------------------------------------------------------
+
+from app.story.desenler import (
+    ay_evresi_ucu,
+    buyuk_ucgen,
+    gunese_gomulu,
+    hepsi as desenleri_bul,
+    kase_sekli,
+    kendi_burcunda,
+    t_kare,
+    tutulma,
+)
+
+AFYON = calculate_chart(BirthInput(
+    birth_date=date(2004, 2, 1), birth_time=time(7, 30),
+    latitude=38.7507, longitude=30.5567, place_name="Afyonkarahisar"))
+
+
+def test_gunese_gomulu_cisim_bulunur():
+    """Güneş'e 3 dereceden yakın cisim o dönem hiç görülemez; anlatının
+    en güçlü olgularından biri."""
+    d = gunese_gomulu(AFYON)
+    assert d is not None
+    assert "Neptün" in d.tanim
+
+
+def test_kendi_burcunda_duran_gezegen_bulunur():
+    d = kendi_burcunda(AFYON)
+    assert d is not None
+    assert "Mars" in d.tanim and "Koç" in d.tanim
+
+
+def test_t_kare_uc_koseyi_dogru_bulur():
+    """T-kare: iki karşıt cisim ve ikisine birden kare yapan üçüncü."""
+    d = t_kare(AFYON)
+    assert d is not None
+    assert len(d.ilgili) == 3
+    # Üçüncü köşe gerçekten ikisiyle de kare yapmalı
+    kareler = {frozenset((a.body_a, a.body_b))
+               for a in AFYON.aspects if a.type_key == "square"}
+    karsitlar = {frozenset((a.body_a, a.body_b))
+                 for a in AFYON.aspects if a.type_key == "opposition"}
+    x, y, z = d.ilgili
+    assert frozenset((x, y)) in karsitlar
+    assert frozenset((x, z)) in kareler and frozenset((y, z)) in kareler
+
+
+def test_buyuk_ucgen_uyeleri_karsilikli_ucgen_yapar():
+    for harita in (SAATLI, AFYON, SAATSIZ):
+        d = buyuk_ucgen(harita)
+        if d is None:
+            continue
+        ucgenler = {frozenset((a.body_a, a.body_b))
+                    for a in harita.aspects if a.type_key == "trine"}
+        x, y, z = d.ilgili
+        assert frozenset((x, y)) in ucgenler
+        assert frozenset((y, z)) in ucgenler
+        assert frozenset((x, z)) in ucgenler
+
+
+def test_kase_sekli_yalnizca_dar_yayda_bulunur():
+    for harita in (SAATLI, AFYON, SAATSIZ):
+        d = kase_sekli(harita)
+        if d is None:
+            continue
+        yay = float(d.tanim.split("cisimleri ")[1].split(" derecelik")[0])
+        assert yay <= 180.0
+
+
+def test_tutulma_yalnizca_yeniay_veya_dolunayda_bulunur():
+    """Tutulma yeniay ya da dolunay olmadan gerçekleşemez."""
+    for harita in (SAATLI, AFYON, SAATSIZ):
+        d = tutulma(harita)
+        if d is None:
+            continue
+        gunes, ay = harita.body("Sun"), harita.body("Moon")
+        faz = (ay.longitude - gunes.longitude) % 360
+        assert faz < 12 or faz > 348 or 168 < faz < 192
+
+
+def test_desenler_imza_listesine_girer():
+    anahtarlar = {i.key for i in collect(AFYON)}
+    assert "gunese_gomulu" in anahtarlar
+    assert "t_kare" in anahtarlar
