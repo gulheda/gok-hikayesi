@@ -9,17 +9,37 @@ Bu modül haritadaki yapıları çıkarıp belirginliklerine göre sıralar. Ama
 modele "şunlar herkeste var, şunlar bu haritaya özgü" demek — böylece
 anlatı yaygın olanın değil, ayırt edicinin üzerine kurulur.
 
-Belirginlik etiketleri niteldir. Kesin yüzdeler vermiyoruz çünkü gerçek
-dağılımlar doğum tarihi dağılımına, ev sistemine ve orb seçimine bağlıdır;
-uydurma bir istatistik, yokluğundan daha kötüdür.
+Belirginlik ÖLÇÜLMÜŞTÜR, tahmin edilmemiştir. Oranlar 2500 rastgele
+harita üzerinden sayıldı (bkz. tools/imza-kalibrasyon.py, data/nadirlik.json).
+
+Bu ayrım önemli, çünkü ilk sürümde etiketler elle yazılmıştı ve çoğu
+yanlıştı: "açısal noktaya yakınlık" çok ender sanılıyordu, ölçüldüğünde
+haritaların %61'inde çıktı. Yaygın bir özelliği ender sanmak, hikâyeyi
+milyonlarca kişiye uyan bir şeyin üzerine kurar - yani tam da kaçınılmak
+istenen burç yorumunu üretir.
+
+Ölçüm KATEGORİ değil ÖRNEK düzeyindedir: "bir cisim açısal noktaya 8
+derece yakın" ayrı, "1 derece yakın" ayrı sayılır.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
+from ..astro.aspects import angular_separation
 from ..astro.chart import NatalChart, PlacedBody
 from ..astro.constants import CORE_BODY_KEYS, SIGN_NAMES_TR, SIGN_RULERS, sign_index
+from .nadirlik import (
+    ACI_KADEMELERI,
+    ACISAL_KADEMELER,
+    ETIKET_COK_ENDER,
+    ETIKET_ENDER,
+    ETIKET_ORTA,
+    ETIKET_YAYGIN,
+    Olcum,
+    kademe_anahtari,
+    olc,
+)
 
 # Açısal noktalara (Yükselen, Tepe ve karşıtları) bu kadar yakın bir gök
 # cismi haritanın en görünür yapısıdır.
@@ -28,9 +48,10 @@ ANGULAR_ORB = 8.0
 # Bir açının bu kadar dar olması ender; anlatının omurgası olmaya adaydır.
 TIGHT_ASPECT_ORB = 1.0
 
-BELIRGIN_COK = "çok belirgin"
-BELIRGIN_ORTA = "belirgin"
-BELIRGIN_YAYGIN = "yaygın"
+# Geriye dönük adlar; artık ölçümden gelen etiketlere eşleniyorlar.
+BELIRGIN_COK = ETIKET_COK_ENDER
+BELIRGIN_ORTA = ETIKET_ENDER
+BELIRGIN_YAYGIN = ETIKET_YAYGIN
 
 
 @dataclass(frozen=True)
@@ -38,10 +59,25 @@ class Signature:
     """Haritada bulunan tek bir ayırt edici yapı."""
 
     key: str
-    label: str          # modele verilecek tek satırlık tanım
-    rarity: str
-    weight: float       # sıralama için; büyük olan önce
-    note: Optional[str] = None   # neden ender/yaygın olduğunun kısa gerekçesi
+    label: str                    # modele verilecek tek satırlık tanım
+    olcum: Olcum                  # ölçülmüş seyreklik
+    note: Optional[str] = None    # gerekçe
+
+    @property
+    def rarity(self) -> str:
+        return self.olcum.etiket
+
+    @property
+    def weight(self) -> float:
+        return self.olcum.agirlik
+
+    @property
+    def oran(self) -> Optional[float]:
+        return self.olcum.oran
+
+    @property
+    def insan_ifadesi(self) -> str:
+        return self.olcum.insan_ifadesi
 
 
 def _core_bodies(chart: NatalChart) -> List[PlacedBody]:
@@ -71,7 +107,14 @@ def angular_bodies(chart: NatalChart) -> List[Signature]:
             fark = abs((body.longitude - nokta + 180.0) % 360.0 - 180.0)
             if fark > ANGULAR_ORB:
                 continue
-            cok_yakin = fark <= 3.0
+            # Güneş'in Yükselen'e yakınlığı ayrı bir olgudur: kişi gün
+            # doğumunda doğmuş demektir ve ölçümde çok ender çıkıyor.
+            taban = ("gun_dogumu" if (body.key == "Sun" and nokta_adi == "Yükselen")
+                     else "acisal")
+            olcum = olc(kademe_anahtari(taban, fark, ACISAL_KADEMELER))
+            ek = ""
+            if taban == "gun_dogumu":
+                ek = " Bu, kişinin gün doğumunda doğduğu anlamına gelir."
             bulunanlar.append(
                 Signature(
                     key="angular",
@@ -80,11 +123,9 @@ def angular_bodies(chart: NatalChart) -> List[Signature]:
                         f"uzaklıkta duruyor ({body.sign_name_tr} "
                         f"{body.degree_in_sign:.1f}°)"
                     ),
-                    rarity=BELIRGIN_COK if cok_yakin else BELIRGIN_ORTA,
-                    weight=100.0 - fark,
+                    olcum=olcum,
                     note=(
-                        "Açısal noktaya bu kadar yakın bir gök cismi haritanın "
-                        "en görünür yapısıdır; çoğu haritada bulunmaz."
+                        f"Ölçüm: {olcum.insan_ifadesi} görülüyor.{ek}"
                     ),
                 )
             )
@@ -105,6 +146,7 @@ def stelliums(chart: NatalChart) -> List[Signature]:
     for idx, grup in burca_gore.items():
         if len(grup) >= 3:
             adlar = ", ".join(b.name_tr for b in grup)
+            olcum = olc(f"yigin_burc_{min(len(grup), 5)}")
             bulunanlar.append(
                 Signature(
                     key="stellium_sign",
@@ -112,9 +154,8 @@ def stelliums(chart: NatalChart) -> List[Signature]:
                         f"{SIGN_NAMES_TR[idx]} burcunda {len(grup)} gök cismi "
                         f"toplanmış: {adlar}"
                     ),
-                    rarity=BELIRGIN_COK if len(grup) >= 4 else BELIRGIN_ORTA,
-                    weight=60.0 + len(grup) * 5,
-                    note="Tek bir burçta bu yoğunlukta toplanma seyrektir.",
+                    olcum=olcum,
+                    note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
                 )
             )
 
@@ -122,6 +163,7 @@ def stelliums(chart: NatalChart) -> List[Signature]:
         if len(grup) >= 3:
             adlar = ", ".join(b.name_tr for b in grup)
             tema = grup[0].house_theme_tr or ""
+            olcum = olc(f"yigin_ev_{min(len(grup), 5)}")
             bulunanlar.append(
                 Signature(
                     key="stellium_house",
@@ -129,9 +171,8 @@ def stelliums(chart: NatalChart) -> List[Signature]:
                         f"{ev}. evde ({tema}) {len(grup)} gök cismi toplanmış: "
                         f"{adlar}. Haritanın ağırlık merkezi burası."
                     ),
-                    rarity=BELIRGIN_COK if len(grup) >= 4 else BELIRGIN_ORTA,
-                    weight=65.0 + len(grup) * 5,
-                    note="Hayatın tek bir alanında bu yoğunlukta toplanma seyrektir.",
+                    olcum=olcum,
+                    note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
                 )
             )
 
@@ -144,6 +185,7 @@ def tight_aspects(chart: NatalChart) -> List[Signature]:
     for a in chart.aspects:
         if a.orb > TIGHT_ASPECT_ORB:
             continue
+        olcum = olc(kademe_anahtari("dar_aci", a.orb, ACI_KADEMELERI))
         bulunanlar.append(
             Signature(
                 key="tight_aspect",
@@ -152,9 +194,8 @@ def tight_aspects(chart: NatalChart) -> List[Signature]:
                     f"neredeyse tam: sapma yalnızca {a.orb:.2f} derece "
                     f"({a.nature} nitelikte)"
                 ),
-                rarity=BELIRGIN_COK if a.orb <= 0.5 else BELIRGIN_ORTA,
-                weight=90.0 - a.orb * 10,
-                note="Bu kadar dar bir açı seyrektir ve anlatının omurgası olabilir.",
+                olcum=olcum,
+                note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
             )
         )
     return bulunanlar
@@ -190,9 +231,9 @@ def chart_ruler(chart: NatalChart) -> List[Signature]:
                 + (", ve gerileme hareketinde" if yonetici.is_retrograde else "")
                 + "."
             ),
-            rarity=BELIRGIN_ORTA,
-            weight=80.0,
-            note="Anlatının başrolü için doğal aday.",
+            olcum=olc("chart_ruler"),
+            note="Her haritada vardır; anlatının başrolü için doğal aday "
+                 "ama tek başına ayırt edici değildir.",
         )
     ]
 
@@ -201,6 +242,7 @@ def element_signature(chart: NatalChart) -> List[Signature]:
     bulunanlar: List[Signature] = []
     eksik = chart.balance.missing_elements
     if eksik:
+        olcum = olc("iki_eksik_element" if len(eksik) > 1 else "eksik_element")
         bulunanlar.append(
             Signature(
                 key="missing_element",
@@ -208,9 +250,9 @@ def element_signature(chart: NatalChart) -> List[Signature]:
                     "Hiçbir gök cismi şu element(ler)de yerleşmemiş: "
                     + ", ".join(eksik)
                 ),
-                rarity=BELIRGIN_ORTA,
-                weight=70.0,
-                note="Eksik olan, anlatıda aranan/olmayan şey olarak kullanılabilir.",
+                olcum=olcum,
+                note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor. Eksik olan, "
+                     "anlatıda aranan şey olarak kullanılabilir.",
             )
         )
 
@@ -224,8 +266,7 @@ def element_signature(chart: NatalChart) -> List[Signature]:
                     f"{baskin} elementi {sayilar[baskin]} yerleşimle ezici "
                     "çoğunlukta"
                 ),
-                rarity=BELIRGIN_ORTA,
-                weight=55.0,
+                olcum=olc("dominant_element"),
             )
         )
     return bulunanlar
@@ -250,6 +291,7 @@ def retrograde_signature(chart: NatalChart) -> List[Signature]:
 
     bulunanlar: List[Signature] = []
     if ic_gerileyen:
+        olcum = olc("ic_gezegen_gerileme")
         bulunanlar.append(
             Signature(
                 key="inner_retrograde",
@@ -257,9 +299,8 @@ def retrograde_signature(chart: NatalChart) -> List[Signature]:
                     "Gerileme hareketindeki iç gezegen(ler): "
                     + ", ".join(f"{b.name_tr} ({b.sign_name_tr})" for b in ic_gerileyen)
                 ),
-                rarity=BELIRGIN_COK,
-                weight=75.0,
-                note="İç gezegenlerin gerilemesi seyrektir, dış gezegenlerinki değil.",
+                olcum=olcum,
+                note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
             )
         )
     if dis_gerileyen:
@@ -270,8 +311,7 @@ def retrograde_signature(chart: NatalChart) -> List[Signature]:
                     "Gerileme hareketindeki dış gezegen(ler): "
                     + ", ".join(b.name_tr for b in dis_gerileyen)
                 ),
-                rarity=BELIRGIN_YAYGIN,
-                weight=10.0,
+                olcum=Olcum("outer_retrograde", 0.835),
                 note=(
                     "Dış gezegenler yılın yaklaşık yarısında gerilemededir; "
                     "bunu ayırt edici bir özellik gibi anlatma."
@@ -287,6 +327,7 @@ def unaspected_bodies(chart: NatalChart) -> List[Signature]:
     yalnizlar = [b for b in _core_bodies(chart) if b.key not in bagli]
     if not yalnizlar:
         return []
+    olcum = olc("acisiz_cisim")
     return [
         Signature(
             key="unaspected",
@@ -294,9 +335,9 @@ def unaspected_bodies(chart: NatalChart) -> List[Signature]:
                 "Hiçbir açı yapmayan gök cismi/cisimleri: "
                 + ", ".join(f"{b.name_tr} ({b.sign_name_tr})" for b in yalnizlar)
             ),
-            rarity=BELIRGIN_COK,
-            weight=85.0,
-            note="Haritanın geri kalanıyla bağlantısız; anlatıda yalnız bir figür.",
+            olcum=olcum,
+            note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor. Haritanın geri "
+                 "kalanıyla bağlantısız; anlatıda yalnız bir figür.",
         )
     ]
 

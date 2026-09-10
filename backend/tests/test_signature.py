@@ -15,6 +15,7 @@ from app.astro.chart import BirthInput, calculate_chart
 from app.story.brief import llm_brifingi
 from app.story.signature import (
     BELIRGIN_COK,
+    BELIRGIN_ORTA,
     BELIRGIN_YAYGIN,
     angular_bodies,
     chart_ruler,
@@ -46,12 +47,48 @@ def test_yukselen_yakinindaki_gok_cismi_yakalanir():
     assert any("Ay" in e and "Yükselen" in e for e in etiketler)
 
 
-def test_uc_dereceden_yakin_olan_cok_belirgin_sayilir():
+def test_seyreklik_olculur_tahmin_edilmez():
+    """En önemli düzeltme buydu.
+
+    Etiketler elle yazıldığında "açısal noktaya yakınlık" çok ender
+    sanılıyordu; 2500 harita üzerinden ölçüldüğünde haritaların yarıdan
+    fazlasında çıktı. Yaygın bir özelliği ender sanmak, hikâyeyi
+    milyonlarca kişiye uyan bir şeyin üzerine kurar.
+    """
     for imza in angular_bodies(SAATLI):
         if "Jüpiter" in imza.label and "Yükselen" in imza.label:
-            assert imza.rarity == BELIRGIN_COK
+            assert imza.oran is not None, "ölçüm bulunamadı"
+            assert 0.0 < imza.oran < 1.0
+            # 1,1 derece yakınlık ender ama "çok ender" değil.
+            assert imza.rarity == BELIRGIN_ORTA
             return
     pytest.fail("Jüpiter-Yükselen imzası bulunamadı")
+
+
+def test_gun_dogumu_ayri_ve_cok_ender_olcuur():
+    """Güneş'in Yükselen'e yakınlığı sıradan bir açısal yakınlık değil:
+    kişi gün doğumunda doğmuş demektir ve ölçümde %2 civarında çıkıyor."""
+    afyon = calculate_chart(BirthInput(
+        birth_date=date(2004, 2, 1), birth_time=time(7, 30),
+        latitude=38.7507, longitude=30.5567, place_name="Afyonkarahisar"))
+    gunes_imzasi = next(
+        i for i in angular_bodies(afyon)
+        if i.label.startswith("Güneş") and "Yükselen" in i.label
+    )
+    assert gunes_imzasi.rarity == BELIRGIN_COK
+    assert gunes_imzasi.oran < 0.05
+    assert "gün doğumunda" in gunes_imzasi.note
+
+
+def test_en_seyrek_yapi_en_uste_cikar():
+    """Sıralama ölçülmüş orana göre; hikâye en ayırt edici yapıdan kurulur."""
+    afyon = calculate_chart(BirthInput(
+        birth_date=date(2004, 2, 1), birth_time=time(7, 30),
+        latitude=38.7507, longitude=30.5567, place_name="Afyonkarahisar"))
+    ilk = collect(afyon)[0]
+    assert ilk.oran is not None
+    assert ilk.oran < 0.05
+    assert "Güneş" in ilk.label
 
 
 def test_ev_yiginlasmasi_yakalanir():
@@ -122,5 +159,11 @@ def test_brifing_ozgu_ve_yaygin_bolumlerini_icerir():
     b = llm_brifingi(SAATLI)
     assert "BU HARİTAYA ÖZGÜ YAPILAR" in b
     assert "ÜZERİNE HİKÂYE KURULMAMASI GEREKENLER" in b
-    # Modelin ender olanı görebilmesi için belirginlik etiketleri şart.
-    assert BELIRGIN_COK in b
+    # Model, hangi yapının ne kadar seyrek olduğunu sayıyla görmeli.
+    assert "ÖLÇÜLDÜ" in b
+    assert "kişiden birinde" in b or "haritaların" in b
+
+
+def test_brifing_olculen_orani_yuzdeyle_verir():
+    b = llm_brifingi(SAATLI)
+    assert "%" in b.split("BU HARİTAYA ÖZGÜ YAPILAR")[1]

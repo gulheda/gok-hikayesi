@@ -179,9 +179,18 @@ def llm_brifingi(chart: NatalChart) -> str:
     # model yaygın olana değil, ender olana tutunmalı.
     imzalar = collect_signatures(chart)
     if imzalar:
-        satirlar.append("BU HARİTAYA ÖZGÜ YAPILAR (belirginlik sırasına göre):")
+        from .nadirlik import ornek_sayisi
+
+        satirlar.append(
+            "BU HARİTAYA ÖZGÜ YAPILAR — seyreklik sırasına göre. Oranlar "
+            f"{ornek_sayisi()} rastgele harita üzerinden ÖLÇÜLDÜ, tahmin "
+            "edilmedi. En üsttekiler bu haritayı en çok ayırt eden yapılardır; "
+            "hikâyeyi onların üzerine kur."
+        )
         for imza in imzalar:
-            satirlar.append(f"- [{imza.rarity}] {imza.label}")
+            oran = (f"%{imza.oran * 100:.1f} — {imza.insan_ifadesi}"
+                    if imza.oran is not None else "ölçülmedi")
+            satirlar.append(f"- [{imza.rarity} | {oran}] {imza.label}")
             if imza.note:
                 satirlar.append(f"  ({imza.note})")
         satirlar.append("")
