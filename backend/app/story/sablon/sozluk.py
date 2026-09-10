@@ -220,12 +220,33 @@ ACI_ILISKISI: Dict[str, List[str]] = {
 }
 
 
-# Bir cismin açısal noktalara yakınlığı - motorun elindeki en ender yapı.
-ACISAL_NOKTA_ADI: Dict[str, str] = {
-    "Yükselen": "kapı",
-    "Tepe noktası": "kule",
-    "Batan": "arka kapı",
-    "Dip nokta": "bodrum",
+@dataclass(frozen=True)
+class AcisalNokta:
+    """Bir açısal noktanın kurgudaki karşılığı ve ona uyan eylem.
+
+    Fiil ayrı tutuluyor çünkü mekân değişince eylem de değişir: kapı
+    açılır ama kule açılmaz, çıkılır. Tek bir fiili bütün mekânlara
+    uygulamak "kuleyi sen açtın" gibi bozuk cümleler üretiyordu.
+    """
+
+    ad: str
+    varis: str      # oraya nasıl varıldığı: "açtın", "çıktın"…
+    ikinci: str     # ikinci cümlede kullanılan biçim
+    referans: str   # gökyüzünde neye göre ölçüldüğü
+
+
+# `referans` alanı astronomik doğruluk için: Yükselen ve Batan ufuk
+# üzerindedir, ama Tepe noktası ufuk değil gökyüzünün en yüksek yeridir.
+# Hepsine "ufuktan şu kadar ötede" demek metni yanlış hale getirir.
+ACISAL_NOKTA_ADI: Dict[str, AcisalNokta] = {
+    "Yükselen": AcisalNokta("kapı", "açtın", "içeriden açan olmadı",
+                            "doğu ufkundan"),
+    "Tepe noktası": AcisalNokta("kule", "çıktın", "merdiveni gösteren olmadı",
+                                "gökyüzünün en tepesinden"),
+    "Batan": AcisalNokta("arka kapı", "buldun", "kimse yerini söylemedi",
+                         "batı ufkundan"),
+    "Dip nokta": AcisalNokta("bodrum", "indin", "ışığı yakan olmadı",
+                             "gökyüzünün en dibinden"),
 }
 
 

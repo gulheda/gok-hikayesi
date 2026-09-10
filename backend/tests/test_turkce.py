@@ -178,3 +178,11 @@ def test_tarih_yazi():
 ])
 def test_gunun_vakti(saat, beklenen):
     assert gunun_vakti(saat) == beklenen
+
+
+@pytest.mark.parametrize("sayi,beklenen", [
+    ("üç", "üçü"), ("dört", "dördü"), ("beş", "beşi"), ("altı", "altıyı"),
+])
+def test_sayi_sozcukleri_dogru_ek_alir(sayi, beklenen):
+    """'dört' tek heceli olmasına rağmen yumuşar: dördü, dörtü değil."""
+    assert belirtme(sayi) == beklenen

@@ -209,15 +209,16 @@ def bolum_kapi(b: Baglam) -> List[str]:
     satirlar: List[str] = []
     kullanilan = []
     for imza in acisal[:2]:
-        for nokta_adi, kurgu_adi in ACISAL_NOKTA_ADI.items():
+        for nokta_adi, nokta in ACISAL_NOKTA_ADI.items():
             if nokta_adi in imza.label:
-                kullanilan.append((imza, kurgu_adi))
+                kullanilan.append((imza, nokta))
                 break
 
     if not kullanilan:
         return []
 
-    imza, kurgu = kullanilan[0]
+    imza, nokta = kullanilan[0]
+    kurgu = nokta.ad
     cisim_adi = imza.label.split(",")[0]
     karakter = KARAKTERLER.get(
         next((k for k, v in KARAKTERLER.items() if v.unvan == cisim_adi), ""),
@@ -233,9 +234,9 @@ def bolum_kapi(b: Baglam) -> List[str]:
         derece = derece.replace(".", ",")   # Türkçe ondalık ayracı
 
     satirlar.append(
-        f"İlk durağın {kurgu} oldu. Onu sen açtın; içeriden açan olmadı. "
+        f"İlk durağın {kurgu} oldu. Oraya sen {nokta.varis}; {nokta.ikinci}. "
         f"{bulunma(kurgu).capitalize()} {b.olcumle(cisim_adi)} bekliyordu"
-        + (f", ufuktan yalnızca {derece} ötede" if derece else "")
+        + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
         + f": {rol}. Sabah onu gökyüzünde görebilseydin, tam orada duruyordu."
     )
 
@@ -288,8 +289,10 @@ def bolum_meclis(b: Baglam) -> List[str]:
         f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
         f"{yer_tarifi.capitalize()} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
-        "Gökyüzünde de öyleydiler: o sabah dördü birden, göğün aynı dar "
-        "diliminde duruyordu. Kapıyı çalmadan girdin ve konuşma kesilmedi."
+        f"Gökyüzünde de öyleydiler: o sabah "
+        f"{belirtme(sayi_sifat(len(adlar)))} birden, "
+        "göğün aynı dar diliminde duruyordu. Kapıyı çalmadan girdin ve "
+        "konuşma kesilmedi."
     ]
 
     # Yığındaki cisimlerden birinin görünmez olması en güçlü ayrıntıdır.

@@ -192,3 +192,20 @@ def test_gecis_ayni_gokyuzune_isaret_eder():
     'aynı gökyüzü, ikinci kez'."""
     _, govde = uret(SAATLI)
     assert "aynı diziliş" in govde
+
+
+def test_acisal_nokta_referansi_astronomik_olarak_dogru():
+    """Yükselen ufuktadır ama Tepe noktası ufuk değil, gökyüzünün en
+    yüksek yeridir. Hepsine 'ufuktan' demek metni yanlış yapar."""
+    from app.story.sablon.sozluk import ACISAL_NOKTA_ADI
+    assert "ufk" in ACISAL_NOKTA_ADI["Yükselen"].referans
+    assert "ufk" not in ACISAL_NOKTA_ADI["Tepe noktası"].referans
+    assert "tepe" in ACISAL_NOKTA_ADI["Tepe noktası"].referans
+
+
+def test_mekan_ve_fiil_uyumlu():
+    """Kapı açılır, kule açılmaz - çıkılır."""
+    from app.story.sablon.sozluk import ACISAL_NOKTA_ADI
+    assert ACISAL_NOKTA_ADI["Yükselen"].varis == "açtın"
+    assert ACISAL_NOKTA_ADI["Tepe noktası"].varis == "çıktın"
+    assert ACISAL_NOKTA_ADI["Dip nokta"].varis == "indin"

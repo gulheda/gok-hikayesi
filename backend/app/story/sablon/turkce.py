@@ -30,7 +30,11 @@ SERT_UNSUZLER = "fstkçşhp"
 
 # Tek heceli olup da yumuşayan kelimeler kuralın istisnasıdır; listesi
 # kısa olduğu için kural yerine liste tutmak daha doğru.
-TEK_HECE_YUMUSAYANLAR = {"uc", "dip", "kap", "kurt", "yurt", "çok", "gök"}
+TEK_HECE_YUMUSAYANLAR = {
+    "uc", "dip", "kap", "kurt", "yurt", "çok", "gök",
+    # Sayılar: dört -> dördü. Tek heceli olmasına rağmen yumuşar.
+    "dört",
+}
 
 YUMUSAMA = {"p": "b", "ç": "c", "t": "d", "k": "ğ"}
 
