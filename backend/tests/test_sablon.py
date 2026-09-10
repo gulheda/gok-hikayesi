@@ -53,7 +53,8 @@ def test_olgusal_bolum_dogrulanabilir_sayilar_icerir():
 
 def test_olgusal_bolum_sembolik_bolumden_ayrilir():
     _, govde = uret(SAATLI)
-    assert "Buraya kadarı ölçümdür. Bundan sonrası değildir." in govde
+    assert "Buraya kadarı ölçümdür" in govde
+    assert "Bundan sonrası değildir" in govde
 
 
 def test_ad_verilirse_hikayede_gecer():
@@ -101,9 +102,13 @@ def test_dilbilgisi_bilinen_bozuk_bicimleri_uretmiyor():
 
 
 def test_cumleler_buyuk_harfle_baslar():
+    # Ayırıcı, ardından büyük harf gelmesini şart koşuyor: "10. derecesinde"
+    # gibi sıra sayıları cümle sonu değildir. TTS parçalayıcısı da aynı
+    # kuralı kullanıyor (bkz. app/tts/chunking.py).
+    ayirici = r"(?<=[.!?])\s+(?=[A-ZÇĞİÖŞÜ])"
     for harita in (SAATLI, SAATSIZ, BASKA):
         _, govde = uret(harita)
-        for cumle in re.split(r"(?<=[.!?])\s+", govde.replace("\n", " ")):
+        for cumle in re.split(ayirici, govde.replace("\n", " ")):
             c = cumle.strip()
             if len(c) > 20 and c[0].isalpha():
                 assert c[0].isupper(), f"küçük harfle başlıyor: {c[:40]}"
@@ -169,3 +174,21 @@ def test_gelecekten_soz_edilmez():
         _, govde = uret(harita)
         for kalip in gelecek:
             assert kalip not in govde, f"gelecek zaman ifadesi: {kalip}"
+
+
+def test_masal_olcumden_kopmaz():
+    """Ürünün tek iddiası 'bu senin gökyüzün'. Masal ölçümden koparsa
+    geriye herhangi bir masal kalır ve iddia görünmez olur."""
+    _, govde = uret(SAATLI)
+    yolculuk = govde.split("Bundan sonrası değildir")[1]
+    # Sembolik bölümde de gerçek derece/burç bilgisi geçmeli
+    assert "derece" in yolculuk
+    assert any(burc in yolculuk for burc in
+               ["Aslan", "Yengeç", "İkizler", "Balık", "Kova", "Yay"])
+
+
+def test_gecis_ayni_gokyuzune_isaret_eder():
+    """Geçiş bir duvar değil menteşe: 'şimdi uydurma başlıyor' değil,
+    'aynı gökyüzü, ikinci kez'."""
+    _, govde = uret(SAATLI)
+    assert "aynı diziliş" in govde

@@ -10,6 +10,17 @@ sıfırlar. Aşağıdaki kurallar bu varsayılan davranışı kırmak için var.
 Sürüm numarası her hikâyeyle birlikte kaydedilir; prompt değiştiğinde
 eski çıktıların hangi sürümden geldiği bilinmeden karşılaştırma yapılamaz.
 
+Sürüm 3.1.0 — ölçüm ile masal arasındaki duvarı kaldırma. 3.0.0'da iki
+hareket birbirine değmiyordu: önce gerçek gökyüzü anlatılıyor, sonra
+"buraya kadarı ölçümdür" denip alakasız bir ülke masalı başlıyordu.
+Jüpiter'in ufkun bir derece üstünde olması bir daha hiç geçmiyor,
+okuyucu kendi gökyüzüyle bağını kaybediyordu. Oysa ürünün tek iddiası
+"bu senin gökyüzün" - o bağ koparsa geriye herhangi bir masal kalıyor.
+
+3.1.0'da masal ölçümden SONRA gelmiyor, ölçümden YAPILIYOR: her
+karakterden söz edilirken gerçek konumu da anılıyor, ve geçiş bir duvar
+değil bir menteşe - aynı gökyüzüne başka türlü bakmak.
+
 Sürüm 3.0.0 — masal biçimi. Ürünün amacı netleşti: kişi kendini bir
 masalın baş kahramanı gibi hissetmeli. 2.0.0'da kişi anlatının içindeydi
 ama seyirciydi; ülke kuruluyor, karakterler yaşıyor, ona "sen" diye
@@ -36,7 +47,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict
 
-PROMPT_VERSION = "3.0.0"
+PROMPT_VERSION = "3.1.0"
 
 
 @dataclass(frozen=True)
@@ -101,12 +112,16 @@ SYSTEM_PROMPT = """Sen gökyüzü temelli kişiselleştirilmiş masallar yazan b
 Sana bir kişinin doğduğu andaki GERÇEK gök cismi konumları veriliyor. Bu veriler Swiss Ephemeris ile hesaplanmış astronomik ölçümlerdir. Senin işin bu ölçümlerden, o kişinin baş kahramanı olduğu bir masal çıkarmak.
 
 BİRİNCİ HAREKET — GERÇEK GÖKYÜZÜ
-Kısa bir bölümle o anı gerçekten olduğu gibi anlat: o tarihte, o yerde gökyüzü fiilen nasıl duruyordu. Hiçbir sembolik anlam yükleme, hiçbir yorum yapma. Bu bölüm doğrulanabilir olmalı. Verilen konumları kullan, yenilerini uydurma. Bölümü şu cümleyle kapat: "Buraya kadarı ölçümdür. Bundan sonrası değildir."
+Kısa bir bölümle o anı gerçekten olduğu gibi anlat: o tarihte, o yerde gökyüzü fiilen nasıl duruyordu. Hiçbir sembolik anlam yükleme, hiçbir yorum yapma. Bu bölüm doğrulanabilir olmalı. Verilen konumları kullan, yenilerini uydurma.
+
+GEÇİŞ — DUVAR DEĞİL, MENTEŞE
+Bölümü ölçümün bittiğini söyleyerek kapat, ama masalı başka bir gökyüzüne açma. Anlatılacak olan AYNI diziliş, başka türlü bakılmış hâlidir. Okuyucu "şimdi gerçek bitti, uydurma başlıyor" diye düşünmemeli; "aynı gökyüzü, ikinci kez" diye düşünmeli. Geçişi bunu hissettirecek biçimde kur.
 
 İKİNCİ HAREKET — YOLCULUK
 Sonra aynı diziliş bir ülkeye dönüşsün ve KİŞİ O ÜLKEYE GİRSİN. Bu bir masal; masalda baş kahraman yürür.
 
 - Gezegenler ülkenin sakinleridir. Her birinin kendi mizacı, isteği, sesi var.
+- ÖNEMLİ: Bir karakterden söz ederken gerçek konumunu da an. "Kapıda Jüpiter bekliyordu" değil, "Kapıda Jüpiter bekliyordu — Aslan burcunun on sekizinci derecesinde, ufuktan bir derece ötede". Okuyucu hiçbir noktada kendi gökyüzüyle bağını kaybetmemeli. Masal ölçümden sonra gelmiyor; ölçümden yapılıyor.
 - Astrolojik evler bölgelerdir; evin teması o bölgenin doğasını belirler.
 - Açılar sakinler arasındaki ilişkilerdir: uyumlu açılar ittifak, gergin açılar çekişme, kavuşumlar ayrılmaz ortaklık.
 - Haritanın her ender yapısı yolculukta BİR DURAKTIR. Kişi oraya varır, orada biriyle karşılaşır, bir şey olur ve yola devam eder.
@@ -128,6 +143,7 @@ Brifingte "BU HARİTAYA ÖZGÜ YAPILAR" başlığı altında, belirginlik sıras
 2. En dar açıyı ya da açısal noktaya en yakın gök cismini yolculuğun ilk ya da son durağı yap. Bunlar haritanın en ender yanlarıdır.
 3. "yaygın" işaretli yapıların ve "ÜZERİNE HİKÂYE KURULMAMASI GEREKENLER" başlığındaki maddelerin üzerine durak kurma. Geçerken değinebilirsin.
 4. Kişinin ne yaptığını anlatırken her hamle verideki BELİRLİ bir yapıdan çıkmalı — hangi gök cismi, hangi derece, hangi ev, hangi açı.
+5. Her durakta o durağı doğuran ölçüm görünür olsun. Bir durak, dayandığı sayı olmadan anlatılıyorsa o durak masalın süsüdür, parçası değildir.
 
 İKİ TEST — her cümle için uygula
 

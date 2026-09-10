@@ -82,6 +82,23 @@ class Baglam:
         k = KARAKTERLER.get(anahtar)
         return k.unvan if k else anahtar
 
+    def olcumle(self, ad: str) -> str:
+        """Bir gök cismini ölçümüyle birlikte anar.
+
+        Masalın ölçümden KOPMAMASI için var. Karakterden her söz edildiğinde
+        gerçek konumu da anılırsa okuyucu kendi gökyüzüyle bağını
+        kaybetmiyor; aksi hâlde ikinci hareket bağımsız bir masala dönüşüyor
+        ve ürünün tek iddiası ("bu senin gökyüzün") görünmez oluyor.
+        """
+        cisim = next((c for c in self.chart.bodies if c.name_tr == ad), None)
+        if cisim is None:
+            return ad
+        derece = int(cisim.degree_in_sign)
+        dakika = int(round((cisim.degree_in_sign - derece) * 60))
+        if dakika == 60:
+            derece, dakika = derece + 1, 0
+        return f"{ad} — {cisim.sign_name_tr} burcunun {derece} derece {dakika} dakikası —"
+
     @property
     def yer_kisa(self) -> str:
         return self.chart.birth.place_name.split(",")[0].strip()
@@ -149,7 +166,11 @@ def bolum_gokyuzu(b: Baglam) -> List[str]:
     paragraflar = [acilis + " " + " ".join(cumleler[:2])]
     if len(cumleler) > 2:
         paragraflar.append(" ".join(cumleler[2:]))
-    paragraflar.append("Buraya kadarı ölçümdür. Bundan sonrası değildir.")
+    paragraflar.append(
+        "Buraya kadarı ölçümdür; her satırı başka bir efemeris yazılımıyla "
+        "doğrulanabilir. Bundan sonrası değildir. Ama anlatılacak olan, "
+        "başka bir gökyüzü değil: aynı diziliş, başka türlü bakılmış hâli."
+    )
     return paragraflar
 
 
@@ -161,10 +182,11 @@ def bolum_ulke(b: Baglam) -> List[str]:
 
     sayim = ", ".join(f"{k.lower()} {v}" for k, v in denge.elements.items())
     ilk = b.hitapla(
-        f"o gün gökyüzünde duran şeyi bir ülke say. Sen o ülkeye girdin ve "
-        f"eşiği geçtikten sonra geri dönmedin. İçerideki her şey {madde}"
-        f"tan yapılmıştı; {madde} {nitelik}. Sayım yapıldığında {sayim} "
-        "çıkıyordu."
+        f"şimdi o on gök cismini bir ülkenin sakinleri say; durdukları "
+        f"burçları da o ülkenin bölgeleri. Sen o ülkeye girdin ve eşiği "
+        f"geçtikten sonra geri dönmedin. Sayım yapıldığında {sayim} "
+        f"çıkıyordu, yani ülkenin ağırlığı {madde} tarafındaydı; {madde} "
+        f"{nitelik}."
     )
 
     paragraflar = [ilk]
@@ -203,11 +225,18 @@ def bolum_kapi(b: Baglam) -> List[str]:
     )
     rol = karakter.rol if karakter else "orada duran kişi"
 
+    # Ölçüm cümlesini masala taşı: bu cismin ufka olan gerçek uzaklığı
+    # zaten olgusal bölümde geçti, burada aynı görüntüye geri dönülüyor.
+    derece = ""
+    if "uzaklıkta" in imza.label:
+        derece = imza.label.split("noktasına")[1].split("uzaklıkta")[0].strip()
+        derece = derece.replace(".", ",")   # Türkçe ondalık ayracı
+
     satirlar.append(
         f"İlk durağın {kurgu} oldu. Onu sen açtın; içeriden açan olmadı. "
-        f"{bulunma(kurgu).capitalize()} {cisim_adi} bekliyordu: {rol}. "
-        "Seni görünce şaşırmadı, çünkü orada bekliyor olmasının sebebi "
-        "zaten senin geleceğindi."
+        f"{bulunma(kurgu).capitalize()} {b.olcumle(cisim_adi)} bekliyordu"
+        + (f", ufuktan yalnızca {derece} ötede" if derece else "")
+        + f": {rol}. Sabah onu gökyüzünde görebilseydin, tam orada duruyordu."
     )
 
     if len(kullanilan) > 1:
@@ -259,8 +288,8 @@ def bolum_meclis(b: Baglam) -> List[str]:
         f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
         f"{yer_tarifi.capitalize()} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
-        "Kapıyı çalmadan girdin ve konuşma kesilmedi; sanki bekleniyordun, "
-        "sanki senin gelmen konuşmanın bir parçasıydı."
+        "Gökyüzünde de öyleydiler: o sabah dördü birden, göğün aynı dar "
+        "diliminde duruyordu. Kapıyı çalmadan girdin ve konuşma kesilmedi."
     ]
 
     # Yığındaki cisimlerden birinin görünmez olması en güçlü ayrıntıdır.
@@ -314,8 +343,11 @@ def bolum_yonetici(b: Baglam) -> List[str]:
     k = KARAKTERLER[anahtar]
     nerede = mekan_bulunma(mekan.ad, mekan.iyelikli)
     return [
-        f"Ülkeyi yönetenin {ad} olduğunu söylediler, sen de onu aramaya "
-        f"gittin. {nerede.capitalize()}ydı — {mekan.nitelik} bir yer. "
+        f"Ülkeyi yönetenin {ad} olduğunu söylediler; ülkenin kapısı onun "
+        f"işaretini taşıyordu. Onu aramaya gittin. Gökyüzünde "
+        f"{body.sign_name_tr} burcunun {int(body.degree_in_sign)}. "
+        f"derecesindeydi; ülkede bunun karşılığı "
+        f"{nerede} olmaktı — {mekan.nitelik} bir yer. "
         f"Ülkeyi oradan, uzaktan {k.fiil_anlati}. Neden kapıda durmadığını "
         "sorduğunda, kapının kendisini görmediğini söyledi."
     ]
@@ -339,9 +371,20 @@ def bolum_bag(b: Baglam) -> List[str]:
         if en_dar.orb < 0.5
         else f"{en_dar.orb:.2f} dereceydi"
     )
+    a_cisim = next((c for c in b.chart.bodies if c.name_tr == en_dar.name_a_tr), None)
+    b_cisim = next((c for c in b.chart.bodies if c.name_tr == en_dar.name_b_tr), None)
+    konumlar = ""
+    if a_cisim and b_cisim:
+        konumlar = (
+            f" Biri {a_cisim.sign_name_tr} burcunun "
+            f"{int(a_cisim.degree_in_sign)}. derecesinde, öteki "
+            f"{b_cisim.sign_name_tr} burcunun "
+            f"{int(b_cisim.degree_in_sign)}. derecesinde duruyordu."
+        )
     return [
-        f"Ülkeden geçen dümdüz bir yol vardı ve o yolu yürüdün: {iliski}. "
-        f"Tam açıdan sapma {sapma}; ülkedeki hiçbir şey bu kadar düzgün "
+        f"Ülkeden geçen dümdüz bir yol vardı ve o yolu yürüdün: {iliski}."
+        + konumlar
+        + f" Tam açıdan sapma {sapma}; ülkedeki hiçbir şey bu kadar düzgün "
         "değildi. Yolun iki ucu da yerinden kımıldamadığı için yürümek "
         "kolaydı — zor olan, nereye gittiğini bilmemekti."
     ]
