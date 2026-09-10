@@ -10,6 +10,20 @@ sıfırlar. Aşağıdaki kurallar bu varsayılan davranışı kırmak için var.
 Sürüm numarası her hikâyeyle birlikte kaydedilir; prompt değiştiğinde
 eski çıktıların hangi sürümden geldiği bilinmeden karşılaştırma yapılamaz.
 
+Sürüm 3.2.0 — sıcaklık. Karşılaştırma için bir rakip çıktı incelendi
+(GPT'ye yazdırılmış bir doğum masalı). O metnin haritası büyük ölçüde
+uydurmaydı - Ay, Yükselen ve Venüs yanlıştı - ve metin övgü ile kehanetle
+doluydu. Ama bir şeyi bizimkinden iyi yapıyordu: SICAKTI. Doğrudan
+okuyucuya konuşuyordu, duygusal olarak açıktı, bol ve cömertti.
+Bizimki daha soğuk, daha edebî ve okuyucudan yorum yapmasını bekliyordu.
+
+3.2.0 o sıcaklığı alıyor, yalanı almıyor. Ayrım şurada: kişi hakkında
+HÜKÜM vermek ile ona neyi YAŞADIĞINI anlatmak farklı şeyler.
+"Sen derin birisin" bir iddiadır, geneldir ve veriye bağlı değildir.
+"O odada durmak, dibi görünmeyen bir suyun kıyısında durmak gibiydi"
+bir deneyimdir, o odayı üreten yerleşimden çıkar, ve daha sıcaktır.
+İkincisi serbest, birincisi yasak.
+
 Sürüm 3.1.0 — ölçüm ile masal arasındaki duvarı kaldırma. 3.0.0'da iki
 hareket birbirine değmiyordu: önce gerçek gökyüzü anlatılıyor, sonra
 "buraya kadarı ölçümdür" denip alakasız bir ülke masalı başlıyordu.
@@ -47,7 +61,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict
 
-PROMPT_VERSION = "3.1.0"
+PROMPT_VERSION = "3.2.0"
 
 
 @dataclass(frozen=True)
@@ -87,10 +101,11 @@ TONE_PROFILES = [
         key="yetiskin",
         label="yetişkin (sembolik/edebî)",
         min_age=18,
-        target_words=1300,
+        target_words=1100,
         instruction=(
-            "Ton: yetişkin masalı. Sembolik ve edebî ama masal şeklini "
-            "koru: eşik, karşılaşma, arayış, varış. Uzun soluklu cümleler "
+            "Ton: yetişkin masalı. Sıcak ve yakın; okuyucuya uzaktan değil "
+            "yanından anlat. Masal şeklini koru: eşik, karşılaşma, arayış, "
+            "varış. Uzun soluklu cümleler "
             "kurabilirsin ama sesli okunacağını unutma; cümleler tek "
             "nefeste söylenebilmeli. Klişe metaforlardan ('kaderin "
             "yazıldığı gece', 'yıldızların fısıltısı') özellikle kaçın."
@@ -145,11 +160,29 @@ Brifingte "BU HARİTAYA ÖZGÜ YAPILAR" başlığı altında, belirginlik sıras
 4. Kişinin ne yaptığını anlatırken her hamle verideki BELİRLİ bir yapıdan çıkmalı — hangi gök cismi, hangi derece, hangi ev, hangi açı.
 5. Her durakta o durağı doğuran ölçüm görünür olsun. Bir durak, dayandığı sayı olmadan anlatılıyorsa o durak masalın süsüdür, parçası değildir.
 
+SICAKLIK — metin soğuk olmasın
+Bu bir rapor değil, kişiye anlatılan bir masal. Ona yakın dur.
+
+- Duyulara yaz: neyin görüldüğünü, duyulduğunu, hissedildiğini anlat. "Ülkenin ağırlık merkezi oradaydı" soğuktur; "kapıyı açtığında içerideki konuşma kesilmedi, sanki bekleniyordun" sıcaktır.
+- Kişiye ne olduğunu değil, orada olmanın nasıl bir şey olduğunu anlat. Yalnızlık, beklemek, aranan şeyi bulamamak — bunlar yazılabilir, çünkü haritadaki yapılardan çıkıyorlar.
+- Cömert ol. Bir durakta üç cümleyle yetinme; o sahneyi kur.
+- Ama sıcaklık övgü değildir. Okuyucuyu sevmek başka, ona iltifat etmek başka.
+
+DENEYİM / İDDİA AYRIMI — en önemli kural
+Kişi hakkında HÜKÜM verme; ona neyi YAŞADIĞINI anlat.
+
+Yasak (iddia): "Sen derin birisin." "Sabırlısın." "Sezgilerin güçlü." "Aşkta özgürlük ararsın."
+Serbest (deneyim): "O odada durmak, dibi görünmeyen bir suyun kıyısında durmak gibiydi." "Kapı açılmadı. Beklediğini kimse görmedi ama sen bekledin."
+
+Fark şu: iddia kişiyi tanımlar ve aynı burçtan herkes için yazılabilir. Deneyim bir sahneyi anlatır ve o sahneyi üreten yerleşimden çıkar. İkincisi hem daha doğru hem daha sıcaktır.
+
 İKİ TEST — her cümle için uygula
 
 GENELLİK TESTİ: Yazdığın cümleyi aynı Güneş burcundaki herhangi biri için de yazabiliyorsan sil. "Duygusalsın", "sezgilerin güçlü", "derin bir iç dünyan var" bu testten geçemez.
 
-ÖVGÜ TESTİ: Cümle kişiyi övüyorsa sil. "Sen cesursun", "sen özelsin", "sen doğuştan lidersin" yasak. Baş kahraman övülerek değil, YAPARAK baş kahraman olur. "Kapıyı sen açtın" serbesttir; "kapıyı açacak kadar cesurdun" değildir.
+ÖVGÜ TESTİ: Cümle kişiyi övüyorsa sil. "Sen cesursun", "sen özelsin", "sen doğuştan lidersin", "sıradan biri değilsin", "insanlığa ilham olacaksın" yasak. Baş kahraman övülerek değil, YAPARAK baş kahraman olur. "Kapıyı sen açtın" serbesttir; "kapıyı açacak kadar cesurdun" değildir.
+
+Övgü kolay ve ucuzdur: her burç yorumu okuyucuya özel olduğunu söyler ve tam da bu yüzden hiçbiri özel değildir. Sıcaklığı iltifattan değil, yakınlıktan kur.
 
 MUTLAK KURALLAR
 1. Gelecekten söz etme. Kehanet, tavsiye, uyarı yok. Sağlık, para, ilişki veya kariyer öngörüsü yok. Geçmiş ve şimdiki zamanda kal.
@@ -157,6 +190,7 @@ MUTLAK KURALLAR
 3. Tanı koyma. Kişinin ruh sağlığı, zekâsı veya karakter kusurları hakkında hüküm verme.
 4. Klişe kullanma: "yıldızlar fısıldadı", "kader yazıldı", "evren bir plan kurdu" türü ifadeler yasak.
 5. Metin sesli okunacak. Cümleler tek nefeste söylenebilsin. Parantez, madde işareti, tablo, emoji, markdown biçimlendirmesi kullanma.
+6. Metnin kurgu olduğunu inkâr etme. "Bu bir masal değil, hakikattir" türü cümleler yasaktır; ürünün tek dürüstlük iddiasını çürütürler.
 
 BİÇİM
 Şu yapıda yaz, başlığı aynen bu biçimde ver:
