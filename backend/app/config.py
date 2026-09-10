@@ -21,7 +21,7 @@ DEFAULT_MODEL = "claude-opus-5"
 
 # Ücretsiz katmanda ya da yerel çalışan sağlayıcılar. Bunlar için maliyet
 # sıfır raporlanır; günlük harcama tavanı da doğal olarak devreye girmez.
-UCRETSIZ_SAGLAYICILAR = {"gemini_ucretsiz", "openai_uyumlu"}
+UCRETSIZ_SAGLAYICILAR = {"gemini", "openai_uyumlu", "sablon"}
 
 VARSAYILAN_MODELLER = {
     "anthropic": "claude-opus-5",
@@ -29,6 +29,7 @@ VARSAYILAN_MODELLER = {
     #   curl "https://generativelanguage.googleapis.com/v1beta/models?key=ANAHTAR"
     "gemini": "gemini-3-flash",
     "openai_uyumlu": "llama3.1:8b",
+    "sablon": "sablon",
 }
 
 
@@ -65,12 +66,15 @@ class Settings:
             return bool(self.gemini_api_key)
         if self.llm_saglayici == "openai_uyumlu":
             return bool(self.llm_temel_adres)
+        if self.llm_saglayici == "sablon":
+            # Şablon motoru hiçbir kimlik bilgisi istemez; her zaman hazır.
+            return True
         return bool(self.anthropic_api_key)
 
     @property
     def ucretsiz_saglayici(self) -> bool:
         """Sağlayıcı ücretsiz katmanda ya da yerel mi çalışıyor."""
-        return self.llm_saglayici in ("gemini", "openai_uyumlu")
+        return self.llm_saglayici in UCRETSIZ_SAGLAYICILAR
 
     @property
     def tts_available(self) -> bool:

@@ -11,6 +11,8 @@ servisler ya da makinede çalışan yerel bir model aynı promptu çalıştırab
 - `GeminiSaglayici`      — Google. Ücretsiz katmanı var, fatura gerekmez.
 - `OpenAIUyumluSaglayici`— /chat/completions konuşan her şey: yerel Ollama,
                            OpenRouter'ın ücretsiz modelleri, Groq, LM Studio.
+- `SablonSaglayici`      — hiçbir model çağırmaz; metni şablon motoru üretir.
+                           Ağ gerekmez, maliyet sıfır, kota yok.
 
 Yeni bağımlılık eklemiyoruz; Gemini ve OpenAI uyumlu uçlar doğrudan HTTP
 ile konuşuluyor.
@@ -262,6 +264,42 @@ class OpenAIUyumluSaglayici:
             metin=metin,
             girdi_token=kullanim.get("prompt_tokens", 0),
             cikti_token=kullanim.get("completion_tokens", 0),
+            model=self.model,
+            saglayici=self.ad,
+        )
+
+
+# --------------------------------------------------------------------------
+# Şablon motoru
+# --------------------------------------------------------------------------
+
+class SablonSaglayici:
+    """Şablon motorunu bir sağlayıcı gibi sunar.
+
+    Diğer sağlayıcılardan farkı, aldığı promptu KULLANMAMASI: metni
+    haritadan doğrudan üretir. Yine de aynı arayüzü uyguluyor, çünkü
+    böylece uygulamanın geri kalanı (API ucu, iOS istemcisi, maliyet
+    hesabı) metnin nereden geldiğini bilmek zorunda kalmıyor. Anahtarı
+    olmayan bir kurulumda ürünün uçtan uca çalışmasını sağlayan yol budur.
+    """
+
+    ad = "sablon"
+
+    def __init__(self, chart, name: Optional[str] = None) -> None:
+        self._chart = chart
+        self._name = name
+        from .sablon.motor import SABLON_SURUMU
+
+        self.model = f"sablon-v{SABLON_SURUMU}"
+
+    def uret(self, sistem: str, kullanici: str, en_fazla_token: int) -> UretimSonucu:
+        from .sablon.motor import uret as sablon_uret
+
+        baslik, govde = sablon_uret(self._chart, ad=self._name)
+        return UretimSonucu(
+            metin=f"BAŞLIK: {baslik}\n\n{govde}",
+            girdi_token=0,
+            cikti_token=0,
             model=self.model,
             saglayici=self.ad,
         )

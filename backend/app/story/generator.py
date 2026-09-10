@@ -19,6 +19,7 @@ from .saglayicilar import (
     GeminiSaglayici,
     LLMSaglayici,
     OpenAIUyumluSaglayici,
+    SablonSaglayici,
     SaglayiciHatasi,
     YapilandirmaEksik,
 )
@@ -63,7 +64,7 @@ class Story:
     @property
     def cost_usd(self) -> Optional[float]:
         # Ücretsiz katman ya da yerel model: maliyet sıfır, tahmin değil.
-        if self.provider in ("gemini", "openai_uyumlu", "elle"):
+        if self.provider in ("gemini", "openai_uyumlu", "elle", "sablon"):
             return 0.0
         fiyat = MODEL_PRICING_USD.get(self.model)
         if not fiyat:
@@ -129,11 +130,21 @@ def story_from_text(
     )
 
 
-def saglayici_kur(settings=None) -> LLMSaglayici:
-    """Ayarlardan yapılandırılmış dil modeli sağlayıcısını kurar."""
+def saglayici_kur(settings=None, chart=None, name=None) -> LLMSaglayici:
+    """Ayarlardan yapılandırılmış hikâye sağlayıcısını kurar.
+
+    `chart` yalnızca şablon motoru için gerekli: o, promptu kullanmaz,
+    metni doğrudan haritadan üretir.
+    """
     settings = settings or get_settings()
     secim = settings.llm_saglayici
 
+    if secim == "sablon":
+        if chart is None:
+            raise StoryServiceNotConfigured(
+                "Şablon sağlayıcısı harita olmadan kurulamaz."
+            )
+        return SablonSaglayici(chart, name)
     if secim == "gemini":
         return GeminiSaglayici(settings.story_model, settings.gemini_api_key)
     if secim == "openai_uyumlu":
@@ -145,7 +156,7 @@ def saglayici_kur(settings=None) -> LLMSaglayici:
 
     raise StoryServiceNotConfigured(
         f"Bilinmeyen sağlayıcı: {secim}. LLM_SAGLAYICI şunlardan biri olmalı: "
-        "anthropic, gemini, openai_uyumlu."
+        "anthropic, gemini, openai_uyumlu, sablon."
     )
 
 
@@ -182,7 +193,9 @@ def generate_story(
     settings = get_settings()
     if provider is None:
         try:
-            provider = saglayici_kur(settings)
+            provider = saglayici_kur(
+                settings, chart=chart, name=name or chart.birth.name
+            )
         except YapilandirmaEksik as exc:
             raise StoryServiceNotConfigured(
                 f"Hikâye servisi yapılandırılmamış: {exc}"
