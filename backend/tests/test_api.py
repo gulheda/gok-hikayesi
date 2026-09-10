@@ -80,3 +80,25 @@ def test_llm_yapilandirilmamissa_503_dondurur(monkeypatch):
     })
     assert r.status_code == 503
     assert "ANTHROPIC_API_KEY" in r.json()["detail"]
+
+
+def test_sablon_saglayicisi_anahtarsiz_hikaye_uretir(monkeypatch):
+    """Ürünün anahtarsız uçtan uca çalışabilmesi bir ürün gereksinimi:
+    doğrulama aşamasında para harcamak zorunda kalınmamalı."""
+    monkeypatch.setenv("LLM_SAGLAYICI", "sablon")
+    r = client.post("/api/hikaye", json={
+        "ad": "Gülheda", "tarih": "2003-07-03", "saat": "09:00", "yer": "Denizli",
+    })
+    assert r.status_code == 200
+    d = r.json()
+    assert d["baslik"]
+    assert d["kelime_sayisi"] > 100
+    assert d["maliyet_usd"] == 0.0
+    assert d["model"].startswith("sablon-v")
+    # Olgusal panel yine koddan üretiliyor.
+    assert "HESAPLANAN VERİ" in d["olgusal_panel"]
+
+
+def test_sablon_saglayicisi_saglik_ucunda_hazir_gorunur(monkeypatch):
+    monkeypatch.setenv("LLM_SAGLAYICI", "sablon")
+    assert client.get("/saglik").json()["llm_yapilandirildi"] is True

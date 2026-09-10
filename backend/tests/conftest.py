@@ -3,7 +3,17 @@ from __future__ import annotations
 
 import pytest
 
+import pytest
+
 from app.api.koruma import gunluk_tavan, pahali_pencere, ucuz_pencere
+
+# Sağlayıcı seçimini etkileyen ortam değişkenleri. Bunlar temizlenmezse
+# testler geliştiricinin .env dosyasına bağımlı hale gelir: makinede
+# LLM_SAGLAYICI=sablon yazıyorsa "yapılandırılmamış" testi geçemez.
+_LLM_ORTAMI = (
+    "LLM_SAGLAYICI", "ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN",
+    "GEMINI_API_KEY", "LLM_TEMEL_ADRES", "LLM_API_KEY", "STORY_MODEL",
+)
 
 
 @pytest.fixture(autouse=True)
@@ -18,4 +28,18 @@ def _sinirlari_sifirla():
     ucuz_pencere.sifirla()
     pahali_pencere.sifirla()
     gunluk_tavan.sifirla()
+    yield
+
+
+@pytest.fixture(autouse=True)
+def _llm_ortamini_yalit(monkeypatch):
+    """Testleri .env dosyasından yalıtır.
+
+    `config.load_dotenv()` içe aktarma anında .env'i os.environ'a
+    yüklüyor. Bu, testin sonucunu makinedeki yapılandırmaya bağlar -
+    aynı test bir makinede geçip diğerinde kalır. Sağlayıcıya ihtiyacı
+    olan testler onu kendisi ayarlasın.
+    """
+    for anahtar in _LLM_ORTAMI:
+        monkeypatch.delenv(anahtar, raising=False)
     yield
