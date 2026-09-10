@@ -69,6 +69,7 @@ class PlacedBody:
     is_retrograde: bool
     speed_longitude: float
     latitude: float
+    distance_au: float          # Dünya'ya uzaklık; anlatıda kullanılıyor
 
     @property
     def display_position(self) -> str:
@@ -281,6 +282,7 @@ def calculate_chart(birth: BirthInput) -> NatalChart:
                 is_retrograde=pos.is_retrograde,
                 speed_longitude=pos.speed_longitude,
                 latitude=pos.latitude,
+                distance_au=pos.distance_au,
             )
         )
 

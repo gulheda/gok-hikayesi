@@ -115,6 +115,9 @@ def main() -> int:
     p.add_argument("--hikaye-oku", metavar="DOSYA",
                    help="Elle üretilmiş hikâye metnini bu dosyadan oku "
                         "(model çağrısı yapılmaz)")
+    p.add_argument("--sablon", action="store_true",
+                   help="Hikâyeyi şablon motoruyla üret: dil modeli çağrılmaz, "
+                        "ağ gerekmez, maliyet sıfır")
     p.add_argument("--ios-ornek", action="store_true",
                    help="Sonucu iOS uygulamasının örnek yanıt dosyasına yaz")
     p.add_argument("--kaydet", help="Çıktıyı bu dosyaya yaz")
@@ -155,7 +158,19 @@ def main() -> int:
 
     parcalar = [olgusal_panel(chart)]
 
-    if args.hikaye_oku:
+    if args.sablon:
+        from app.story.sablon.motor import SABLON_SURUMU, uret as sablon_uret
+        from app.story.generator import story_from_text
+
+        baslik, govde = sablon_uret(chart, ad=args.ad)
+        story = story_from_text(chart, "BAŞLIK: " + baslik + "\n\n" + govde,
+                                model="sablon-v" + SABLON_SURUMU)
+        parcalar.extend(_hikaye_bolumu(story))
+        if args.ios_ornek:
+            yol = _ios_ornegi_yaz(chart, story, yer)
+            print("\n[iOS örneği güncellendi: " + yol + "]", file=sys.stderr)
+
+    elif args.hikaye_oku:
         try:
             with open(args.hikaye_oku, encoding="utf-8") as f:
                 ham = f.read()
