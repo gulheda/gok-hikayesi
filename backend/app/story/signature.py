@@ -24,7 +24,7 @@ derece yakın" ayrı, "1 derece yakın" ayrı sayılır.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from ..astro.aspects import angular_separation
 from ..astro.chart import NatalChart, PlacedBody
@@ -63,6 +63,12 @@ class Signature:
     label: str                    # modele verilecek tek satırlık tanım
     olcum: Olcum                  # ölçülmüş seyreklik
     note: Optional[str] = None    # gerekçe
+    ilgili: Tuple[str, ...] = ()  # yapının değindiği gök cismi anahtarları
+
+    # `ilgili` anlatı omurgasını kurmak için: iki yapı aynı cisme
+    # değiyorsa aralarında anlatısal bir bağ vardır ve arka arkaya
+    # anlatıldıklarında tek bir sahne olurlar. Bu alan olmadan hikâye,
+    # birbirine değmeyen ilginç olgular listesine dönüşüyor.
 
     @property
     def rarity(self) -> str:
@@ -128,6 +134,7 @@ def angular_bodies(chart: NatalChart) -> List[Signature]:
                     note=(
                         f"Ölçüm: {olcum.insan_ifadesi} görülüyor.{ek}"
                     ),
+                    ilgili=(body.key,),
                 )
             )
     return bulunanlar
@@ -157,6 +164,7 @@ def stelliums(chart: NatalChart) -> List[Signature]:
                     ),
                     olcum=olcum,
                     note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+                    ilgili=tuple(b.key for b in grup),
                 )
             )
 
@@ -174,6 +182,7 @@ def stelliums(chart: NatalChart) -> List[Signature]:
                     ),
                     olcum=olcum,
                     note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+                    ilgili=tuple(b.key for b in grup),
                 )
             )
 
@@ -197,6 +206,7 @@ def tight_aspects(chart: NatalChart) -> List[Signature]:
                 ),
                 olcum=olcum,
                 note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+                ilgili=(a.body_a, a.body_b),
             )
         )
     return bulunanlar
@@ -235,6 +245,7 @@ def chart_ruler(chart: NatalChart) -> List[Signature]:
             olcum=olc("chart_ruler"),
             note="Her haritada vardır; anlatının başrolü için doğal aday "
                  "ama tek başına ayırt edici değildir.",
+            ilgili=(yonetici_key,),
         )
     ]
 
@@ -302,6 +313,7 @@ def retrograde_signature(chart: NatalChart) -> List[Signature]:
                 ),
                 olcum=olcum,
                 note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+                ilgili=tuple(b.key for b in ic_gerileyen),
             )
         )
     if dis_gerileyen:
@@ -313,6 +325,7 @@ def retrograde_signature(chart: NatalChart) -> List[Signature]:
                     + ", ".join(b.name_tr for b in dis_gerileyen)
                 ),
                 olcum=Olcum("outer_retrograde", 0.835),
+                ilgili=tuple(b.key for b in dis_gerileyen),
                 note=(
                     "Dış gezegenler yılın yaklaşık yarısında gerilemededir; "
                     "bunu ayırt edici bir özellik gibi anlatma."
@@ -339,6 +352,7 @@ def unaspected_bodies(chart: NatalChart) -> List[Signature]:
             olcum=olcum,
             note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor. Haritanın geri "
                  "kalanıyla bağlantısız; anlatıda yalnız bir figür.",
+            ilgili=tuple(b.key for b in yalnizlar),
         )
     ]
 
@@ -361,6 +375,7 @@ def patterns(chart: NatalChart) -> List[Signature]:
                 label=desen.tanim,
                 olcum=olcum,
                 note=f"Ölçüm: {olcum.insan_ifadesi} görülüyor.",
+                ilgili=desen.ilgili,
             )
         )
     return bulunanlar

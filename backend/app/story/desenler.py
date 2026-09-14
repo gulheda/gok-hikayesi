@@ -131,7 +131,9 @@ def gunese_gomulu(chart: NatalChart) -> Optional[Desen]:
         f"Güneş'e gömülü gök cismi/cisimleri: {adlar}. En yakını "
         f"{en_yakin.name_tr}, yalnızca {uzaklik:.1f} derece uzakta — "
         "haritada tam olarak orada, gökyüzünde tam olarak görünmez.",
-        tuple(b.key for b in gomulular),
+        # Güneş de ilgili sayılıyor: bağ tam ondan geçiyor. Onu dışarıda
+        # bırakmak, anlatı omurgasındaki en güçlü zinciri koparır.
+        ("Sun",) + tuple(b.key for b in gomulular),
     )
 
 

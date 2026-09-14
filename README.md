@@ -22,7 +22,7 @@ dokunmaz.
 | — | İstek sınırlama + harcama tavanı | ✅ Tamam |
 | — | Erişilebilirlik + uygulama ikonu | ✅ Tamam |
 
-121 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
+228 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
 
 ## Hızlı başlangıç
 
@@ -74,13 +74,15 @@ backend'in `127.0.0.1:8000` üzerinde ayakta olması gerekir.
 backend/
   app/astro/      hesaplama motoru (efemeris, zaman, ev, açı)
   app/geo/        doğum yeri → koordinat (81 il çevrimdışı + Nominatim)
-  app/story/      brifing + prompt + üretim
+  app/story/      brifing, imza, seyreklik ölçümü, anlatı omurgası,
+                  prompt ve şablon motoru
   app/tts/        seslendirme + maliyet
   app/api/        FastAPI uçları
   tools/          CLI ve bağımsız efemeris çapraz kontrolü
-  tests/          121 test
+  tests/          228 test
   data/ephe/      Swiss Ephemeris veri dosyaları (1800–2399)
   data/jpl/       JPL DE440s (yalnızca doğrulama için)
+  data/nadirlik.json  20.000 haritadan ölçülmüş yapı seyreklikleri
 ios/AstroHikaye/  SwiftUI uygulaması
 docs/             kararlar, lisans notu, örnek çıktı
 ```
@@ -100,6 +102,27 @@ bağımsız çıpaya dayanıyor:
 
 ```bash
 .venv/bin/python backend/tools/crosscheck_skyfield.py
+```
+
+## Hikâye nasıl kişiye özel oluyor
+
+Üç katman:
+
+1. **İmza** — haritadaki ayırt edici yapılar çıkarılır: açısal noktalara
+   yakınlık, yığılmalar, dar açılar, tutulma, T-kare, büyük üçgen, eksik
+   element, Güneş'e gömülü cisim.
+2. **Ölçülmüş seyreklik** — her yapının gerçekte kaç haritada göründüğü
+   20.000 rastgele doğumla sayıldı. Etiketler tahmin değil, ölçüm.
+   Örnek: "açısal noktaya yakınlık" %61 (yaygın), "gün doğumunda doğmak"
+   %0,65 (çok ender). Bu ayrım olmadan hikâye yaygın bir şeyin üzerine
+   kurulur.
+3. **Anlatı omurgası** — sıralı bir liste hikâye değildir. Motor, ortak
+   gök cisimleri üzerinden birbirine bağlanan 3-4 yapı seçer; böylece
+   metin ilginç olgular listesi değil, tek bir sahne olur.
+
+```bash
+# Seyreklik ölçümünü yeniden üret
+.venv/bin/python backend/tools/imza-kalibrasyon.py --ornek 20000 --yaz
 ```
 
 ## Kayda değer iki ayrıntı

@@ -17,6 +17,7 @@ from datetime import date
 from typing import List, Optional
 
 from ..astro.chart import NatalChart
+from .omurga import kur as omurga_kur
 from .signature import collect as collect_signatures, common_traits
 
 # Hikâyeye girecek açı sayısı. Tümü verilirse model önemsiz açılara da
@@ -178,14 +179,29 @@ def llm_brifingi(chart: NatalChart) -> str:
     # Ayırt edici yapılar. Hikâyenin kişiye ait hissettirmesi buradan gelir:
     # model yaygın olana değil, ender olana tutunmalı.
     imzalar = collect_signatures(chart)
+
+    # Anlatı omurgası: yapıları sıralamak yetmiyor, hangilerinin BİRLİKTE
+    # bir sahne kurduğunu da söylemek gerekiyor. Sıralı bir liste hikâye
+    # değildir; olgular birbirine değdiğinde hikâye olur.
+    if imzalar:
+        from ..astro.constants import BODY_BY_KEY
+
+        omurga = omurga_kur(chart, imzalar=imzalar)
+        omurga_satirlari = omurga.brifing_satirlari(
+            {k: v.name_tr for k, v in BODY_BY_KEY.items()}
+        )
+        if omurga_satirlari:
+            satirlar.extend(omurga_satirlari)
+            satirlar.append("")
+
     if imzalar:
         from .nadirlik import ornek_sayisi
 
         satirlar.append(
             "BU HARİTAYA ÖZGÜ YAPILAR — seyreklik sırasına göre. Oranlar "
             f"{ornek_sayisi()} rastgele harita üzerinden ÖLÇÜLDÜ, tahmin "
-            "edilmedi. En üsttekiler bu haritayı en çok ayırt eden yapılardır; "
-            "hikâyeyi onların üzerine kur."
+            "edilmedi. Omurgada geçmeyen yapıları arka planda kullanabilirsin "
+            "ama durak yapma."
         )
         for imza in imzalar:
             oran = (f"%{imza.oran * 100:.1f} — {imza.insan_ifadesi}"
