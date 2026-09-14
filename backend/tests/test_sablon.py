@@ -243,3 +243,22 @@ def test_zincir_girisi_gereksiz_tekrar_etmez():
     for harita in (SAATLI, BASKA):
         _, govde = uret(harita)
         assert govde.count("bir kez daha karşına çıktı") <= 1
+
+
+def test_sablon_motorunda_python_capitalize_kullanilmaz():
+    """Gizli tuzak: capitalize() bugün zararsız olabilir ama sözlüğe
+    'i' ile başlayan bir metin eklendiği an sessizce bozulur. Türkçe
+    metin üreten hiçbir yerde kullanılmamalı."""
+    import pathlib
+
+    kok = pathlib.Path(__file__).resolve().parents[1] / "app" / "story"
+    suclular = []
+    for yol in kok.rglob("*.py"):
+        icerik = yol.read_text(encoding="utf-8")
+        for no, satir in enumerate(icerik.splitlines(), start=1):
+            if ".capitalize()" in satir and not satir.lstrip().startswith("#"):
+                # Açıklama metinlerinde geçmesi serbest.
+                if "`str.capitalize()`" in satir or "Python'un" in satir:
+                    continue
+                suclular.append(f"{yol.name}:{no}")
+    assert not suclular, f"capitalize() kullanımı: {suclular}"

@@ -409,7 +409,7 @@ def bolum_yalniz(b: Baglam) -> List[str]:
     return [
         f"Yolun kenarında birine rastladın: {ad}. Ülkenin geri kalanıyla "
         f"hiçbir bağı yoktu; ne bir ittifakı, ne bir çekişmesi. "
-        f"{k.yalnizken.capitalize()}. Yanına oturdun ve bir şey sormadın. "
+        f"{buyuk_harf(k.yalnizken)}. Yanına oturdun ve bir şey sormadın. "
         "Ülkede onunla konuşan ilk kişi sendin."
     ]
 
