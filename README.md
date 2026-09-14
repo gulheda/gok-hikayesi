@@ -22,7 +22,7 @@ dokunmaz.
 | — | İstek sınırlama + harcama tavanı | ✅ Tamam |
 | — | Erişilebilirlik + uygulama ikonu | ✅ Tamam |
 
-228 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
+255 test geçiyor. Ayrıntı: [docs/durum.md](docs/durum.md)
 
 ## Hızlı başlangıç
 
@@ -79,7 +79,7 @@ backend/
   app/tts/        seslendirme + maliyet
   app/api/        FastAPI uçları
   tools/          CLI ve bağımsız efemeris çapraz kontrolü
-  tests/          228 test
+  tests/          255 test
   data/ephe/      Swiss Ephemeris veri dosyaları (1800–2399)
   data/jpl/       JPL DE440s (yalnızca doğrulama için)
   data/nadirlik.json  20.000 haritadan ölçülmüş yapı seyreklikleri
