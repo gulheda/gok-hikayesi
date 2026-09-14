@@ -286,3 +286,42 @@ def test_desenler_imza_listesine_girer():
     anahtarlar = {i.key for i in collect(AFYON)}
     assert "gunese_gomulu" in anahtarlar
     assert "t_kare" in anahtarlar
+
+
+# --------------------------------------------------------------------------
+# Senaryo duyarlılığı
+# --------------------------------------------------------------------------
+
+def test_gun_dogumu_orani_senaryoya_duyarli_isaretlenir():
+    """Ölçümün en önemli bulgusu.
+
+    Doğum saati dağılımı varsayımı değiştiğinde çoğu yapının oranı %5'ten
+    az oynuyor, ama "gün doğumunda doğmak" ailesi üç buçuk kat değişiyor —
+    çünkü o yapı tamamen saate bağlı. Türkiye için gerçek saat dağılımı
+    bilinmediğinden bu oranı kesin bir sayıyla sunmak yanıltıcı olur.
+    """
+    from app.story.nadirlik import olc
+    o = olc("gun_dogumu_2")
+    assert o.senaryoya_duyarli
+    assert "kişiden birinde" not in o.insan_ifadesi
+    assert "doğum saati dağılımına bağlı" in o.insan_ifadesi
+
+
+def test_tutulma_orani_saglam_ve_sayiyla_verilir():
+    """Tutulma tarihe bağlı, saate değil; senaryo değişince oynamıyor."""
+    from app.story.nadirlik import olc
+    o = olc("ay_tutulmasi")
+    assert not o.senaryoya_duyarli
+    assert "kişiden birinde" in o.insan_ifadesi
+
+
+def test_duyarli_yapilar_yine_de_seyrek_sayilir():
+    """Oran belirsiz olsa da yapı her senaryoda seyrek: %0,24 ile %1,20
+    arasında. Belirsizlik, yapıyı anlatmamak için gerekçe değil."""
+    from app.story.nadirlik import olc
+    assert olc("gun_dogumu_2").etiket == BELIRGIN_COK
+
+
+def test_olculmemis_yapi_duyarli_sayilmaz():
+    from app.story.nadirlik import Olcum
+    assert not Olcum("yok", None).senaryoya_duyarli

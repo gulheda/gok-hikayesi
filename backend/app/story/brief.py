@@ -204,8 +204,12 @@ def llm_brifingi(chart: NatalChart) -> str:
             "ama durak yapma."
         )
         for imza in imzalar:
-            oran = (f"%{imza.oran * 100:.1f} — {imza.insan_ifadesi}"
-                    if imza.oran is not None else "ölçülmedi")
+            if imza.oran is None:
+                oran = "ölçülmedi"
+            elif imza.olcum.senaryoya_duyarli:
+                oran = imza.insan_ifadesi
+            else:
+                oran = f"%{imza.oran * 100:.1f} — {imza.insan_ifadesi}"
             satirlar.append(f"- [{imza.rarity} | {oran}] {imza.label}")
             if imza.note:
                 satirlar.append(f"  ({imza.note})")

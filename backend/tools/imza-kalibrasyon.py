@@ -32,7 +32,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 
 from app.astro.chart import BirthInput, calculate_chart
 from app.astro.timeutil import TimeResolutionError
+from app.geo.nufus import IL_NUFUSU
 from app.geo.places import TURKIYE_IL_MERKEZLERI
+from app.story.ornekleme import SENARYOLAR, VARSAYILAN_SENARYO, ay_sec
 from app.story.desenler import hepsi as desenleri_bul
 
 CIKTI = os.path.join(
@@ -41,17 +43,31 @@ CIKTI = os.path.join(
 )
 
 
-def rastgele_dogum(uretec: random.Random) -> BirthInput:
+_IL_ADLARI = list(TURKIYE_IL_MERKEZLERI.keys())
+_IL_AGIRLIKLARI = [float(IL_NUFUSU.get(il, 1)) for il in _IL_ADLARI]
+
+
+def rastgele_dogum(uretec: random.Random, senaryo) -> BirthInput:
     """Türkiye'de rastgele bir doğum anı.
 
-    Örneklem gerçek kullanıcı dağılımına benzesin diye yer Türkiye
-    illeriyle, tarih de yaşayan nüfusun doğum aralığıyla sınırlı.
+    Üç boyut ayrı ayrı ağırlıklandırılıyor:
+
+    - **Ay**: TÜİK eğilimine göre yaza kayık (Temmuz zirve, Şubat dip).
+    - **İl**: nüfusa göre. Eşit örnekleme küçük illeri yüz kat fazla
+      temsil eder ve enlem dağılımını bozar; Placidus ev sistemi enleme
+      duyarlı olduğu için bu, ev yapılarının ölçülen seyrekliğini kaydırır.
+    - **Saat**: senaryoya göre. Türkiye için gerçek dağılım bilinmiyor;
+      bu yüzden tek bir varsayım yerine senaryolar karşılaştırılıyor.
     """
-    baslangic = date(1950, 1, 1)
-    gun = uretec.randrange((date(2012, 12, 31) - baslangic).days)
-    d = baslangic + timedelta(days=gun)
-    t = time(uretec.randrange(24), uretec.randrange(60))
-    lat, lon = uretec.choice(list(TURKIYE_IL_MERKEZLERI.values()))
+    yil = uretec.randrange(1950, 2013)
+    ay = ay_sec(uretec)
+    # Ayın gün sayısını aşmamak için güvenli üst sınır.
+    son_gun = [31, 29 if yil % 4 == 0 and (yil % 100 != 0 or yil % 400 == 0)
+               else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][ay - 1]
+    d = date(yil, ay, uretec.randrange(1, son_gun + 1))
+    t = time(senaryo.sec(uretec), uretec.randrange(60))
+    il = uretec.choices(_IL_ADLARI, weights=_IL_AGIRLIKLARI, k=1)[0]
+    lat, lon = TURKIYE_IL_MERKEZLERI[il]
     return BirthInput(birth_date=d, birth_time=t, latitude=lat,
                       longitude=lon, place_name="örneklem")
 
@@ -150,7 +166,9 @@ CEKIRDEK = ("Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter",
             "Saturn", "Uranus", "Neptune", "Pluto")
 
 
-def olc(ornek_sayisi: int, tohum: int = 20030703) -> dict:
+def olc(ornek_sayisi: int, tohum: int = 20030703,
+        senaryo_anahtari: str = VARSAYILAN_SENARYO) -> dict:
+    senaryo = SENARYOLAR[senaryo_anahtari]
     uretec = random.Random(tohum)
     sayac: Counter = Counter()
     ek_sayac: Counter = Counter()
@@ -159,7 +177,7 @@ def olc(ornek_sayisi: int, tohum: int = 20030703) -> dict:
 
     while gecerli < ornek_sayisi:
         try:
-            chart = calculate_chart(rastgele_dogum(uretec))
+            chart = calculate_chart(rastgele_dogum(uretec, senaryo))
         except TimeResolutionError:
             # Yaz saati geçişindeki belirsiz/olmayan saatler; örneklemden düşer.
             atlanan += 1
@@ -172,6 +190,8 @@ def olc(ornek_sayisi: int, tohum: int = 20030703) -> dict:
     return {
         "ornek_sayisi": gecerli,
         "atlanan": atlanan,
+        "senaryo": senaryo_anahtari,
+        "senaryo_aciklamasi": senaryo.aciklama,
         "oranlar": {k: round(v / gecerli, 5) for k, v in sorted(sayac.items())},
     }
 
@@ -180,10 +200,19 @@ def main() -> int:
     p = argparse.ArgumentParser(description="İmza seyrekliğini ölçer")
     p.add_argument("--ornek", type=int, default=2000)
     p.add_argument("--yaz", action="store_true", help="Sonucu data/nadirlik.json'a yaz")
+    p.add_argument("--senaryo", default=VARSAYILAN_SENARYO,
+                   choices=sorted(SENARYOLAR),
+                   help="Doğum saati dağılımı varsayımı")
+    p.add_argument("--duyarlilik", action="store_true",
+                   help="Tüm senaryoları çalıştırıp sonuçları karşılaştır")
     args = p.parse_args()
 
-    print(f"{args.ornek} rastgele harita üretiliyor…", file=sys.stderr)
-    sonuc = olc(args.ornek)
+    if args.duyarlilik:
+        return duyarlilik(args.ornek)
+
+    print(f"{args.ornek} rastgele harita üretiliyor "
+          f"(senaryo: {args.senaryo})…", file=sys.stderr)
+    sonuc = olc(args.ornek, senaryo_anahtari=args.senaryo)
 
     print(f"\nÖrneklem: {sonuc['ornek_sayisi']} harita "
           f"({sonuc['atlanan']} atlandı)\n")
@@ -206,6 +235,44 @@ def main() -> int:
         with open(CIKTI, "w", encoding="utf-8") as f:
             json.dump(sonuc, f, ensure_ascii=False, indent=2)
         print(f"\n{CIKTI} yazıldı", file=sys.stderr)
+    return 0
+
+
+def duyarlilik(ornek_sayisi: int) -> int:
+    """Her senaryo için ayrı ölçüm yapıp sonuçların ne kadar oynadığını gösterir.
+
+    Türkiye için doğum saati dağılımı bilinmiyor. Tek bir varsayımla
+    üretilen oranı kesinmiş gibi sunmak yanıltıcı olur; bunun yerine
+    varsayım değiştiğinde oranın ne kadar kaydığı ölçülüyor. Az kayan
+    yapılar güvenle sayıyla anlatılabilir, çok kayanlar anlatılamaz.
+    """
+    sonuclar = {}
+    for anahtar in sorted(SENARYOLAR):
+        print(f"senaryo '{anahtar}' çalışıyor…", file=sys.stderr)
+        sonuclar[anahtar] = olc(ornek_sayisi, senaryo_anahtari=anahtar)["oranlar"]
+
+    anahtarlar = sorted(set().union(*(set(s) for s in sonuclar.values())))
+    baslik = "  ".join(f"{a:>8s}" for a in sorted(SENARYOLAR))
+    print(f"\n{'yapı':24s} {baslik}  {'oynama':>8s}")
+    print("-" * (26 + 10 * len(SENARYOLAR) + 10))
+
+    satirlar = []
+    for anahtar in anahtarlar:
+        oranlar = [sonuclar[s].get(anahtar, 0.0) for s in sorted(SENARYOLAR)]
+        en_az, en_cok = min(oranlar), max(oranlar)
+        # Göreli oynama: mutlak fark küçük ama oran da küçükse önemlidir.
+        oynama = (en_cok - en_az) / en_cok if en_cok > 0 else 0.0
+        satirlar.append((oynama, anahtar, oranlar))
+
+    for oynama, anahtar, oranlar in sorted(satirlar, reverse=True):
+        degerler = "  ".join(f"{o*100:7.2f}%" for o in oranlar)
+        uyari = "  <== SENARYOYA DUYARLI" if oynama > 0.35 else ""
+        print(f"{anahtar:24s} {degerler}  {oynama*100:6.0f}%{uyari}")
+
+    print("\nOynama = (en yüksek - en düşük) / en yüksek. Yüzde 35'in "
+          "üstündeki yapıların oranı tek bir sayıyla anlatılmamalı;\n"
+          "doğum saati dağılımı varsayımı değiştiğinde belirgin biçimde "
+          "kayıyorlar.", file=sys.stderr)
     return 0
 
 

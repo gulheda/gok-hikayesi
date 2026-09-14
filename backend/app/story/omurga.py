@@ -87,8 +87,15 @@ class Omurga:
             "hikâyeyi bu zincir üzerine kur."
         ]
         for i, durak in enumerate(self.duraklar, start=1):
-            oran = (f"%{durak.imza.oran * 100:.1f}"
-                    if durak.imza.oran is not None else "ölçülmedi")
+            olcum = durak.imza.olcum
+            if olcum.oran is None:
+                oran = "ölçülmedi"
+            elif olcum.senaryoya_duyarli:
+                # Kesin yüzde yazmıyoruz: bu yapının oranı doğum saati
+                # dağılımı varsayımına göre kat kat değişiyor.
+                oran = f"{olcum.etiket}, oran belirsiz"
+            else:
+                oran = f"%{olcum.oran * 100:.1f}"
             satirlar.append(f"{i}. [{oran}] {durak.imza.label}")
             if durak.ortak_cisimler:
                 adlar = ", ".join(

@@ -42,10 +42,28 @@ ETIKET_ORTA = "seyrek değil"
 ETIKET_YAYGIN = "yaygın"
 
 
+# Bu eşiğin üstünde oynayan yapılar, doğum saati dağılımı varsayımına
+# fazla bağlıdır ve oranları tek bir sayıyla sunulamaz.
+DUYARLILIK_ESIGI = 0.35
+
+
 @dataclass(frozen=True)
 class Olcum:
     anahtar: str
     oran: Optional[float]       # None: ölçülmemiş
+    oynama: Optional[float] = None   # senaryolar arası göreli oynama
+
+    @property
+    def senaryoya_duyarli(self) -> bool:
+        """Oran, doğum saati dağılımı varsayımına aşırı bağlı mı.
+
+        Türkiye için doğumların gün içindeki dağılımı bilinmiyor. Üç ayrı
+        varsayımla ölçüldüğünde çoğu yapının oranı %5'ten az oynuyor ama
+        "gün doğumunda doğmak" ailesi üç buçuk kat değişiyor - çünkü o
+        yapı tamamen saate bağlı. Böyle bir oranı "her 150 kişiden
+        birinde" diye sunmak, dayanağı olmayan bir kesinlik iddiasıdır.
+        """
+        return self.oynama is not None and self.oynama > DUYARLILIK_ESIGI
 
     @property
     def etiket(self) -> str:
@@ -82,6 +100,11 @@ class Olcum:
         """Oranı kullanıcının anlayacağı bir cümleye çevirir."""
         if self.oran is None or self.oran <= 0:
             return "ölçülmedi"
+        if self.senaryoya_duyarli:
+            # Kesin sayı verilmiyor: oran, doğum saati dağılımı
+            # varsayımına göre kat kat değişiyor.
+            return (f"{self.etiket} — kesin oran doğum saati dağılımına "
+                    "bağlı olduğu için verilmiyor")
         if self.oran >= 0.5:
             return f"haritaların yaklaşık %{self.oran * 100:.0f}'inde"
         kisi = round(1 / self.oran)
@@ -93,17 +116,29 @@ class Olcum:
 
 
 @lru_cache(maxsize=1)
-def _oranlar() -> Dict[str, float]:
+def _veri() -> Dict:
     try:
         with open(VERI_YOLU, encoding="utf-8") as f:
-            return json.load(f).get("oranlar", {})
+            return json.load(f)
     except (OSError, ValueError):
         # Kalibrasyon dosyası yoksa motor çalışmaya devam etmeli.
         return {}
 
 
+def _oranlar() -> Dict[str, float]:
+    return _veri().get("oranlar", {})
+
+
+def _oynamalar() -> Dict[str, float]:
+    return _veri().get("duyarlilik", {})
+
+
 def olc(anahtar: str) -> Olcum:
-    return Olcum(anahtar=anahtar, oran=_oranlar().get(anahtar))
+    return Olcum(
+        anahtar=anahtar,
+        oran=_oranlar().get(anahtar),
+        oynama=_oynamalar().get(anahtar),
+    )
 
 
 def kademe_anahtari(taban: str, deger: float, kademeler) -> str:
@@ -131,8 +166,4 @@ ACI_KADEMELERI = (0.2, 0.5, 1.0, 2.0)
 
 
 def ornek_sayisi() -> int:
-    try:
-        with open(VERI_YOLU, encoding="utf-8") as f:
-            return int(json.load(f).get("ornek_sayisi", 0))
-    except (OSError, ValueError):
-        return 0
+    return int(_veri().get("ornek_sayisi", 0))

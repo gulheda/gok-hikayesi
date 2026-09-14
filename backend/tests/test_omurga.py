@@ -104,3 +104,24 @@ def test_zincir_bonusu_kopuk_ama_seyrek_yapiya_karsi_calisir():
     oranlar = [d.imza.oran for d in omurga.duraklar if d.imza.oran is not None]
     # En seyrek durak ilk sırada; sonrakiler ondan daha yaygın olabilir.
     assert oranlar[0] == min(oranlar)
+
+
+def test_duyarli_yapida_kesin_yuzde_yazilmaz():
+    """Doğum saati dağılımına bağlı oranlar sayıyla sunulmamalı.
+
+    Afyon haritasının omurgası gün doğumuyla başlıyor ve o yapının oranı
+    varsayıma göre üç buçuk kat oynuyor; "%2,3" yazmak dayanağı olmayan
+    bir kesinlik iddiasıdır.
+    """
+    from app.astro.constants import BODY_BY_KEY
+
+    omurga = kur(AFYON)
+    ilk = omurga.duraklar[0]
+    assert ilk.imza.olcum.senaryoya_duyarli, "test haritası değişmiş olabilir"
+
+    satirlar = omurga.brifing_satirlari(
+        {k: v.name_tr for k, v in BODY_BY_KEY.items()}
+    )
+    ilk_satir = next(s for s in satirlar if s.startswith("1."))
+    assert "oran belirsiz" in ilk_satir
+    assert "%2" not in ilk_satir
