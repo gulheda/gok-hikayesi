@@ -44,6 +44,23 @@ def _kucult(harf: str) -> str:
     return harf.replace("I", "ı").replace("İ", "i").lower()
 
 
+def buyuk_harf(metin: str) -> str:
+    """Türkçeye duyarlı ilk harf büyütme.
+
+    Python'un `str.capitalize()` metodu 'i' harfini 'I' yapar; Türkçede
+    doğrusu 'İ'dir. "içsel" -> "Içsel" gibi çıktılar metni anında
+    yabancı gösterir ve bu hata sessizdir - hiçbir şey patlamaz.
+    """
+    if not metin:
+        return metin
+    ilk = metin[0]
+    if ilk == "i":
+        return "İ" + metin[1:]
+    if ilk == "ı":
+        return "I" + metin[1:]
+    return ilk.upper() + metin[1:]
+
+
 def son_unlu(kelime: str) -> Optional[str]:
     for harf in reversed(_kucult(kelime)):
         if harf in UNLULER:

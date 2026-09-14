@@ -230,23 +230,28 @@ class AcisalNokta:
     """
 
     ad: str
-    varis: str      # oraya nasıl varıldığı: "açtın", "çıktın"…
+    varis: str      # tam cümle: "Onu sen açtın", "Oraya sen çıktın"
     ikinci: str     # ikinci cümlede kullanılan biçim
     referans: str   # gökyüzünde neye göre ölçüldüğü
+
+    # `varis` tam cümle olarak saklanıyor çünkü edat fiile bağlı:
+    # kapı AÇILIR (onu), kuleye ÇIKILIR (oraya). Edatı sabitleyip fiili
+    # değiştirmek "oraya sen açtın" gibi bozuk cümleler üretiyordu.
 
 
 # `referans` alanı astronomik doğruluk için: Yükselen ve Batan ufuk
 # üzerindedir, ama Tepe noktası ufuk değil gökyüzünün en yüksek yeridir.
 # Hepsine "ufuktan şu kadar ötede" demek metni yanlış hale getirir.
 ACISAL_NOKTA_ADI: Dict[str, AcisalNokta] = {
-    "Yükselen": AcisalNokta("kapı", "açtın", "içeriden açan olmadı",
+    "Yükselen": AcisalNokta("kapı", "Onu sen açtın", "içeriden açan olmadı",
                             "doğu ufkundan"),
-    "Tepe noktası": AcisalNokta("kule", "çıktın", "merdiveni gösteren olmadı",
+    "Tepe noktası": AcisalNokta("kule", "Oraya sen çıktın",
+                                "merdiveni gösteren olmadı",
                                 "gökyüzünün en tepesinden"),
-    "Batan": AcisalNokta("arka kapı", "buldun", "kimse yerini söylemedi",
-                         "batı ufkundan"),
-    "Dip nokta": AcisalNokta("bodrum", "indin", "ışığı yakan olmadı",
-                             "gökyüzünün en dibinden"),
+    "Batan": AcisalNokta("arka kapı", "Onu sen buldun",
+                         "kimse yerini söylemedi", "batı ufkundan"),
+    "Dip nokta": AcisalNokta("bodrum", "Oraya sen indin",
+                             "ışığı yakan olmadı", "gökyüzünün en dibinden"),
 }
 
 

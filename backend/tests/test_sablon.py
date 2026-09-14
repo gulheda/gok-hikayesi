@@ -203,9 +203,43 @@ def test_acisal_nokta_referansi_astronomik_olarak_dogru():
     assert "tepe" in ACISAL_NOKTA_ADI["Tepe noktası"].referans
 
 
-def test_mekan_ve_fiil_uyumlu():
-    """Kapı açılır, kule açılmaz - çıkılır."""
+def test_mekan_fiil_ve_edat_uyumlu():
+    """Kapı AÇILIR (onu), kuleye ÇIKILIR (oraya).
+
+    Edatı sabitleyip yalnızca fiili değiştirmek "oraya sen açtın" gibi
+    bozuk cümleler üretiyordu; bu yüzden tam cümle saklanıyor.
+    """
     from app.story.sablon.sozluk import ACISAL_NOKTA_ADI
-    assert ACISAL_NOKTA_ADI["Yükselen"].varis == "açtın"
-    assert ACISAL_NOKTA_ADI["Tepe noktası"].varis == "çıktın"
-    assert ACISAL_NOKTA_ADI["Dip nokta"].varis == "indin"
+    assert ACISAL_NOKTA_ADI["Yükselen"].varis == "Onu sen açtın"
+    assert ACISAL_NOKTA_ADI["Tepe noktası"].varis == "Oraya sen çıktın"
+    assert ACISAL_NOKTA_ADI["Dip nokta"].varis == "Oraya sen indin"
+
+
+def test_bolum_sirasi_omurgadan_gelir():
+    """Sabit bir sıra, her haritada aynı hamleleri tekrarlamak demekti."""
+    from app.story.omurga import kur as omurga_kur
+    from app.story.sablon.motor import BOLUM_KAYDI
+
+    for harita in (SAATLI, BASKA):
+        omurga = omurga_kur(harita)
+        beklenen = []
+        for durak in omurga.duraklar:
+            bolum = BOLUM_KAYDI.get(durak.imza.key)
+            if bolum and bolum not in beklenen:
+                beklenen.append(bolum)
+        assert beklenen, "omurgadan hiç bölüm türetilemedi"
+
+
+def test_turkce_buyuk_harf_hatasi_metne_sizmaz():
+    """'Içsel' gibi biçimler metni anında yabancı gösterir."""
+    for harita in (SAATLI, SAATSIZ, BASKA):
+        _, govde = uret(harita)
+        for bozuk in ("Içsel", "Ilişki", "Iki ", "Ilk "):
+            assert bozuk not in govde, f"yanlış büyük harf: {bozuk}"
+
+
+def test_zincir_girisi_gereksiz_tekrar_etmez():
+    """Bölüm ortak cismi zaten anıyorsa bağlantı cümlesi eklenmemeli."""
+    for harita in (SAATLI, BASKA):
+        _, govde = uret(harita)
+        assert govde.count("bir kez daha karşına çıktı") <= 1

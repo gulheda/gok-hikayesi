@@ -34,6 +34,7 @@ from ..signature import Signature, collect as imzalari_topla
 from . import gokyuzu
 from .turkce import (
     belirtme,
+    buyuk_harf,
     bulunma,
     de_baglaci,
     gecmis_kopula,
@@ -234,8 +235,8 @@ def bolum_kapi(b: Baglam) -> List[str]:
         derece = derece.replace(".", ",")   # Türkçe ondalık ayracı
 
     satirlar.append(
-        f"İlk durağın {kurgu} oldu. Oraya sen {nokta.varis}; {nokta.ikinci}. "
-        f"{bulunma(kurgu).capitalize()} {b.olcumle(cisim_adi)} bekliyordu"
+        f"İlk durağın {kurgu} oldu. {nokta.varis}; {nokta.ikinci}. "
+        f"{buyuk_harf(bulunma(kurgu))} {b.olcumle(cisim_adi)} bekliyordu"
         + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
         + f": {rol}. Sabah onu gökyüzünde görebilseydin, tam orada duruyordu."
     )
@@ -287,7 +288,7 @@ def bolum_meclis(b: Baglam) -> List[str]:
     )
     satirlar = [
         f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
-        f"{yer_tarifi.capitalize()} "
+        f"{buyuk_harf(yer_tarifi)} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
         f"Gökyüzünde de öyleydiler: o sabah "
         f"{belirtme(sayi_sifat(len(adlar)))} birden, "
@@ -433,6 +434,104 @@ def bolum_geri(b: Baglam) -> List[str]:
     ]
 
 
+def bolum_gomulu(b: Baglam) -> List[str]:
+    """Güneş'e gömülü cisim: orada olan ama görülemeyen."""
+    gomulu = b.imzalar.get("gunese_gomulu", [])
+    if not gomulu:
+        return []
+
+    etiket = gomulu[0].label
+    if ":" not in etiket:
+        return []
+    adlar = [a.strip() for a in etiket.split(":")[1].split(".")[0].split(",")]
+    ad = adlar[0]
+    anahtar = next((k for k, v in KARAKTERLER.items() if v.unvan == ad), None)
+    k = KARAKTERLER.get(anahtar or "")
+    if not k:
+        return []
+
+    return [
+        f"Ülkede bir kişi daha vardı ve onu hiç göremedin: {ad}. Güneş'e "
+        "öyle yakın duruyordu ki ışık onu yutmuştu. Ağırlığını hissettin, "
+        f"{k.fiil_anlati}; ama yüzünü hiç görmedin. Onu sorduğunda kimse "
+        "orada olmadığını söylemedi; yalnızca kimse onu görmemişti."
+    ]
+
+
+def bolum_tutulma(b: Baglam) -> List[str]:
+    """Tutulmada doğmak: motorun bulabildiği en ender olgulardan biri."""
+    tutulmalar = (b.imzalar.get("gunes_tutulmasi", [])
+                  or b.imzalar.get("ay_tutulmasi", []))
+    if not tutulmalar:
+        return []
+
+    gunes_mi = bool(b.imzalar.get("gunes_tutulmasi"))
+    if gunes_mi:
+        sahne = (
+            "Sen geldiğinde gökyüzünde bir şey örtülüyordu. Ay, Güneş'in "
+            "önünden geçti ve gündüz kısa bir süre karardı. Ülkeye, ışığın "
+            "kesildiği o aralıkta girdin."
+        )
+    else:
+        sahne = (
+            "Sen geldiğinde Dünya'nın gölgesi Ay'ın üstüne düşüyordu. "
+            "Dolunaydı ve dolunay kararıyordu. Ülkeye, gökyüzünün en parlak "
+            "şeyinin söndüğü gece girdin."
+        )
+    return [sahne + " Bu her gece olan bir şey değildi; olması için üç "
+            "cismin aynı hizaya gelmesi gerekiyordu ve o gün geldiler."]
+
+
+def bolum_t_kare(b: Baglam) -> List[str]:
+    """Üç köşeli gerilim: iki karşıt ve ikisiyle de çekişen üçüncü."""
+    desen = b.imzalar.get("t_kare", [])
+    if not desen:
+        return []
+    etiket = desen[0].label
+    if "deseni: " not in etiket:
+        return []
+    govde = etiket.split("deseni: ")[1].rstrip(".")
+    return [
+        f"Ülkenin en gergin köşesine vardın. {buyuk_harf(govde)}. "
+        "Üçünü aynı odaya sokmayı denedin ve olmadı; ikisi susunca üçüncüsü "
+        "konuşuyordu. Sonunda anladın ki bu üçlü çözülmüyor, yalnızca "
+        "taşınıyor."
+    ]
+
+
+def bolum_ucgen(b: Baglam) -> List[str]:
+    """Kapalı devre: birbirine üçgen açı yapan üç cisim."""
+    desen = b.imzalar.get("buyuk_ucgen", [])
+    if not desen:
+        return []
+    etiket = desen[0].label
+    if "deseni: " not in etiket:
+        return []
+    govde = etiket.split("deseni: ")[1].split(";")[0]
+    return [
+        f"Sonra kapalı bir devre buldun: {govde}. Üçü arasında dolaşan bir "
+        "şey vardı ve dışarı çıkmıyordu. İçine girmen gerekmedi; zaten "
+        "içindeydin ve bunu fark etmen zaman aldı."
+    ]
+
+
+def bolum_kase(b: Baglam) -> List[str]:
+    """Gökyüzünün yarısının boş olması."""
+    desen = b.imzalar.get("kase_sekli", [])
+    if not desen:
+        return []
+    etiket = desen[0].label
+    bos = ""
+    if "derecelik kısmı bomboş" in etiket:
+        bos = etiket.split("gökyüzünün ")[1].split(" derecelik")[0]
+    return [
+        "Ülkenin bir yarısında kimse yoktu. Herkes öbür yarıya toplanmıştı"
+        + (f"; gökyüzünün {bos} derecelik kısmı bomboştu" if bos else "")
+        + ". Boş tarafa yürüdün ve geri döndün, çünkü orada dönülecek bir "
+        "şey yoktu."
+    ]
+
+
 def bolum_kapanis(b: Baglam) -> List[str]:
     """Varış. Masal biter ama sonuçlanmaz; kapanış hüküm değil, sahnedir."""
     eksik = b.chart.balance.missing_elements
@@ -447,19 +546,33 @@ def bolum_kapanis(b: Baglam) -> List[str]:
     return [kapanis]
 
 
-# Bölümlerin sırası ve hangi imzaya bağlı oldukları. Sıra sabit ama
-# BÖLÜMLERİN VARLIĞI haritaya bağlı: yığınlaşması olmayan bir haritada
-# "meclis" hiç yazılmaz.
-BOLUM_SIRASI: List[Callable[[Baglam], List[str]]] = [
-    bolum_gokyuzu,
-    bolum_ulke,
-    bolum_kapi,
-    bolum_meclis,
-    bolum_yonetici,
-    bolum_bag,
-    bolum_yalniz,
-    bolum_geri,
-    bolum_kapanis,
+# Yapı anahtarı -> o yapıyı anlatan bölüm. Sıra burada DEĞİL: bölümlerin
+# hangisinin yazılacağını ve hangi sırayla geleceğini anlatı omurgası
+# belirliyor (bkz. story/omurga.py). Sabit bir sıra, her haritada aynı
+# hamleleri tekrarlamak demekti.
+BOLUM_KAYDI: Dict[str, Callable[[Baglam], List[str]]] = {
+    "gunes_tutulmasi": bolum_tutulma,
+    "ay_tutulmasi": bolum_tutulma,
+    "angular": bolum_kapi,
+    "gunese_gomulu": bolum_gomulu,
+    "stellium_house": bolum_meclis,
+    "stellium_sign": bolum_meclis,
+    "t_kare": bolum_t_kare,
+    "buyuk_ucgen": bolum_ucgen,
+    "kase_sekli": bolum_kase,
+    "tight_aspect": bolum_bag,
+    "unaspected": bolum_yalniz,
+    "inner_retrograde": bolum_geri,
+    "chart_ruler": bolum_yonetici,
+}
+
+# İki durak ortak bir gök cismine değdiğinde araya konan bağlantı. Bu
+# olmadan bölümler birbirine değmeyen sahneler gibi duruyor; omurganın
+# bütün amacı metni tek bir akışa çevirmek.
+ZINCIR_GIRISLERI = [
+    "Aynı {ad} bir kez daha karşına çıktı.",
+    "{ad} yine oradaydı.",
+    "Yolun burasında {ad} ile tekrar karşılaştın.",
 ]
 
 
@@ -480,7 +593,15 @@ def _baslik(b: Baglam) -> str:
 
 
 def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
-    """Haritadan (başlık, gövde) üretir. Hiçbir ağ çağrısı yapmaz."""
+    """Haritadan (başlık, gövde) üretir. Hiçbir ağ çağrısı yapmaz.
+
+    Bölüm sırası anlatı omurgasından geliyor: motor, ortak gök cisimleri
+    üzerinden birbirine bağlanan yapıları seçip o sırayla anlatıyor.
+    Sabit bir sıra kullanmak, her haritada aynı hamleleri tekrarlamak ve
+    birbirine değmeyen sahneler üretmek demekti.
+    """
+    from ..omurga import kur as omurga_kur
+
     baglam = Baglam(
         chart=chart,
         ad=ad or chart.birth.name,
@@ -489,7 +610,32 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
     )
 
     paragraflar: List[str] = []
-    for bolum in BOLUM_SIRASI:
-        paragraflar.extend(p for p in bolum(baglam) if p)
+    paragraflar.extend(p for p in bolum_gokyuzu(baglam) if p)
+    paragraflar.extend(p for p in bolum_ulke(baglam) if p)
 
+    omurga = omurga_kur(chart)
+    yazilanlar = set()
+    for durak in omurga.duraklar:
+        bolum = BOLUM_KAYDI.get(durak.imza.key)
+        if bolum is None or bolum in yazilanlar:
+            continue
+        parcalar = [p for p in bolum(baglam) if p]
+        if not parcalar:
+            continue
+        yazilanlar.add(bolum)
+
+        # Bu durak bir öncekiyle ortak cisme değiyorsa metinde de bağla.
+        # Ama bölüm zaten o cismi ilk cümlesinde anıyorsa bağlantı cümlesi
+        # gereksiz tekrar olur: "Aynı Güneş bir kez daha karşına çıktı.
+        # Ülkede bir kişi daha vardı: Neptün. Güneş'e öyle yakın ki…"
+        if durak.ortak_cisimler:
+            karakter = KARAKTERLER.get(durak.ortak_cisimler[0])
+            zaten_geciyor = karakter and karakter.unvan in parcalar[0][:150]
+            if karakter and not zaten_geciyor:
+                giris = baglam.sec(ZINCIR_GIRISLERI).format(ad=karakter.unvan)
+                parcalar[0] = giris + " " + parcalar[0]
+        paragraflar.extend(parcalar)
+
+    paragraflar.extend(p for p in bolum_kapanis(baglam) if p)
     return _baslik(baglam), "\n\n".join(paragraflar)
+

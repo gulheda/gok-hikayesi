@@ -186,3 +186,16 @@ def test_gunun_vakti(saat, beklenen):
 def test_sayi_sozcukleri_dogru_ek_alir(sayi, beklenen):
     """'dört' tek heceli olmasına rağmen yumuşar: dördü, dörtü değil."""
     assert belirtme(sayi) == beklenen
+
+
+@pytest.mark.parametrize("metin,beklenen", [
+    ("içsel dünya", "İçsel dünya"),   # python capitalize() 'Içsel' verir
+    ("ıssız", "Issız"),
+    ("topluluk", "Topluluk"),
+    ("", ""),
+])
+def test_turkce_buyuk_harf(metin, beklenen):
+    """Python'un capitalize() metodu 'i' harfini 'I' yapar; Türkçede
+    doğrusu 'İ'dir. Bu hata sessizdir ve metni anında yabancı gösterir."""
+    from app.story.sablon.turkce import buyuk_harf
+    assert buyuk_harf(metin) == beklenen
