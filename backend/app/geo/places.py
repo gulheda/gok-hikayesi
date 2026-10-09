@@ -92,3 +92,91 @@ def lookup(place: str) -> Tuple[float, float]:
     key = normalize(place)
     key = TAKMA_ADLAR.get(key, key)
     return TURKIYE_IL_MERKEZLERI[key]
+
+
+# Yoğun Türk nüfuslu yurtdışı büyük şehirler (şehir merkezi).
+# anahtar -> (enlem, boylam, ülke). Anahtar normalize edilmiş, Türkçe yazım.
+YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
+    "berlin": (52.5200, 13.4050, "Almanya"),
+    "hamburg": (53.5511, 9.9937, "Almanya"),
+    "munih": (48.1351, 11.5820, "Almanya"),
+    "koln": (50.9375, 6.9603, "Almanya"),
+    "frankfurt": (50.1109, 8.6821, "Almanya"),
+    "stuttgart": (48.7758, 9.1829, "Almanya"),
+    "dusseldorf": (51.2277, 6.7735, "Almanya"),
+    "dortmund": (51.5136, 7.4653, "Almanya"),
+    "essen": (51.4556, 7.0116, "Almanya"),
+    "bremen": (53.0793, 8.8017, "Almanya"),
+    "hannover": (52.3759, 9.7320, "Almanya"),
+    "nurnberg": (49.4521, 11.0767, "Almanya"),
+    "duisburg": (51.4344, 6.7623, "Almanya"),
+    "londra": (51.5074, -0.1278, "Birleşik Krallık"),
+    "amsterdam": (52.3676, 4.9041, "Hollanda"),
+    "rotterdam": (51.9244, 4.4777, "Hollanda"),
+    "paris": (48.8566, 2.3522, "Fransa"),
+    "bruksel": (50.8503, 4.3517, "Belçika"),
+    "viyana": (48.2082, 16.3738, "Avusturya"),
+    "zurih": (47.3769, 8.5417, "İsviçre"),
+    "stockholm": (59.3293, 18.0686, "İsveç"),
+    "kopenhag": (55.6761, 12.5683, "Danimarka"),
+    "new york": (40.7128, -74.0060, "ABD"),
+    "baku": (40.4093, 49.8671, "Azerbaycan"),
+    "lefkosa": (35.1856, 33.3823, "Kıbrıs"),
+    "sofya": (42.6977, 23.3219, "Bulgaristan"),
+    "pristine": (42.6629, 21.1655, "Kosova"),
+    "uskup": (41.9981, 21.4254, "Kuzey Makedonya"),
+    "saraybosna": (43.8563, 18.4131, "Bosna-Hersek"),
+    "atina": (37.9838, 23.7275, "Yunanistan"),
+    "moskova": (55.7558, 37.6173, "Rusya"),
+}
+
+# Yurtdışı şehirlerin yaygın yabancı yazımları
+YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
+    "munchen": "munih", "munich": "munih", "cologne": "koln",
+    "nuremberg": "nurnberg", "london": "londra", "vienna": "viyana",
+    "zurich": "zurih", "brussels": "bruksel", "copenhagen": "kopenhag",
+    "newyork": "new york", "nyc": "new york", "baku": "baku",
+    "nicosia": "lefkosa", "sofia": "sofya", "pristina": "pristine",
+    "skopje": "uskup", "sarajevo": "saraybosna", "athens": "atina",
+    "moscow": "moskova", "dusseldorf": "dusseldorf",
+}
+
+# Ülke adı yazımları (normalize) -> tablodaki ülke adı
+_ULKE_YAZIMLARI: Dict[str, str] = {
+    "germany": "Almanya", "deutschland": "Almanya", "almanya": "Almanya",
+    "uk": "Birleşik Krallık", "united kingdom": "Birleşik Krallık",
+    "ingiltere": "Birleşik Krallık", "birlesik krallik": "Birleşik Krallık",
+    "england": "Birleşik Krallık", "netherlands": "Hollanda",
+    "hollanda": "Hollanda", "france": "Fransa", "fransa": "Fransa",
+    "belgium": "Belçika", "belcika": "Belçika", "austria": "Avusturya",
+    "avusturya": "Avusturya", "switzerland": "İsviçre", "isvicre": "İsviçre",
+    "sweden": "İsveç", "isvec": "İsveç", "denmark": "Danimarka",
+    "danimarka": "Danimarka", "usa": "ABD", "abd": "ABD", "us": "ABD",
+    "united states": "ABD", "azerbaycan": "Azerbaycan",
+    "azerbaijan": "Azerbaycan", "kibris": "Kıbrıs", "cyprus": "Kıbrıs",
+    "kktc": "Kıbrıs", "bulgaria": "Bulgaristan", "bulgaristan": "Bulgaristan",
+    "kosova": "Kosova", "kosovo": "Kosova", "kuzey makedonya": "Kuzey Makedonya",
+    "north macedonia": "Kuzey Makedonya", "bosna-hersek": "Bosna-Hersek",
+    "bosna hersek": "Bosna-Hersek", "bosnia": "Bosna-Hersek",
+    "yunanistan": "Yunanistan", "greece": "Yunanistan", "rusya": "Rusya",
+    "russia": "Rusya",
+}
+
+
+def lookup_yurtdisi(query: str) -> Tuple[float, float, str, str]:
+    """'Berlin' veya 'Berlin, Almanya' gibi girdiyi çözer.
+
+    (enlem, boylam, şehir adı, ülke) döndürür; bulunamazsa ya da girilen
+    ülke tablodakiyle uyuşmuyorsa (örn. 'Paris, Texas') KeyError atar -
+    böyle durumda çağıran taraf Nominatim'e düşmelidir.
+    """
+    parcalar = [p for p in (x.strip() for x in query.split(",")) if p]
+    if not parcalar:
+        raise KeyError(query)
+    key = normalize(parcalar[0])
+    key = YURTDISI_TAKMA_ADLAR.get(key, key)
+    lat, lon, ulke = YURTDISI_SEHIRLER[key]
+    for ek in parcalar[1:]:
+        if _ULKE_YAZIMLARI.get(normalize(ek)) != ulke:
+            raise KeyError(query)
+    return lat, lon, parcalar[0], ulke

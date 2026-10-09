@@ -34,7 +34,7 @@ class Place:
     display_name: str     # çözümlenmiş tam ad
     latitude: float
     longitude: float
-    source: str           # "offline_tr" | "nominatim"
+    source: str           # "offline_tr" | "offline_yurtdisi" | "nominatim"
 
 
 def _respect_rate_limit() -> None:
@@ -64,6 +64,18 @@ def geocode(query: str, timeout: float = 10.0) -> Place:
             latitude=lat,
             longitude=lon,
             source="offline_tr",
+        )
+    except KeyError:
+        pass
+
+    try:
+        lat, lon, sehir, ulke = places.lookup_yurtdisi(query)
+        return Place(
+            query=query,
+            display_name=f"{sehir}, {ulke}",
+            latitude=lat,
+            longitude=lon,
+            source="offline_yurtdisi",
         )
     except KeyError:
         pass
