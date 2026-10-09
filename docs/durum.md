@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 9 Eylül 2026 (2. tur)
+Son güncelleme: 9 Ekim 2026
 
 ## Çalışan ve doğrulanmış
 
@@ -14,7 +14,7 @@ yaşanmış saatler sessizce kaydırılmak yerine hata olarak bildiriliyor.
 haritası, Skyfield + JPL DE440s çapraz kontrolü (en büyük sapma 0,15 açı
 saniyesi).
 
-**Geocoding.** 81 il çevrimdışı tablodan (ağa çıkmadan), gerisi Nominatim'den.
+**Geocoding.** 81 il ve 31 yurtdışı büyük şehir (Berlin, Londra, Amsterdam vb.; `YURTDISI_SEHIRLER`) çevrimdışı tablodan (ağa çıkmadan), gerisi Nominatim'den. Ülke belirtilip tabloyla uyuşmazsa ("Paris, Texas") Nominatim'e düşer. Sıradaki genişletme: nüfusu yüksek ilçe merkezleri.
 
 **API.** `/saglik`, `/api/harita`, `/api/hikaye`, `/api/seslendir`,
 `/api/ses-maliyeti`. Doğrulama hataları 422, yapılandırma eksikliği 503,
