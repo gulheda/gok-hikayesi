@@ -18,7 +18,7 @@ dokunmaz.
 | 3 | Seslendirme katmanı | ✅ Kod tamam — canlı çalıştırma TTS anahtarı bekliyor |
 | 4 | Backend API (FastAPI) | ✅ Tamam, uçtan uca test edildi |
 | 5 | iOS uygulaması (SwiftUI) | ✅ Simülatörde derlenip çalıştırıldı |
-| 6 | Kapalı beta, KVKK metinleri | ⬜ Yapılmadı |
+| 6 | Kapalı beta, KVKK metinleri | 🟨 KVKK taslağı var (docs/hukuk), beta yapılmadı |
 | — | İstek sınırlama + harcama tavanı | ✅ Tamam |
 | — | Erişilebilirlik + uygulama ikonu | ✅ Tamam |
 

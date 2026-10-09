@@ -50,8 +50,8 @@ gerçek ses üretilmedi, yani ses kalitesi hakkında hiçbir şey bilinmiyor.
 
 - Veri kalıcılığı (şu an API durumsuz, hiçbir şey saklanmıyor)
 - Ses dosyası depolama (S3/R2)
-- Doğum haritası çarkı görselleştirmesi
-- KVKK aydınlatma metni, gizlilik politikası, "eğlence amaçlıdır" ibaresi
+- KVKK/gizlilik metni: taslak yazıldı ([docs/hukuk/](hukuk/gizlilik-aydinlatma-taslagi.md)),
+  avukat incelemesi ve uygulama içi "eğlence amaçlıdır" ibaresi yapılmadı
 - Kapalı beta
 
 ## Sıradaki en değerli üç iş
