@@ -10,3 +10,19 @@ DerivedData/
 *.xcuserstate
 xcuserdata/
 backend/data/jpl/*.bsp
+
+# Kişisel/hassas belgeler - proje ile ilgisi yok, repoya asla girmemeli
+/1007/
+*.mov
+/1737451725959.docx
+/Alesta Teknoloji Yazılım Ve Danışmanlık Ltd.Şti._basvuru_degerlendirme.docx
+/Faktoring.pdf
+/Gmail - Apple makbuzunuz_.pdf
+/Gulheda_Kizilhan_CV_EN_2.pdf
+/HAVELSAN_Proje_Deger_Onerisi.pdf
+/NIYET_MEKTUBU_HAVELSAN_SUIT*.pdf
+/Omer_Faruk_Gunduz_CV_EN_1.pdf
+/i_nternet_ve_web_temelleri_al_ma_seti.html
+/mechasim-çin*.jpeg
+/sicil fişi.docx
+/zaaaaa.docx
