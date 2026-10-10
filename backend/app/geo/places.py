@@ -128,6 +128,25 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "saraybosna": (43.8563, 18.4131, "Bosna-Hersek"),
     "atina": (37.9838, 23.7275, "Yunanistan"),
     "moskova": (55.7558, 37.6173, "Rusya"),
+    # GeoNames (geonamescache) ile doğrulanmış eklemeler
+    "madrid": (40.4165, -3.7026, "İspanya"),
+    "roma": (41.8919, 12.5113, "İtalya"),
+    "milano": (45.4643, 9.1895, "İtalya"),
+    "lizbon": (38.7251, -9.1498, "Portekiz"),
+    "prag": (50.0880, 14.4208, "Çekya"),
+    "varsova": (52.2298, 21.0118, "Polonya"),
+    "budapeste": (47.4984, 19.0404, "Macaristan"),
+    "bukres": (44.4323, 26.1063, "Romanya"),
+    "belgrad": (44.8040, 20.4651, "Sırbistan"),
+    "zagreb": (45.8144, 15.9780, "Hırvatistan"),
+    "tiran": (41.3274, 19.8187, "Arnavutluk"),
+    "toronto": (43.7064, -79.3986, "Kanada"),
+    "los angeles": (34.0522, -118.2437, "ABD"),
+    "sidney": (-33.8679, 151.2073, "Avustralya"),
+    "dubai": (25.0772, 55.3093, "BAE"),
+    "tiflis": (41.6914, 44.8341, "Gürcistan"),
+    "bagdat": (33.3406, 44.4009, "Irak"),
+    "kahire": (30.0626, 31.2497, "Mısır"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -139,6 +158,10 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "nicosia": "lefkosa", "sofia": "sofya", "pristina": "pristine",
     "skopje": "uskup", "sarajevo": "saraybosna", "athens": "atina",
     "moscow": "moskova", "dusseldorf": "dusseldorf",
+    "rome": "roma", "milan": "milano", "lisbon": "lizbon", "prague": "prag",
+    "warsaw": "varsova", "bucharest": "bukres", "belgrade": "belgrad",
+    "sydney": "sidney", "tbilisi": "tiflis", "baghdad": "bagdat",
+    "cairo": "kahire", "la": "los angeles",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -159,7 +182,18 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "north macedonia": "Kuzey Makedonya", "bosna-hersek": "Bosna-Hersek",
     "bosna hersek": "Bosna-Hersek", "bosnia": "Bosna-Hersek",
     "yunanistan": "Yunanistan", "greece": "Yunanistan", "rusya": "Rusya",
-    "russia": "Rusya",
+    "russia": "Rusya", "spain": "İspanya", "ispanya": "İspanya",
+    "italy": "İtalya", "italya": "İtalya", "portugal": "Portekiz",
+    "portekiz": "Portekiz", "czechia": "Çekya", "czech republic": "Çekya",
+    "cekya": "Çekya", "poland": "Polonya", "polonya": "Polonya",
+    "hungary": "Macaristan", "macaristan": "Macaristan", "romania": "Romanya",
+    "romanya": "Romanya", "serbia": "Sırbistan", "sirbistan": "Sırbistan",
+    "croatia": "Hırvatistan", "hirvatistan": "Hırvatistan",
+    "albania": "Arnavutluk", "arnavutluk": "Arnavutluk", "canada": "Kanada",
+    "kanada": "Kanada", "australia": "Avustralya", "avustralya": "Avustralya",
+    "uae": "BAE", "bae": "BAE", "birlesik arap emirlikleri": "BAE",
+    "georgia": "Gürcistan", "gurcistan": "Gürcistan", "iraq": "Irak",
+    "irak": "Irak", "egypt": "Mısır", "misir": "Mısır",
 }
 
 
