@@ -48,3 +48,24 @@ def test_geocode_yurtdisi_agsiz(monkeypatch):
 
 def test_il_tablosu_degismedi():
     assert len(places.TURKIYE_IL_MERKEZLERI) == 81
+
+
+def test_yurtdisi_tablo_boyutu_ve_geonames_ile_tutarlilik():
+    assert len(places.YURTDISI_SEHIRLER) == 49
+    geonamescache = pytest.importorskip("geonamescache")
+    # Yeni eklenen şehirler GeoNames'e göre ~0.1° içinde olmalı
+    cities = geonamescache.GeonamesCache().get_cities()
+    for ad, adi_en in {"madrid": "Madrid", "roma": "Rome", "toronto": "Toronto",
+                       "sidney": "Sydney", "kahire": "Cairo"}.items():
+        lat, lon, _ = places.YURTDISI_SEHIRLER[ad]
+        en_iyi = max((c for c in cities.values() if c["name"] == adi_en),
+                     key=lambda c: c["population"])
+        assert abs(en_iyi["latitude"] - lat) < 0.1 and abs(en_iyi["longitude"] - lon) < 0.1
+
+
+def test_yeni_sehirler_yabanci_yazim_ve_ulke():
+    assert places.lookup_yurtdisi("Rome, Italy")[:2] == places.lookup_yurtdisi("Roma")[:2]
+    assert places.lookup_yurtdisi("Sydney, Australia")[3] == "Avustralya"
+    assert places.lookup_yurtdisi("Cairo, Egypt")[3] == "Mısır"
+    with pytest.raises(KeyError):
+        places.lookup_yurtdisi("Roma, Spain")
