@@ -147,6 +147,23 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "tiflis": (41.6914, 44.8341, "Gürcistan"),
     "bagdat": (33.3406, 44.4009, "Irak"),
     "kahire": (30.0626, 31.2497, "Mısır"),
+    # GeoNames ile doğrulanmış eklemeler (2. tur)
+    "oslo": (59.9127, 10.7461, "Norveç"),
+    "helsinki": (60.1695, 24.9354, "Finlandiya"),
+    "dublin": (53.3331, -6.2489, "İrlanda"),
+    "barcelona": (41.3888, 2.1590, "İspanya"),
+    "lyon": (45.7491, 4.8479, "Fransa"),
+    "marsilya": (43.2970, 5.3811, "Fransa"),
+    "anvers": (51.2205, 4.4003, "Belçika"),
+    "chicago": (41.8500, -87.6501, "ABD"),
+    "houston": (29.7633, -95.3633, "ABD"),
+    "doha": (25.2854, 51.5310, "Katar"),
+    "riyad": (24.6877, 46.7219, "Suudi Arabistan"),
+    "taskent": (41.2646, 69.2163, "Özbekistan"),
+    "almati": (43.2525, 76.9115, "Kazakistan"),
+    "kiev": (50.4547, 30.5238, "Ukrayna"),
+    "tahran": (35.6944, 51.4215, "İran"),
+    "beyrut": (33.8933, 35.5016, "Lübnan"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -162,6 +179,9 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "warsaw": "varsova", "bucharest": "bukres", "belgrade": "belgrad",
     "sydney": "sidney", "tbilisi": "tiflis", "baghdad": "bagdat",
     "cairo": "kahire", "la": "los angeles",
+    "marseille": "marsilya", "antwerp": "anvers", "riyadh": "riyad",
+    "tashkent": "taskent", "almaty": "almati", "kyiv": "kiev",
+    "tehran": "tahran", "beirut": "beyrut",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -194,6 +214,13 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "uae": "BAE", "bae": "BAE", "birlesik arap emirlikleri": "BAE",
     "georgia": "Gürcistan", "gurcistan": "Gürcistan", "iraq": "Irak",
     "irak": "Irak", "egypt": "Mısır", "misir": "Mısır",
+    "norway": "Norveç", "norvec": "Norveç", "finland": "Finlandiya",
+    "finlandiya": "Finlandiya", "ireland": "İrlanda", "irlanda": "İrlanda",
+    "qatar": "Katar", "katar": "Katar", "saudi arabia": "Suudi Arabistan",
+    "suudi arabistan": "Suudi Arabistan", "uzbekistan": "Özbekistan",
+    "ozbekistan": "Özbekistan", "kazakhstan": "Kazakistan",
+    "kazakistan": "Kazakistan", "ukraine": "Ukrayna", "ukrayna": "Ukrayna",
+    "iran": "İran", "lebanon": "Lübnan", "lubnan": "Lübnan",
 }
 
 

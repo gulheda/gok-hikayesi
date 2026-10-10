@@ -14,7 +14,7 @@ yaşanmış saatler sessizce kaydırılmak yerine hata olarak bildiriliyor.
 haritası, Skyfield + JPL DE440s çapraz kontrolü (en büyük sapma 0,15 açı
 saniyesi).
 
-**Geocoding.** 81 il ve 49 yurtdışı büyük şehir (toplam 130 yer; Berlin, Londra, Madrid, Roma, Toronto, Sidney vb.; `YURTDISI_SEHIRLER`) çevrimdışı tablodan (ağa çıkmadan), gerisi Nominatim'den. Ülke belirtilip tabloyla uyuşmazsa ("Paris, Texas") Nominatim'e düşer. Sıradaki genişletme: nüfusu yüksek ilçe merkezleri.
+**Geocoding.** 81 il ve 65 yurtdışı büyük şehir (toplam 146 yer; Berlin, Londra, Madrid, Roma, Toronto, Sidney vb.; `YURTDISI_SEHIRLER`) çevrimdışı tablodan (ağa çıkmadan), gerisi Nominatim'den. Ülke belirtilip tabloyla uyuşmazsa ("Paris, Texas") Nominatim'e düşer. Sıradaki genişletme: nüfusu yüksek ilçe merkezleri.
 
 **API.** `/saglik`, `/api/harita`, `/api/hikaye`, `/api/seslendir`,
 `/api/ses-maliyeti`. Doğrulama hataları 422, yapılandırma eksikliği 503,
