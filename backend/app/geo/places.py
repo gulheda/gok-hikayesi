@@ -164,6 +164,21 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "kiev": (50.4547, 30.5238, "Ukrayna"),
     "tahran": (35.6944, 51.4215, "İran"),
     "beyrut": (33.8933, 35.5016, "Lübnan"),
+    # GeoNames ile doğrulanmış eklemeler (3. tur)
+    "cenevre": (46.2022, 6.1457, "İsviçre"),
+    "basel": (47.5584, 7.5733, "İsviçre"),
+    "graz": (47.0673, 15.4420, "Avusturya"),
+    "strazburg": (48.5839, 7.7455, "Fransa"),
+    "lille": (50.6339, 3.0551, "Fransa"),
+    "goteborg": (57.7072, 11.9668, "İsveç"),
+    "manchester": (53.4810, -2.2374, "Birleşik Krallık"),
+    "birmingham": (52.4814, -1.8998, "Birleşik Krallık"),
+    "washington": (38.8951, -77.0364, "ABD"),
+    "san francisco": (37.7749, -122.4194, "ABD"),
+    "melbourne": (-37.8140, 144.9633, "Avustralya"),
+    "bisket": (42.8700, 74.5900, "Kırgızistan"),
+    "askabat": (37.9500, 58.3833, "Türkmenistan"),
+    "sam": (33.5102, 36.2913, "Suriye"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -182,6 +197,9 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "marseille": "marsilya", "antwerp": "anvers", "riyadh": "riyad",
     "tashkent": "taskent", "almaty": "almati", "kyiv": "kiev",
     "tehran": "tahran", "beirut": "beyrut",
+    "geneva": "cenevre", "strasbourg": "strazburg", "gothenburg": "goteborg",
+    "goteborg": "goteborg", "bishkek": "bisket", "ashgabat": "askabat",
+    "damascus": "sam", "sf": "san francisco",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -221,6 +239,8 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "ozbekistan": "Özbekistan", "kazakhstan": "Kazakistan",
     "kazakistan": "Kazakistan", "ukraine": "Ukrayna", "ukrayna": "Ukrayna",
     "iran": "İran", "lebanon": "Lübnan", "lubnan": "Lübnan",
+    "kyrgyzstan": "Kırgızistan", "kirgizistan": "Kırgızistan",
+    "turkmenistan": "Türkmenistan", "syria": "Suriye", "suriye": "Suriye",
 }
 
 

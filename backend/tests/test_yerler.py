@@ -51,7 +51,7 @@ def test_il_tablosu_degismedi():
 
 
 def test_yurtdisi_tablo_boyutu_ve_geonames_ile_tutarlilik():
-    assert len(places.YURTDISI_SEHIRLER) == 65
+    assert len(places.YURTDISI_SEHIRLER) == 79
     geonamescache = pytest.importorskip("geonamescache")
     # Yeni eklenen şehirler GeoNames'e göre ~0.1° içinde olmalı
     cities = geonamescache.GeonamesCache().get_cities()
@@ -91,3 +91,25 @@ def test_ikinci_tur_sehirler_geonames_ve_yazimlar():
     assert places.lookup_yurtdisi("Kyiv, Ukraine")[:2] == places.lookup_yurtdisi("Kiev")[:2]
     with pytest.raises(KeyError):
         places.lookup_yurtdisi("Lyon, Italy")
+
+
+def test_ucuncu_tur_sehirler_geonames_ve_yazimlar():
+    geonamescache = pytest.importorskip("geonamescache")
+    cities = geonamescache.GeonamesCache().get_cities()
+    en = {"cenevre": "Geneva", "basel": "Basel", "graz": "Graz",
+          "strazburg": "Strasbourg", "lille": "Lille", "goteborg": "Gothenburg",
+          "manchester": "Manchester", "birmingham": "Birmingham",
+          "washington": "Washington", "san francisco": "San Francisco",
+          "melbourne": "Melbourne", "bisket": "Bishkek",
+          "askabat": "Ashgabat", "sam": "Damascus"}
+    for ad, adi_en in en.items():
+        lat, lon, ulke = places.YURTDISI_SEHIRLER[ad]
+        en_iyi = max((c for c in cities.values() if c["name"] == adi_en),
+                     key=lambda c: c["population"])
+        assert abs(en_iyi["latitude"] - lat) < 0.1, ad
+        assert abs(en_iyi["longitude"] - lon) < 0.1, ad
+    assert places.lookup_yurtdisi("Geneva, Switzerland")[3] == "İsviçre"
+    assert places.lookup_yurtdisi("Damascus, Syria")[:2] == places.lookup_yurtdisi("Şam")[:2]
+    assert places.lookup_yurtdisi("Bishkek, Kyrgyzstan")[3] == "Kırgızistan"
+    with pytest.raises(KeyError):
+        places.lookup_yurtdisi("Manchester, Germany")
