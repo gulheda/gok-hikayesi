@@ -51,7 +51,7 @@ def test_il_tablosu_degismedi():
 
 
 def test_yurtdisi_tablo_boyutu_ve_geonames_ile_tutarlilik():
-    assert len(places.YURTDISI_SEHIRLER) == 95
+    assert len(places.YURTDISI_SEHIRLER) == 109
     geonamescache = pytest.importorskip("geonamescache")
     # Yeni eklenen şehirler GeoNames'e göre ~0.1° içinde olmalı
     cities = geonamescache.GeonamesCache().get_cities()
@@ -138,3 +138,22 @@ def test_dorduncu_tur_sehirler_geonames_ve_yazimlar():
     assert places.lookup_yurtdisi("Yerevan, Armenia")[3] == "Ermenistan"
     with pytest.raises(KeyError):
         places.lookup_yurtdisi("Boston, England")
+
+
+def test_ucuncu_genisleme_geonames_ile_tutarli():
+    geonamescache = pytest.importorskip("geonamescache")
+    cities = geonamescache.GeonamesCache().get_cities()
+    en = {"augsburg": ("Augsburg", "DE"), "bielefeld": ("Bielefeld", "DE"),
+          "wuppertal": ("Wuppertal", "DE"), "munster": ("Münster", "DE"),
+          "bochum": ("Bochum", "DE"), "eindhoven": ("Eindhoven", "NL"),
+          "groningen": ("Groningen", "NL"), "salzburg": ("Salzburg", "AT"),
+          "linz": ("Linz", "AT"), "bern": ("Bern", "CH"),
+          "malmo": ("Malmö", "SE"), "edinburgh": ("Edinburgh", "GB"),
+          "glasgow": ("Glasgow", "GB"), "leeds": ("Leeds", "GB")}
+    for ad, (adi, kod) in en.items():
+        lat, lon, _ = places.YURTDISI_SEHIRLER[ad]
+        en_iyi = max((c for c in cities.values()
+                      if c["name"] == adi and c["countrycode"] == kod),
+                     key=lambda c: c["population"])
+        assert abs(en_iyi["latitude"] - lat) < 0.1, ad
+        assert abs(en_iyi["longitude"] - lon) < 0.1, ad

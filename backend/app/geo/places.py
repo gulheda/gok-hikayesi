@@ -196,6 +196,20 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "seattle": (47.6062, -122.3321, "ABD"),
     "amman": (31.9552, 35.9450, "Ürdün"),
     "erivan": (40.1777, 44.5126, "Ermenistan"),
+    "augsburg": (48.3715, 10.8985, "Almanya"),
+    "bielefeld": (52.0333, 8.5333, "Almanya"),
+    "wuppertal": (51.2563, 7.1482, "Almanya"),
+    "munster": (51.9624, 7.6257, "Almanya"),
+    "bochum": (51.4817, 7.2165, "Almanya"),
+    "eindhoven": (51.4408, 5.4778, "Hollanda"),
+    "groningen": (53.2192, 6.5667, "Hollanda"),
+    "salzburg": (47.7994, 13.0440, "Avusturya"),
+    "linz": (48.3064, 14.2861, "Avusturya"),
+    "bern": (46.9481, 7.4474, "İsviçre"),
+    "malmo": (55.6059, 13.0007, "İsveç"),
+    "edinburgh": (55.9521, -3.1965, "Birleşik Krallık"),
+    "glasgow": (55.8651, -4.2576, "Birleşik Krallık"),
+    "leeds": (53.7965, -1.5478, "Birleşik Krallık"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
