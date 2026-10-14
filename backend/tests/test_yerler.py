@@ -51,7 +51,7 @@ def test_il_tablosu_degismedi():
 
 
 def test_yurtdisi_tablo_boyutu_ve_geonames_ile_tutarlilik():
-    assert len(places.YURTDISI_SEHIRLER) == 109
+    assert len(places.YURTDISI_SEHIRLER) == 125
     geonamescache = pytest.importorskip("geonamescache")
     # Yeni eklenen şehirler GeoNames'e göre ~0.1° içinde olmalı
     cities = geonamescache.GeonamesCache().get_cities()
@@ -157,3 +157,29 @@ def test_ucuncu_genisleme_geonames_ile_tutarli():
                      key=lambda c: c["population"])
         assert abs(en_iyi["latitude"] - lat) < 0.1, ad
         assert abs(en_iyi["longitude"] - lon) < 0.1, ad
+
+
+def test_besinci_tur_sehirler_geonames_ve_yazimlar():
+    geonamescache = pytest.importorskip("geonamescache")
+    cities = geonamescache.GeonamesCache().get_cities()
+    en = {"bologna": ("Bologna", "IT"), "floransa": ("Florence", "IT"),
+          "nis": ("Nice", "FR"), "toulouse": ("Toulouse", "FR"),
+          "bordeaux": ("Bordeaux", "FR"), "nantes": ("Nantes", "FR"),
+          "ottawa": ("Ottawa", "CA"), "calgary": ("Calgary", "CA"),
+          "brisbane": ("Brisbane", "AU"), "perth": ("Perth", "AU"),
+          "minsk": ("Minsk", "BY"), "riga": ("Riga", "LV"),
+          "vilnius": ("Vilnius", "LT"), "tallinn": ("Tallinn", "EE"),
+          "ljubljana": ("Ljubljana", "SI"), "muskat": ("Muscat", "OM")}
+    for ad, (adi, kod) in en.items():
+        lat, lon, _ = places.YURTDISI_SEHIRLER[ad]
+        en_iyi = max((c for c in cities.values()
+                      if c["name"] == adi and c["countrycode"] == kod),
+                     key=lambda c: c["population"])
+        assert abs(en_iyi["latitude"] - lat) < 0.1, ad
+        assert abs(en_iyi["longitude"] - lon) < 0.1, ad
+    assert places.lookup_yurtdisi("Florence, Italy")[:2] == places.lookup_yurtdisi("Floransa")[:2]
+    assert places.lookup_yurtdisi("Nice, France")[3] == "Fransa"
+    assert places.lookup_yurtdisi("Muscat, Oman")[3] == "Umman"
+    assert places.lookup_yurtdisi("Riga, Latvia")[3] == "Letonya"
+    with pytest.raises(KeyError):
+        places.lookup_yurtdisi("Perth, Scotland")

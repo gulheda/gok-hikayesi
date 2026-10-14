@@ -210,6 +210,23 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "edinburgh": (55.9521, -3.1965, "Birleşik Krallık"),
     "glasgow": (55.8651, -4.2576, "Birleşik Krallık"),
     "leeds": (53.7965, -1.5478, "Birleşik Krallık"),
+    # GeoNames ile doğrulanmış eklemeler (5. tur)
+    "bologna": (44.4938, 11.3387, "İtalya"),
+    "floransa": (43.7792, 11.2463, "İtalya"),
+    "nis": (43.7031, 7.2661, "Fransa"),
+    "toulouse": (43.6043, 1.4437, "Fransa"),
+    "bordeaux": (44.8412, -0.5805, "Fransa"),
+    "nantes": (47.2172, -1.5534, "Fransa"),
+    "ottawa": (45.4112, -75.6981, "Kanada"),
+    "calgary": (51.0501, -114.0853, "Kanada"),
+    "brisbane": (-27.4679, 153.0281, "Avustralya"),
+    "perth": (-31.9522, 115.8614, "Avustralya"),
+    "minsk": (53.9002, 27.5665, "Belarus"),
+    "riga": (56.9460, 24.1059, "Letonya"),
+    "vilnius": (54.6892, 25.2798, "Litvanya"),
+    "tallinn": (59.4370, 24.7535, "Estonya"),
+    "ljubljana": (46.0511, 14.5051, "Slovenya"),
+    "muskat": (23.5841, 58.4078, "Umman"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -233,6 +250,7 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "damascus": "sam", "sf": "san francisco",
     "the hague": "lahey", "den haag": "lahey", "turin": "torino",
     "naples": "napoli", "valencia": "valensiya", "yerevan": "erivan",
+    "florence": "floransa", "nice": "nis", "muscat": "muskat",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -275,7 +293,10 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "kyrgyzstan": "Kırgızistan", "kirgizistan": "Kırgızistan",
     "turkmenistan": "Türkmenistan", "syria": "Suriye", "suriye": "Suriye",
     "jordan": "Ürdün", "urdun": "Ürdün", "armenia": "Ermenistan",
-    "ermenistan": "Ermenistan",
+    "ermenistan": "Ermenistan", "belarus": "Belarus", "latvia": "Letonya",
+    "letonya": "Letonya", "lithuania": "Litvanya", "litvanya": "Litvanya",
+    "estonia": "Estonya", "estonya": "Estonya", "slovenia": "Slovenya",
+    "slovenya": "Slovenya", "oman": "Umman", "umman": "Umman",
 }
 
 
