@@ -227,6 +227,23 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "tallinn": (59.4370, 24.7535, "Estonya"),
     "ljubljana": (46.0511, 14.5051, "Slovenya"),
     "muskat": (23.5841, 58.4078, "Umman"),
+    # GeoNames ile doğrulanmış yedinci tur
+    "nottingham": (52.9536, -1.1505, "Birleşik Krallık"),
+    "liverpool": (53.4106, -2.9779, "Birleşik Krallık"),
+    "sheffield": (53.3830, -1.4659, "Birleşik Krallık"),
+    "bristol": (51.4552, -2.5966, "Birleşik Krallık"),
+    "cardiff": (51.4800, -3.1800, "Birleşik Krallık"),
+    "kassel": (51.3167, 9.5000, "Almanya"),
+    "mainz": (49.9818, 8.2801, "Almanya"),
+    "aachen": (50.7766, 6.0834, "Almanya"),
+    "freiburg": (47.9959, 7.8522, "Almanya"),
+    "dallas": (32.7831, -96.8067, "ABD"),
+    "filadelfiya": (39.9524, -75.1636, "ABD"),
+    "detroit": (42.3314, -83.0458, "ABD"),
+    "atlanta": (33.7490, -84.3880, "ABD"),
+    "plovdiv": (42.1539, 24.7500, "Bulgaristan"),
+    "porto": (41.1485, -8.6110, "Portekiz"),
+    "abu dabi": (24.4512, 54.3970, "BAE"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -251,6 +268,7 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "the hague": "lahey", "den haag": "lahey", "turin": "torino",
     "naples": "napoli", "valencia": "valensiya", "yerevan": "erivan",
     "florence": "floransa", "nice": "nis", "muscat": "muskat",
+    "philadelphia": "filadelfiya", "abu dhabi": "abu dabi",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
