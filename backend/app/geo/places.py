@@ -244,6 +244,23 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "plovdiv": (42.1539, 24.7500, "Bulgaristan"),
     "porto": (41.1485, -8.6110, "Portekiz"),
     "abu dabi": (24.4512, 54.3970, "BAE"),
+    # GeoNames ile doğrulanmış sekizinci tur (Asya, Afrika, Latin Amerika)
+    "pekin": (39.9075, 116.3972, "Çin"),
+    "sanghay": (31.2222, 121.4581, "Çin"),
+    "tokyo": (35.6895, 139.6917, "Japonya"),
+    "seul": (37.5660, 126.9784, "Güney Kore"),
+    "singapur": (1.2897, 103.8501, "Singapur"),
+    "bangkok": (13.7540, 100.5014, "Tayland"),
+    "mumbai": (19.0728, 72.8826, "Hindistan"),
+    "delhi": (28.6519, 77.2315, "Hindistan"),
+    "karaci": (24.8608, 67.0104, "Pakistan"),
+    "cakarta": (-6.2146, 106.8451, "Endonezya"),
+    "sao paulo": (-23.5475, -46.6361, "Brezilya"),
+    "mexico city": (19.4285, -99.1277, "Meksika"),
+    "johannesburg": (-26.2023, 28.0436, "Güney Afrika"),
+    "cape town": (-33.9258, 18.4232, "Güney Afrika"),
+    "lagos": (6.4541, 3.3947, "Nijerya"),
+    "buenos aires": (-34.6131, -58.3772, "Arjantin"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -269,6 +286,9 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "naples": "napoli", "valencia": "valensiya", "yerevan": "erivan",
     "florence": "floransa", "nice": "nis", "muscat": "muskat",
     "philadelphia": "filadelfiya", "abu dhabi": "abu dabi",
+    "beijing": "pekin", "shanghai": "sanghay", "seoul": "seul",
+    "singapore": "singapur", "jakarta": "cakarta", "karachi": "karaci",
+    "sao paulo": "sao paulo", "mexico": "mexico city", "capetown": "cape town",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -315,6 +335,7 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "letonya": "Letonya", "lithuania": "Litvanya", "litvanya": "Litvanya",
     "estonia": "Estonya", "estonya": "Estonya", "slovenia": "Slovenya",
     "slovenya": "Slovenya", "oman": "Umman", "umman": "Umman",
+    "cin": "Çin", "china": "Çin", "japan": "Japonya", "japonya": "Japonya", "south korea": "Güney Kore", "guney kore": "Güney Kore", "singapore": "Singapur", "singapur": "Singapur", "thailand": "Tayland", "tayland": "Tayland", "india": "Hindistan", "hindistan": "Hindistan", "pakistan": "Pakistan", "indonesia": "Endonezya", "endonezya": "Endonezya", "brazil": "Brezilya", "brezilya": "Brezilya", "mexico": "Meksika", "meksika": "Meksika", "south africa": "Güney Afrika", "guney afrika": "Güney Afrika", "nigeria": "Nijerya", "nijerya": "Nijerya", "argentina": "Arjantin", "arjantin": "Arjantin",
 }
 
 
