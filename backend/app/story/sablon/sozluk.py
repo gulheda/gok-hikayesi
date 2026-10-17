@@ -256,10 +256,30 @@ ACISAL_NOKTA_ADI: Dict[str, AcisalNokta] = {
 
 
 KAPANISLAR: List[str] = [
-    "O sabah, {yer} üstünde, bunların hiçbiri görünmüyordu. Gökyüzü açıktı ve "
+    "O gün, {yer} üstünde, bunların hiçbiri görünmüyordu. Gökyüzü açıktı ve "
     "boştu. Ama diziliş oradaydı ve bir daha hiç aynı olmayacaktı.",
-    "Bu ülke o sabah kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
+    "Bu ülke o gün kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
     "biçimde dizilmedi; dizilseydi bile aynı yerden bakan kimse olmayacaktı.",
     "{yer} üstünde gündüzdü ve hiçbiri görünmüyordu. Görünmemesi, olmadıkları "
     "anlamına gelmiyordu.",
+]
+
+# Güneş ufkun altındayken "gündüzdü, hiçbiri görünmüyordu" demek yanlış olur:
+# gece gezegenler görünür. Gece doğanlar için ayrı kapanışlar.
+KAPANISLAR_GECE: List[str] = [
+    "O gece, {yer} üstünde, bunların bir kısmı ufkun altındaydı ve hiç "
+    "görünmüyordu. Ama diziliş oradaydı ve bir daha hiç aynı olmayacaktı.",
+    "Bu ülke o gece kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
+    "biçimde dizilmedi; dizilseydi bile aynı yerden bakan kimse olmayacaktı.",
+    "{yer} üstünde gece vardı; gökyüzündekilerin hepsi görünmüyordu. "
+    "Görünmemesi, olmadıkları anlamına gelmiyordu.",
+]
+
+# Doğum saati bilinmiyorsa Güneş'in nerede olduğu da bilinmez; görünürlük
+# hakkında hiçbir iddia kurulmaz.
+KAPANISLAR_BELIRSIZ: List[str] = [
+    "Bu ülke o gün kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
+    "biçimde dizilmedi; dizilseydi bile aynı yerden bakan kimse olmayacaktı.",
+    "O gün, {yer} üstünde, diziliş yerini aldı ve bir daha hiç aynı "
+    "olmayacaktı.",
 ]

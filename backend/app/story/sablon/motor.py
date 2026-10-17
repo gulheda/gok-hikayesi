@@ -51,6 +51,8 @@ from .sozluk import (
     ELEMENT_MADDESI,
     KARAKTERLER,
     KAPANISLAR,
+    KAPANISLAR_BELIRSIZ,
+    KAPANISLAR_GECE,
     MEKANLAR,
 )
 
@@ -99,6 +101,23 @@ class Baglam:
         if dakika == 60:
             derece, dakika = derece + 1, 0
         return f"{ad} — {cisim.sign_name_tr} burcunun {derece} derece {dakika} dakikası —"
+
+    @property
+    def gunduz(self) -> Optional[bool]:
+        """Güneş ufkun üstünde miydi? Saat bilinmiyorsa None.
+
+        Güneş 7-12. evlerdeyse ufkun üstündedir. Anlatı "sabah", "gündüz",
+        "hiçbiri görünmüyordu" gibi şeyleri YALNIZCA buna bakarak söyler.
+        """
+        gunes = self.chart.body("Sun")
+        if gunes is None or gunes.house is None:
+            return None
+        return gunes.house >= 7
+
+    @property
+    def an(self) -> str:
+        """'o gün' / 'o gece': Güneş'in konumuna uyan zaman ifadesi."""
+        return "o gece" if self.gunduz is False else "o gün"
 
     @property
     def yer_kisa(self) -> str:
@@ -238,7 +257,7 @@ def bolum_kapi(b: Baglam) -> List[str]:
         f"İlk durağın {kurgu} oldu. {nokta.varis}; {nokta.ikinci}. "
         f"{buyuk_harf(bulunma(kurgu))} {b.olcumle(cisim_adi)} bekliyordu"
         + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
-        + f": {rol}. Sabah onu gökyüzünde görebilseydin, tam orada duruyordu."
+        + f": {rol}. O anda gökyüzüne bakabilseydin, onu tam orada bulurdun."
     )
 
     if len(kullanilan) > 1:
@@ -290,7 +309,7 @@ def bolum_meclis(b: Baglam) -> List[str]:
         f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
         f"{buyuk_harf(yer_tarifi)} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
-        f"Gökyüzünde de öyleydiler: o sabah "
+        f"Gökyüzünde de öyleydiler: {b.an} "
         f"{belirtme(sayi_sifat(len(adlar)))} birden, "
         "göğün aynı dar diliminde duruyordu. Kapıyı çalmadan girdin ve "
         "konuşma kesilmedi."
@@ -466,7 +485,14 @@ def bolum_tutulma(b: Baglam) -> List[str]:
         return []
 
     gunes_mi = bool(b.imzalar.get("gunes_tutulmasi"))
-    if gunes_mi:
+    if gunes_mi and b.gunduz is False:
+        sahne = (
+            "Sen geldiğinde Güneş ile Ay aynı hizadaydı. Güneş ufkun "
+            "altındaydı ve gece zaten karanlıktı; ama gökyüzünün öteki "
+            "yüzünde bir tutulma hazırlanıyordu. Ülkeye, ışığın en "
+            "kırılgan olduğu aralıkta girdin."
+        )
+    elif gunes_mi:
         sahne = (
             "Sen geldiğinde gökyüzünde bir şey örtülüyordu. Ay, Güneş'in "
             "önünden geçti ve gündüz kısa bir süre karardı. Ülkeye, ışığın "
@@ -542,7 +568,9 @@ def bolum_kapanis(b: Baglam) -> List[str]:
             "fark ettin."
         )
     else:
-        kapanis = b.sec(KAPANISLAR).format(yer=b.yer_kisa)
+        havuz = {True: KAPANISLAR, False: KAPANISLAR_GECE,
+                 None: KAPANISLAR_BELIRSIZ}[b.gunduz]
+        kapanis = b.sec(havuz).format(yer=b.yer_kisa)
     return [kapanis]
 
 
@@ -589,7 +617,7 @@ def _baslik(b: Baglam) -> str:
         return "Tek Bir Bölgede Toplananlar"
     if b.imzalar.get("unaspected"):
         return "Kimseyle Konuşmayan"
-    return "O Sabah Gökyüzü"
+    return "O Gece Gökyüzü" if b.gunduz is False else "O Günün Gökyüzü"
 
 
 def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:

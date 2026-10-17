@@ -262,3 +262,30 @@ def test_sablon_motorunda_python_capitalize_kullanilmaz():
                     continue
                 suclular.append(f"{yol.name}:{no}")
     assert not suclular, f"capitalize() kullanımı: {suclular}"
+
+
+def test_gece_dogumunda_gunduz_ve_sabah_iddiasi_yok():
+    """Güneş ufkun altındaysa (gece 23:45) 'gündüzdü', 'o sabah' denmez.
+
+    Kars, 02.11.1994 23:45: Güneş 3. evde. Eski metin 'o sabah dördü birden',
+    'Kars üstünde gündüzdü' ve 'gündüz kısa bir süre karardı' diyordu.
+    """
+    gece = calculate_chart(BirthInput(
+        birth_date=date(1994, 11, 2), birth_time=time(23, 45),
+        latitude=40.6013, longitude=43.0975, place_name="Kars"))
+    assert gece.body("Sun").house < 7
+    baslik, govde = uret(gece)
+    for yasak in ("o sabah", "O sabah", "gündüzdü", "gündüz kısa"):
+        assert yasak not in govde
+    assert "Sabah" not in baslik
+
+
+def test_gunduz_dogumunda_gece_ifadesi_yok():
+    _, govde = uret(SAATLI)
+    assert "o gece" not in govde.lower()
+
+
+def test_saatsiz_haritada_gorunurluk_iddiasi_yok():
+    """Saat yoksa Güneş'in nerede olduğu bilinmez: 'gündüzdü' denmez."""
+    _, govde = uret(SAATSIZ)
+    assert "gündüzdü" not in govde and "o gece" not in govde.lower()

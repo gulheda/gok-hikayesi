@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 12 Ekim 2026
+Son güncelleme: 17 Ekim 2026
 
 ## Çalışan ve doğrulanmış
 
@@ -36,6 +36,8 @@ için etiketli. Erişilebilirlik puntolarında saat anahtarı dikey yerleşiyor.
 
 **Uygulama ikonu.** CoreGraphics ile üretiliyor (`backend/tools/ikon-uret.swift`),
 asset kataloğunda ve derlenmiş pakette doğrulandı.
+
+**Hikâye kalitesi.** Şablon motoru gece/gündüz farkındalığı kazandı: Güneş ufkun altındaysa anlatı "gündüzdü", "o sabah" demiyor. Günlük inceleme kaydı: [hikaye-kalite-notlari.md](hikaye-kalite-notlari.md).
 
 ## Kod hazır, canlı çalıştırılmadı
 
