@@ -46,7 +46,7 @@ Google AI Studio'dan ücretsiz anahtar alınır; kredi kartı istemez.
 # .env dosyasına
 LLM_SAGLAYICI=gemini
 GEMINI_API_KEY=...
-STORY_MODEL=gemini-3-flash
+STORY_MODEL=gemini-3.5-flash
 ```
 
 Model adlarını görmek için:

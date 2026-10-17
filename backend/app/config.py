@@ -27,7 +27,7 @@ VARSAYILAN_MODELLER = {
     "anthropic": "claude-opus-5",
     # Gemini model adları zamanla değişiyor; kullanılabilir listeyi görmek için:
     #   curl "https://generativelanguage.googleapis.com/v1beta/models?key=ANAHTAR"
-    "gemini": "gemini-3-flash",
+    "gemini": "gemini-3.5-flash",
     "openai_uyumlu": "llama3.1:8b",
     "sablon": "sablon",
 }
