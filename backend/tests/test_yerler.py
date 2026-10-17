@@ -51,7 +51,7 @@ def test_il_tablosu_degismedi():
 
 
 def test_yurtdisi_tablo_boyutu_ve_geonames_ile_tutarlilik():
-    assert len(places.YURTDISI_SEHIRLER) == 157
+    assert len(places.YURTDISI_SEHIRLER) == 173
     geonamescache = pytest.importorskip("geonamescache")
     # Yeni eklenen şehirler GeoNames'e göre ~0.1° içinde olmalı
     cities = geonamescache.GeonamesCache().get_cities()
@@ -226,3 +226,21 @@ def test_sekizinci_tur_sehirler_geonames_ve_yazimlar():
     assert places.lookup_yurtdisi("Cape Town, South Africa")[3] == "Güney Afrika"
     with pytest.raises(KeyError):
         places.lookup_yurtdisi("Lagos, Portugal")
+
+
+def test_dokuzuncu_tur_sehirler_geonames_ve_yazimlar():
+    geonamescache = pytest.importorskip("geonamescache")
+    cities = geonamescache.GeonamesCache().get_cities()
+    en = {'dakka': ('Dhaka', 'BD'), 'manila': ('Manila', 'PH'), 'lima': ('Lima', 'PE'), 'bogota': ('Bogotá', 'CO'), 'santiago': ('Santiago', 'CL'), 'nairobi': ('Nairobi', 'KE'), 'kazablanka': ('Casablanca', 'MA'), 'cezayir': ('Algiers', 'DZ'), 'tunus': ('Tunis', 'TN'), 'kuala lumpur': ('Kuala Lumpur', 'MY'), 'hanoi': ('Hanoi', 'VN'), 'taipei': ('Taipei', 'TW'), 'hong kong': ('Hong Kong', 'HK'), 'addis ababa': ('Addis Ababa', 'ET'), 'kabil': ('Kabul', 'AF'), 'havana': ('Havana', 'CU')}
+    for ad, (adi, kod) in en.items():
+        lat, lon, _ = places.YURTDISI_SEHIRLER[ad]
+        en_iyi = max((c for c in cities.values()
+                      if c["name"] == adi and c["countrycode"] == kod),
+                     key=lambda c: c["population"])
+        assert abs(en_iyi["latitude"] - lat) < 0.1, ad
+        assert abs(en_iyi["longitude"] - lon) < 0.1, ad
+    assert places.lookup_yurtdisi("Dhaka, Bangladesh")[3] == "Bangladeş"
+    assert places.lookup_yurtdisi("Casablanca, Morocco")[3] == "Fas"
+    assert places.lookup_yurtdisi("Hong Kong")[3] == "Hong Kong"
+    with pytest.raises(KeyError):
+        places.lookup_yurtdisi("Santiago, Spain")

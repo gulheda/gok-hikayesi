@@ -261,6 +261,23 @@ YURTDISI_SEHIRLER: Dict[str, Tuple[float, float, str]] = {
     "cape town": (-33.9258, 18.4232, "Güney Afrika"),
     "lagos": (6.4541, 3.3947, "Nijerya"),
     "buenos aires": (-34.6131, -58.3772, "Arjantin"),
+    # GeoNames ile doğrulanmış dokuzuncu tur (Asya, Afrika, Latin Amerika)
+    "dakka": (23.7104, 90.4074, "Bangladeş"),
+    "manila": (14.6042, 120.9822, "Filipinler"),
+    "lima": (-12.0432, -77.0282, "Peru"),
+    "bogota": (4.6097, -74.0817, "Kolombiya"),
+    "santiago": (-33.4569, -70.6483, "Şili"),
+    "nairobi": (-1.2833, 36.8167, "Kenya"),
+    "kazablanka": (33.5883, -7.6114, "Fas"),
+    "cezayir": (36.7323, 3.0875, "Cezayir"),
+    "tunus": (36.8190, 10.1658, "Tunus"),
+    "kuala lumpur": (3.1412, 101.6865, "Malezya"),
+    "hanoi": (21.0245, 105.8412, "Vietnam"),
+    "taipei": (25.0531, 121.5264, "Tayvan"),
+    "hong kong": (22.2783, 114.1747, "Hong Kong"),
+    "addis ababa": (9.0250, 38.7469, "Etiyopya"),
+    "kabil": (34.5281, 69.1723, "Afganistan"),
+    "havana": (23.1330, -82.3830, "Küba"),
 }
 
 # Yurtdışı şehirlerin yaygın yabancı yazımları
@@ -289,6 +306,9 @@ YURTDISI_TAKMA_ADLAR: Dict[str, str] = {
     "beijing": "pekin", "shanghai": "sanghay", "seoul": "seul",
     "singapore": "singapur", "jakarta": "cakarta", "karachi": "karaci",
     "sao paulo": "sao paulo", "mexico": "mexico city", "capetown": "cape town",
+    "dhaka": "dakka", "bogota": "bogota", "casablanca": "kazablanka",
+    "algiers": "cezayir", "tunis": "tunus", "kabul": "kabil",
+    "hongkong": "hong kong", "addisababa": "addis ababa",
 }
 
 # Ülke adı yazımları (normalize) -> tablodaki ülke adı
@@ -335,7 +355,7 @@ _ULKE_YAZIMLARI: Dict[str, str] = {
     "letonya": "Letonya", "lithuania": "Litvanya", "litvanya": "Litvanya",
     "estonia": "Estonya", "estonya": "Estonya", "slovenia": "Slovenya",
     "slovenya": "Slovenya", "oman": "Umman", "umman": "Umman",
-    "cin": "Çin", "china": "Çin", "japan": "Japonya", "japonya": "Japonya", "south korea": "Güney Kore", "guney kore": "Güney Kore", "singapore": "Singapur", "singapur": "Singapur", "thailand": "Tayland", "tayland": "Tayland", "india": "Hindistan", "hindistan": "Hindistan", "pakistan": "Pakistan", "indonesia": "Endonezya", "endonezya": "Endonezya", "brazil": "Brezilya", "brezilya": "Brezilya", "mexico": "Meksika", "meksika": "Meksika", "south africa": "Güney Afrika", "guney afrika": "Güney Afrika", "nigeria": "Nijerya", "nijerya": "Nijerya", "argentina": "Arjantin", "arjantin": "Arjantin",
+    "cin": "Çin", "china": "Çin", "japan": "Japonya", "japonya": "Japonya", "south korea": "Güney Kore", "guney kore": "Güney Kore", "singapore": "Singapur", "singapur": "Singapur", "thailand": "Tayland", "tayland": "Tayland", "india": "Hindistan", "hindistan": "Hindistan", "pakistan": "Pakistan", "indonesia": "Endonezya", "endonezya": "Endonezya", "brazil": "Brezilya", "brezilya": "Brezilya", "mexico": "Meksika", "meksika": "Meksika", "south africa": "Güney Afrika", "guney afrika": "Güney Afrika", "nigeria": "Nijerya", "nijerya": "Nijerya", "bangladesh": "Bangladeş", "banglades": "Bangladeş", "philippines": "Filipinler", "filipinler": "Filipinler", "peru": "Peru", "colombia": "Kolombiya", "kolombiya": "Kolombiya", "chile": "Şili", "sili": "Şili", "kenya": "Kenya", "morocco": "Fas", "fas": "Fas", "algeria": "Cezayir", "cezayir": "Cezayir", "tunisia": "Tunus", "tunus": "Tunus", "malaysia": "Malezya", "malezya": "Malezya", "vietnam": "Vietnam", "taiwan": "Tayvan", "tayvan": "Tayvan", "hong kong": "Hong Kong", "ethiopia": "Etiyopya", "etiyopya": "Etiyopya", "afghanistan": "Afganistan", "afganistan": "Afganistan", "cuba": "Küba", "kuba": "Küba", "argentina": "Arjantin", "arjantin": "Arjantin",
 }
 
 
