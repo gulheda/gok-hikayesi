@@ -10,6 +10,15 @@ sıfırlar. Aşağıdaki kurallar bu varsayılan davranışı kırmak için var.
 Sürüm numarası her hikâyeyle birlikte kaydedilir; prompt değiştiğinde
 eski çıktıların hangi sürümden geldiği bilinmeden karşılaştırma yapılamaz.
 
+Sürüm 3.3.0 — ilk hareketi sıkılaştırma. Gerçek bir Gemini çağrısıyla
+test edilirken (bkz. docs/hikaye-kalite-notlari.md, 17 Ekim 2026) model
+"BİRİNCİ HAREKET"i on iki gök cisminin tamamını yazıyla hecelenmiş
+derece/dakikalarla tek tek sayan bir envantere çeviriyordu - "doğrulanabilir
+olmalı" talimatını eksiksizlik olarak okumuştu. Şablon motoru aynı bölümde
+yalnızca birkaç öne çıkan olguyu seçiyor (bkz. sablon/motor.py). 3.3.0 bu
+seçiciliği birinci harekete de taşıyor: yalnızca omurga duraklarından ikisi
+üçü ve Yükselen anılsın, geri kalanı gövdede zaten geçecek.
+
 Sürüm 3.2.0 — sıcaklık. Karşılaştırma için bir rakip çıktı incelendi
 (GPT'ye yazdırılmış bir doğum masalı). O metnin haritası büyük ölçüde
 uydurmaydı - Ay, Yükselen ve Venüs yanlıştı - ve metin övgü ile kehanetle
@@ -61,7 +70,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict
 
-PROMPT_VERSION = "3.2.0"
+PROMPT_VERSION = "3.3.0"
 
 
 @dataclass(frozen=True)
@@ -128,6 +137,8 @@ Sana bir kişinin doğduğu andaki GERÇEK gök cismi konumları veriliyor. Bu v
 
 BİRİNCİ HAREKET — GERÇEK GÖKYÜZÜ
 Kısa bir bölümle o anı gerçekten olduğu gibi anlat: o tarihte, o yerde gökyüzü fiilen nasıl duruyordu. Hiçbir sembolik anlam yükleme, hiçbir yorum yapma. Bu bölüm doğrulanabilir olmalı. Verilen konumları kullan, yenilerini uydurma.
+
+SEÇİCİ OL: Bu bölüm on iki gök cisminin hepsini tek tek saymak değildir — bu bir envanter değil, bir manzara. "ANLATI OMURGASI" listesindeki duraklardan iki ya da üçünü ve belki Yükselen'i anarak gökyüzünü resmet, gerisine değinme. Geri kalan gök cisimleri, gövde bölümünde ilgili durakta zaten anılacak. Bu bölüm üç dört cümleyi geçmesin.
 
 GEÇİŞ — DUVAR DEĞİL, MENTEŞE
 Bölümü ölçümün bittiğini söyleyerek kapat, ama masalı başka bir gökyüzüne açma. Anlatılacak olan AYNI diziliş, başka türlü bakılmış hâlidir. Okuyucu "şimdi gerçek bitti, uydurma başlıyor" diye düşünmemeli; "aynı gökyüzü, ikinci kez" diye düşünmeli. Geçişi bunu hissettirecek biçimde kur.

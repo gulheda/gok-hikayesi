@@ -36,15 +36,43 @@ hem gerçek Gemini (`gemini-3.5-flash`, ücretsiz katman) hikâyesi üretildi.
 - **Gemini:** 109 kelime, **yarım cümlede kesildi**, gerçek bir hikâye
   kurmadı — haritadaki konumları düz liste gibi art arda saydı ("Güneş
   Yengeç burcunun 10.9 derecesinde, Ay Aslan burcunun...").
-- **Sonuç:** Bu denemede şablon motoru gerçek LLM'den daha iyi bir metin
-  üretti. `GEMINI_API_KEY` otomatik gunluk rutine eklenemiyor (bkz. not
-  asagida), yani bu kiyas şimdilik elle yapılmalı. `prompts.py`'nin
-  omurga/nadirlik ile seçilmiş olguları LLM'e ne kadar iyi aktardığı
-  incelenmeli — ham harita listesi vermek yerine şablon motorunun
-  kullandığı "sahne" yapısını prompt'a taşımak gerekebilir.
+- **İlk sonuç (YANLIŞ ÇIKTI, bkz. düzeltme aşağıda):** Tek örnekten "şablon
+  LLM'den iyi" sonucuna varıldı. Bu hatalıydı — tek örnekle model kalitesi
+  hakkında hüküm verilemez, model rastgeleliği var.
 - **Yan bulgu (düzeltildi, commit 3b073e1):** `config.py`'deki varsayılan
   Gemini modeli (`gemini-3-flash`) artık mevcut değildi, `gemini-3.5-flash`
   ile değiştirildi.
+
+### Düzeltme ve ikinci tur (aynı gün, 17 Ekim 2026)
+
+İlk denemenin yarım kesilme sebebi ham httpx isteğiyle teşhis edildi:
+`finishReason` ve `usageMetadata` doğrudan okundu. İkinci çağrı (AYNI
+harita, AYNI prompt) `finishReason: STOP` ile TAM, 1000+ kelimelik,
+"ANLATI OMURGASI" zincirini doğru kullanan, gerçek dereceleri dokuyan
+düzgün bir masal üretti. Yani ilk kesilme model rastgeleliğiydi (Gemini
+3.5 "düşünme" modunda ~5000-6000 `thoughtsTokenCount` harcıyor ama bu
+görünmez token bütçesi değil, `candidatesTokenCount` ayrı sayılıyor —
+sistemik bir token-limiti sorunu yoktu).
+
+Gerçek, tekrarlanabilir zayıflık: model "BİRİNCİ HAREKET" (gerçek
+gökyüzü) bölümünde 12 gök cisminin TAMAMINI yazıyla hecelenmiş
+derece/dakikayla ("Aslan burcunun on dokuz derece beşinci dakikası")
+tek tek sayıyordu — şablon motorunun aksine seçici değildi, veri
+dökümü gibi okunuyordu.
+
+**Düzeltme (prompt sürüm 3.3.0, commit sonrası):** `SYSTEM_PROMPT`'a
+"SEÇİCİ OL" talimatı eklendi: ilk hareket yalnızca omurga duraklarından
+2-3'ünü ve Yükselen'i anıp 3-4 cümleyi geçmesin. İkinci bir haritayla
+(Trabzon, 1991-11-20) test edildi: açılış artık 12 değil 4 gök cismiyle
+sınırlı — iyileşme var ama tam hedefe ulaşmadı (hâlâ "nokta dört
+derecesi" gibi hecelenmiş ondalık kullanıyor). Sonraki günlerde daha
+fazla örnekle izlenmeli.
+
+**Güncel sonuç:** Gerçek LLM (doğru promptla) şablon motoruna kıyasla
+rakip, hatta bazı yönlerden (gerçek dil akıcılığı, çeşitlilik) daha
+güçlü olabilir. Kesin hüküm için daha fazla örnek gerekir; bulut
+rutinine anahtar eklenemediği için bu örnekleme şimdilik elle
+sürdürülmeli.
 - **Not:** Bulut rutinine API anahtarı secret olarak eklenemiyor
   ("trigger configs are persisted and replayed on every fire" - RemoteTrigger
   API'si bunu açıkça reddediyor). Yani bu kıyas otomatikleşmedi, kullanıcı
