@@ -2,6 +2,23 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 18 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1999-12-31 00:10 Antalya
+- 1975-05-05 12:00 Van
+- 2015-02-14 16:50 Gaziantep
+- 1968-08-22 03:30 Erzurum
+
+Bulgu: Erzurum 1968'de Merkür–Jüpiter kavuşumu "Biri Başak burcunun 12.
+derecesinde, öteki Başak burcunun 12. derecesinde duruyordu" diyordu (aynı burç
+ve derece iki kez). Düzeltme: `motor._iki_konum`; aynı burçta "İkisi de Başak
+burcunun 12. derecesinde", farklı derecede "İkisi de X burcundaydı: biri a.,
+öteki b. derecesinde". Test: `test_ayni_burctaki_kavusum_tekrarlanan_konum_yazmaz`.
+
+Açık gözlem: "Tam açıdan sapma yarım dereceden azdı" kalıbı 0.05° ile 0.49° için
+aynı; çok dar açıda (örn. <0.1°) daha çarpıcı bir ifade seçilebilir.
+
 ## 17 Ekim 2026
 
 Denenen haritalar (tarih saat il):

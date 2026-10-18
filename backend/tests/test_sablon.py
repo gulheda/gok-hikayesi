@@ -289,3 +289,17 @@ def test_saatsiz_haritada_gorunurluk_iddiasi_yok():
     """Saat yoksa Güneş'in nerede olduğu bilinmez: 'gündüzdü' denmez."""
     _, govde = uret(SAATSIZ)
     assert "gündüzdü" not in govde and "o gece" not in govde.lower()
+
+
+def test_ayni_burctaki_kavusum_tekrarlanan_konum_yazmaz():
+    """Erzurum, 22.08.1968 03:30: Merkür–Jüpiter ikisi de Başak 12°.
+
+    Eski metin 'Biri Başak burcunun 12. derecesinde, öteki Başak burcunun
+    12. derecesinde duruyordu' diyordu.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1968, 8, 22), birth_time=time(3, 30),
+        latitude=39.9055, longitude=41.2658, place_name="Erzurum"))
+    _, govde = uret(harita)
+    assert "İkisi de Başak burcunun 12. derecesinde" in govde
+    assert not re.search(r"Biri (\w+) burcunun \d+\. derecesinde, öteki \1 burcunun", govde)

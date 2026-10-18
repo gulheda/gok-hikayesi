@@ -376,6 +376,22 @@ def bolum_yonetici(b: Baglam) -> List[str]:
     ]
 
 
+def _iki_konum(a, b) -> str:
+    """İki gök cisminin burç/derece konumunu tekrara düşmeden anlatır."""
+    da, db = int(a.degree_in_sign), int(b.degree_in_sign)
+    if a.sign_name_tr == b.sign_name_tr:
+        if da == db:
+            return f"İkisi de {a.sign_name_tr} burcunun {da}. derecesinde duruyordu."
+        return (
+            f"İkisi de {a.sign_name_tr} burcundaydı: biri {da}., öteki "
+            f"{db}. derecesinde duruyordu."
+        )
+    return (
+        f"Biri {a.sign_name_tr} burcunun {da}. derecesinde, öteki "
+        f"{b.sign_name_tr} burcunun {db}. derecesinde duruyordu."
+    )
+
+
 def bolum_bag(b: Baglam) -> List[str]:
     """En dar açı: ülkedeki en kesin şey."""
     dar = b.imzalar.get("tight_aspect", [])
@@ -398,12 +414,7 @@ def bolum_bag(b: Baglam) -> List[str]:
     b_cisim = next((c for c in b.chart.bodies if c.name_tr == en_dar.name_b_tr), None)
     konumlar = ""
     if a_cisim and b_cisim:
-        konumlar = (
-            f" Biri {a_cisim.sign_name_tr} burcunun "
-            f"{int(a_cisim.degree_in_sign)}. derecesinde, öteki "
-            f"{b_cisim.sign_name_tr} burcunun "
-            f"{int(b_cisim.degree_in_sign)}. derecesinde duruyordu."
-        )
+        konumlar = " " + _iki_konum(a_cisim, b_cisim)
     return [
         f"Ülkeden geçen dümdüz bir yol vardı ve o yolu yürüdün: {iliski}."
         + konumlar
