@@ -303,3 +303,13 @@ def test_ayni_burctaki_kavusum_tekrarlanan_konum_yazmaz():
     _, govde = uret(harita)
     assert "İkisi de Başak burcunun 12. derecesinde" in govde
     assert not re.search(r"Biri (\w+) burcunun \d+\. derecesinde, öteki \1 burcunun", govde)
+
+
+def test_toplantidaki_cisim_gomulu_kisi_olarak_ikinci_kez_anilmaz():
+    """Diyarbakır 1972: Venüs hem toplantıda hem 'bir kişi daha' diye geçiyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1972, 6, 17), birth_time=time(7, 40),
+        latitude=37.9144, longitude=40.2306, place_name="Diyarbakır"))
+    _, govde = uret(harita)
+    assert "Venüs" in govde
+    assert "bir kişi daha vardı" not in govde

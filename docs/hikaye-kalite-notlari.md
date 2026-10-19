@@ -2,6 +2,28 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 19 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1983-04-09 14:20 Kayseri
+- 2008-12-25 22:05 Samsun
+- 1972-06-17 07:40 Diyarbakır
+- 1996-10-03 17:15 Eskişehir
+- 1958-02-28 01:30 Aydın
+
+Bulgu: Diyarbakır 1972'de Venüs önce toplantının (Güneş, Merkür, Venüs, Satürn)
+üyesi olarak, sonra "Ülkede bir kişi daha vardı ve onu hiç göremedin: Venüs"
+diye geçiyordu (tekrar + çelişki). Düzeltme: `bolum_gomulu`, cisim meclis
+üyesiyse bölümü yazmaz. Test: `test_toplantidaki_cisim_gomulu_kisi_olarak_ikinci_kez_anilmaz`.
+
+Açık gözlemler:
+- Samsun 2008: "Yolun burasında Jüpiter ile tekrar karşılaştın" — Jüpiter
+  metinde daha önce anılmamıştı (zincir girişi yalnızca omurga ortaklığına bakıyor).
+- Samsun 2008: "Haritada tam olarak oradaydılar ve gökyüzünde tam olarak
+  görünmüyorlardı" kalıbı yapay.
+- Eskişehir 1996 (17:15, Ekim): "Gökyüzü açıktı ve boştu" kapanışı gündüz için
+  belirsiz bir iddia (hava durumu uydurma).
+
 ## 18 Ekim 2026
 
 Denenen haritalar (tarih saat il):

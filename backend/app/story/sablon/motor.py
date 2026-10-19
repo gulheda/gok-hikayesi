@@ -480,6 +480,15 @@ def bolum_gomulu(b: Baglam) -> List[str]:
     if not k:
         return []
 
+    # Meclis bölümü bu cismi zaten bir toplantının üyesi olarak anmışsa
+    # "bir kişi daha vardı" demek hem tekrar hem çelişki olur.
+    yiginlar = (b.imzalar.get("stellium_house", [])
+                or b.imzalar.get("stellium_sign", []))
+    if yiginlar and ":" in yiginlar[0].label:
+        uyeler = yiginlar[0].label.split(":", 1)[1].split(".")[0].split(",")
+        if ad in [u.strip() for u in uyeler][:4]:
+            return []
+
     return [
         f"Ülkede bir kişi daha vardı ve onu hiç göremedin: {ad}. Güneş'e "
         "öyle yakın duruyordu ki ışık onu yutmuştu. Ağırlığını hissettin, "
