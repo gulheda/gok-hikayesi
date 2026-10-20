@@ -261,12 +261,24 @@ def bolum_kapi(b: Baglam) -> List[str]:
     )
 
     if len(kullanilan) > 1:
-        ikinci_adi = kullanilan[1][0].label.split(",")[0]
+        ikinci_imza, ikinci_nokta = kullanilan[1]
+        ikinci_adi = ikinci_imza.label.split(",")[0]
+        if ikinci_nokta.ad == kurgu:
+            yer_cumlesi = (
+                f"Yalnız değildi. {ikinci_adi} {de_baglaci(ikinci_adi)} "
+                "oradaydı, birkaç adım ötede. İkisinin arasından geçtin."
+            )
+        else:
+            # Başka bir açısal noktaya yakınsa "orada, birkaç adım ötede"
+            # demek yanlış olur (Yükselen ile Tepe çeyrek daire uzakta).
+            yer_cumlesi = (
+                f"Yalnız değildi. {buyuk_harf(bulunma(ikinci_nokta.ad))} "
+                f"{ikinci_adi} {de_baglaci(ikinci_adi)} vardı; ikisini aynı "
+                "bakışta göremezdin."
+            )
         satirlar.append(
-            f"Yalnız değildi. {ikinci_adi} {de_baglaci(ikinci_adi)} oradaydı, "
-            "birkaç adım ötede. İkisinin arasından geçtin. Hangisinin sana "
-            "yol gösterdiğini, hangisinin yalnızca baktığını sonradan da "
-            "ayıramadın."
+            yer_cumlesi + " Hangisinin sana yol gösterdiğini, hangisinin "
+            "yalnızca baktığını sonradan da ayıramadın."
         )
     else:
         satirlar.append(

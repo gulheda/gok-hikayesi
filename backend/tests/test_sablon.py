@@ -313,3 +313,18 @@ def test_toplantidaki_cisim_gomulu_kisi_olarak_ikinci_kez_anilmaz():
     _, govde = uret(harita)
     assert "Venüs" in govde
     assert "bir kişi daha vardı" not in govde
+
+
+def test_farkli_acisal_noktalardaki_ikinci_cisim_orada_denmez():
+    """Malatya 2004-08-19 15:05: Ay Tepe'de, Plüton Yükselen'de.
+
+    Eski metin 'Plüton da oradaydı, birkaç adım ötede' diyordu; oysa ikisi
+    gökyüzünün zıt uçlarındaydı.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(2004, 8, 19), birth_time=time(15, 5),
+        latitude=38.3552, longitude=38.3095, place_name="Malatya"))
+    _, govde = uret(harita)
+    assert "Plüton" in govde
+    assert "Plüton de oradaydı" not in govde and "Plüton da oradaydı" not in govde
+    assert "Kapıda Plüton" in govde

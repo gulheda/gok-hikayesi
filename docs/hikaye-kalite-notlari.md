@@ -2,6 +2,29 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 20 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1991-05-27 10:35 Trabzon
+- 1965-09-14 19:50 Konya
+- 2012-03-02 05:15 Mardin
+- 1989-01-08 21:40 Bursa
+- 2004-08-19 15:05 Malatya
+
+Bulgu: Malatya 2004'te Ay Tepe'de, Plüton Yükselen'deydi; metin "Plüton da
+oradaydı, birkaç adım ötede" diyordu (Konya 1965'te Ay Yükselen, Venüs Batan:
+aynı hata). Düzeltme: `bolum_kapi`, ikinci cisim başka açısal noktadaysa
+"Yalnız değildi. Kapıda Plüton da vardı; ikisini aynı bakışta göremezdin"
+yazar. Test: `test_farkli_acisal_noktalardaki_ikinci_cisim_orada_denmez`.
+
+Açık gözlemler:
+- Konya 1965: Ay "doğu ufkunun 2 derece üstünde" (olgusal bölüm) ile "1,5
+  derece ötede" (kapı bölümü) farklı yuvarlanıyor.
+- Malatya 2004: Merkür toplantının üyesi, sonra "Bir de Merkür vardı" ve
+  "Merkür ile tekrar karşılaştın" ile üç kez geçiyor (retro sahnesi toplantıya
+  bakmıyor).
+- Bursa 1989: hikâye çok kısa (188 kelime), yalnızca meclis + kapanış.
+
 ## 19 Ekim 2026
 
 Denenen haritalar (tarih saat il):
