@@ -9,8 +9,11 @@ import base64
 import logging
 from typing import Optional
 
+from pathlib import Path
+
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from ..astro.chart import BirthInput, calculate_chart
 from ..astro.constants import HOUSE_SYSTEMS
@@ -211,3 +214,12 @@ def ses_maliyeti(karakter: int) -> MaliyetTahminiYaniti:
             for e in compare_all(karakter)
         ],
     )
+
+
+# Basit web istemcisi: hediye ürünü için iOS yerine tek bir statik sayfa
+# (bkz. docs/kararlar.md madde 8). API uçlarından SONRA bağlanmalı, yoksa
+# "/" eşlemesi onları gölgede bırakır. Dizin yoksa (örn. yalnızca API
+# çağrılan ortamlarda) sessizce atla.
+_WEB_DIR = Path(__file__).resolve().parents[3] / "web"
+if _WEB_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=_WEB_DIR, html=True), name="web")

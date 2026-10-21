@@ -18,6 +18,15 @@ def test_saglik_ucu_efemeris_durumunu_bildirir():
     assert "placidus" in d["desteklenen_ev_sistemleri"]
 
 
+def test_kok_web_sayfasini_sunar():
+    """web/ dizini API yollarından SONRA bağlanmalı; sırası değişirse bu
+    test ya da /saglik//api/* testleri kırılır, ikisi birlikte korur."""
+    r = client.get("/")
+    assert r.status_code == 200
+    assert "text/html" in r.headers["content-type"]
+    assert "Gök Hikâyesi" in r.text
+
+
 def test_harita_ucu_saatli_girdiyi_hesaplar():
     r = client.post("/api/harita", json={
         "ad": "Test", "tarih": "2003-07-03", "saat": "09:00", "yer": "Denizli",

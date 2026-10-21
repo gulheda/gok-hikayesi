@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gök Hikâyesi</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --panel: #12151d;
+    --border: #262b38;
+    --text: #e7e9ee;
+    --muted: #8a90a2;
+    --accent: #c9a876;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header {
+    margin-bottom: 36px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+  header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 15px;
+  }
+  form {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field {
+    margin-bottom: 16px;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+  }
+  .row .field {
+    flex: 1;
+  }
+  input {
+    width: 100%;
+    background: #0e1119;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  button {
+    width: 100%;
+    background: var(--accent);
+    color: #1a1308;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  #hata {
+    display: none;
+    color: #e08080;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+  #sonuc {
+    display: none;
+    margin-top: 36px;
+  }
+  #sonuc h2 {
+    font-size: 20px;
+    margin: 0 0 18px;
+  }
+  #hikaye-metni p {
+    margin: 0 0 16px;
+  }
+  .uyari {
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 28px;
+  }
+  .eylemler {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .eylemler button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 400;
+  }
+  footer {
+    margin-top: 60px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Gök Hikâyesi</h1>
+    <p>Doğduğun andaki gerçek gök cismi konumlarından çıkan bir hikâye. Gezegen konumları astronomik hesaptan gelir; hikâye kurgudur.</p>
+  </header>
+
+  <form id="form">
+    <div class="field">
+      <label for="yer">Doğum yeri</label>
+      <input id="yer" name="yer" type="text" placeholder="örn. Denizli ya da Berlin" required minlength="2">
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="tarih">Doğum tarihi</label>
+        <input id="tarih" name="tarih" type="date" required>
+      </div>
+      <div class="field">
+        <label for="saat">Doğum saati</label>
+        <input id="saat" name="saat" type="time">
+        <div class="hint">Bilmiyorsan boş bırak</div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="ad">Ad (isteğe bağlı)</label>
+      <input id="ad" name="ad" type="text" maxlength="80" placeholder="Hikâyede kullanılsın mı?">
+    </div>
+    <button type="submit" id="gonder">Hikâyeyi oluştur</button>
+    <div id="hata"></div>
+  </form>
+
+  <div id="sonuc">
+    <h2 id="hikaye-baslik"></h2>
+    <div id="hikaye-metni"></div>
+    <div class="eylemler">
+      <button type="button" id="kopyala">Metni kopyala</button>
+      <button type="button" id="yeniden">Yeni hikâye</button>
+    </div>
+    <p class="uyari" id="hikaye-uyari"></p>
+  </div>
+
+  <footer>Veriler saklanmaz; istek bittiğinde atılır.</footer>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById("form");
+  var gonderBtn = document.getElementById("gonder");
+  var hataEl = document.getElementById("hata");
+  var sonucEl = document.getElementById("sonuc");
+  var baslikEl = document.getElementById("hikaye-baslik");
+  var metinEl = document.getElementById("hikaye-metni");
+  var uyariEl = document.getElementById("hikaye-uyari");
+
+  function kacis(s) {
+    var div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function paragraflaraBol(metin) {
+    return metin
+      .split(/\n\s*\n/)
+      .map(function (p) { return "<p>" + kacis(p.trim()) + "</p>"; })
+      .join("");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    hataEl.style.display = "none";
+    sonucEl.style.display = "none";
+    gonderBtn.disabled = true;
+    gonderBtn.textContent = "Hesaplanıyor…";
+
+    var govde = {
+      yer: document.getElementById("yer").value.trim(),
+      tarih: document.getElementById("tarih").value,
+    };
+    var saat = document.getElementById("saat").value;
+    if (saat) govde.saat = saat;
+    var ad = document.getElementById("ad").value.trim();
+    if (ad) govde.ad = ad;
+
+    fetch("/api/hikaye", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(govde),
+    })
+      .then(function (r) {
+        return r.json().then(function (data) {
+          if (!r.ok) {
+            var mesaj = typeof data.detail === "string" ? data.detail : "İstek işlenemedi.";
+            throw new Error(mesaj);
+          }
+          return data;
+        });
+      })
+      .then(function (data) {
+        baslikEl.textContent = data.baslik;
+        metinEl.innerHTML = paragraflaraBol(data.metin);
+        uyariEl.textContent = data.uyari;
+        sonucEl.style.display = "block";
+        sonucEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      })
+      .catch(function (err) {
+        hataEl.textContent = err.message;
+        hataEl.style.display = "block";
+      })
+      .finally(function () {
+        gonderBtn.disabled = false;
+        gonderBtn.textContent = "Hikâyeyi oluştur";
+      });
+  });
+
+  document.getElementById("kopyala").addEventListener("click", function () {
+    var metin = baslikEl.textContent + "\n\n" + metinEl.innerText;
+    navigator.clipboard.writeText(metin).then(function () {
+      var btn = document.getElementById("kopyala");
+      var onceki = btn.textContent;
+      btn.textContent = "Kopyalandı";
+      setTimeout(function () { btn.textContent = onceki; }, 1500);
+    });
+  });
+
+  document.getElementById("yeniden").addEventListener("click", function () {
+    sonucEl.style.display = "none";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+})();
+</script>
+</body>
+</html>
