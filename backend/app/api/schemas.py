@@ -57,6 +57,14 @@ class HaritaYaniti(BaseModel):
     harita: Dict[str, Any]
 
 
+UYARI_METNI = (
+    "Gök Hikâyesi bir eğlence ve kişisel anlatı uygulamasıdır. Gezegen "
+    "konumları astronomik hesapla bulunur; ancak bu konumlara bağlanan "
+    "yorumlar ve hikâyeler kurgudur. Uygulama tıbbi, psikolojik, hukuki ya "
+    "da mali tavsiye vermez; hiçbir karar için dayanak alınmamalıdır."
+)
+
+
 class HikayeYaniti(BaseModel):
     yer: YerBilgisi
     harita: Dict[str, Any]
@@ -72,6 +80,7 @@ class HikayeYaniti(BaseModel):
     girdi_token: int
     cikti_token: int
     maliyet_usd: Optional[float]
+    uyari: str = UYARI_METNI
 
 
 class SeslendirmeIstegi(BaseModel):

@@ -97,6 +97,10 @@ def test_sablon_saglayicisi_anahtarsiz_hikaye_uretir(monkeypatch):
     assert d["model"].startswith("sablon-v")
     # Olgusal panel yine koddan üretiliyor.
     assert "HESAPLANAN VERİ" in d["olgusal_panel"]
+    # KVKK/eğlence amaçlıdır ibaresi her yanıtta taşınmalı (bkz.
+    # docs/hukuk/gizlilik-aydinlatma-taslagi.md madde 2).
+    assert "eğlence" in d["uyari"].lower()
+    assert "kurgudur" in d["uyari"].lower()
 
 
 def test_sablon_saglayicisi_saglik_ucunda_hazir_gorunur(monkeypatch):
