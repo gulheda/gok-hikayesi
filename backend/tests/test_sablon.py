@@ -328,3 +328,17 @@ def test_farkli_acisal_noktalardaki_ikinci_cisim_orada_denmez():
     assert "Plüton" in govde
     assert "Plüton de oradaydı" not in govde and "Plüton da oradaydı" not in govde
     assert "Kapıda Plüton" in govde
+
+
+def test_gorunmeyen_cisimler_bozuk_kalibi_kullanmaz():
+    """Sinop 1982-11-11 08:25: dört cisim Güneş'in ışığında kaybolmuştu.
+
+    Eski metin 'gökyüzünde tam olarak görünmüyorlardı' diyordu; 'tam olarak
+    görünmemek' anlamsız bir kalıptı.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1982, 11, 11), birth_time=time(8, 25),
+        latitude=42.0231, longitude=35.1531, place_name="Sinop"))
+    _, govde = uret(harita)
+    assert "hiçbiri görülemiyordu" in govde
+    assert "tam olarak görünmü" not in govde

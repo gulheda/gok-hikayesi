@@ -2,6 +2,31 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 21 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1982-11-11 08:25 Sinop
+- 1977-04-23 12:50 Adana
+- 2019-07-07 20:10 Hatay (çocuk tonu)
+- 1950-12-01 04:40 Çorum
+- 1993-03-30 15:35 Tekirdağ
+
+Bulgu: Sinop 1982'de birden çok cisim Güneş'in ışığında kaybolduğunda cümle
+"Haritada tam olarak oradaydılar ve gökyüzünde tam olarak görünmüyorlardı"
+diye bitiyordu (19 Ekim'de Samsun'da da görülen yapay kalıp). Düzeltme:
+`gokyuzu.gorunmeyenler` artık "Haritada yerlerinde duruyorlardı; gökyüzünde ise
+hiçbiri seçilemiyordu" yazar. Test: `test_gorunmeyen_cisimler_bozuk_kalibi_kullanmaz`.
+
+Açık gözlemler:
+- Sinop 1982: gökyüzünün 258 derecelik kısmı boşken "Ülkenin bir yarısında
+  kimse yoktu" deniyor; boşluk yarıdan çok büyükse "yarısında" yanlış.
+- Kapanış "Gökyüzü açıktı ve boştu" (sözlük.py) hava durumu iddiası; Sinop ve
+  Tekirdağ'da yine çıktı.
+- "Ay ile Plüton hiç buluşmadılar" (Hatay, Ay–Plüton üçgen) ile "ikisinin
+  arasından geçtin" gibi kapı/yol kalıpları üç hikayede de aynı iskeleti taşıyor.
+- Çorum 1950: Ay–Plüton kavuşumu hem yol bölümünde hem kapıda (Ay Tepe'de)
+  tekrar anlatılıyor.
+
 ## 20 Ekim 2026
 
 Denenen haritalar (tarih saat il):

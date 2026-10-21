@@ -92,8 +92,8 @@ def gorunmeyenler(chart: NatalChart) -> List[GokOlgusu]:
         cumle = (
             f"{liste} Güneş'e o kadar yakındı ki hiçbiri görülemiyordu; "
             f"en yakını {en_yakin[0].name_tr}, yalnızca "
-            f"{_derece_yazi(en_yakin[1])} uzakta. Haritada tam olarak "
-            "oradaydılar ve gökyüzünde tam olarak görünmüyorlardı."
+            f"{_derece_yazi(en_yakin[1])} uzakta. Haritada yerlerinde "
+            "duruyorlardı; gökyüzünde ise hiçbiri seçilemiyordu."
         )
 
     return [GokOlgusu(
