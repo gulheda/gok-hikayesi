@@ -22,7 +22,14 @@ yukarı akış arızası 502.
 
 **iOS.** Simülatörde derlenip çalıştırıldı. iOS → backend zinciri uçtan uca
 doğrulandı. Doğum haritası çarkı SwiftUI Canvas ile çiziliyor; saat
-bilinmiyorsa ev halkası hiç çizilmiyor.
+bilinmiyorsa ev halkası hiç çizilmiyor. İş modeli kararından sonra (bkz.
+kararlar.md madde 8) birincil istemci artık web; iOS kodu duruyor ama
+öncelik değil.
+
+**Web istemcisi.** `web/index.html` — bağımlılıksız, tek sayfalık form
+(yer/tarih/saat/ad), aynı FastAPI uygulaması tarafından statik olarak
+sunuluyor. Yerelde uçtan uca test edildi (sunucu ayakta, `/api/hikaye`
+çağrısı ve yanıt gösterimi çalışıyor).
 
 **İstek sınırlama.** İki katmanlı: kaynak başına kayan pencere (hikâye için
 saatte 5, günde 15; harita için dakikada 30) ve günlük genel tavan (300 istek
@@ -41,33 +48,41 @@ asset kataloğunda ve derlenmiş pakette doğrulandı.
 
 ## Kod hazır, canlı çalıştırılmadı
 
-**Hikâye üretimi.** `ANTHROPIC_API_KEY` tanımlı olmadığı için `/api/hikaye`
-canlı çağrılmadı. Anahtar eklendiğinde çalışması gerekir; hata yolu test
-edildi (503 + temiz kullanıcı mesajı).
+**Hikâye üretimi (gerçek LLM).** Gemini ücretsiz katmanıyla elle test
+edildi (bkz. [hikaye-kalite-notlari.md](hikaye-kalite-notlari.md), 17 Ekim),
+sonuçlar umut verici ama az sayıda örnekle. Üretim varsayılanı hâlâ şablon
+motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
+`ANTHROPIC_API_KEY` hiç denenmedi (bütçe ayrılmadı, 21 Ekim kararı).
 
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
-gerçek ses üretilmedi, yani ses kalitesi hakkında hiçbir şey bilinmiyor.
+gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
 ## Yapılmadı
 
-- Veri kalıcılığı (şu an API durumsuz, hiçbir şey saklanmıyor)
-- Ses dosyası depolama (S3/R2)
+- Ses dosyası depolama (S3/R2) — hediye ürününde gerekmeyebilir, TTS
+  açılmadıkça anlamsız
 - KVKK/gizlilik metni: taslak yazıldı ([docs/hukuk/](hukuk/gizlilik-aydinlatma-taslagi.md)),
-  avukat incelemesi ve uygulama içi "eğlence amaçlıdır" ibaresi yapılmadı
-- Kapalı beta
+  avukat incelemesi hâlâ yapılmadı. "Eğlence amaçlıdır" ibaresi artık
+  `/api/hikaye` yanıtının `uyari` alanında gerçekten dönüyor (21 Ekim).
+- Kapalı beta / gerçek kullanıcı testi
+
+**Veri kalıcılığı artık ihtiyaç değil:** iş modeli "tek seferlik hediye
+ürünü" olarak karara bağlandı (hesap yok, geçmiş saklanmıyor) — bkz.
+kararlar.md madde 8. Mimari zaten buna uygundu, ekstra iş gerekmedi.
 
 ## Sıradaki en değerli üç iş
 
-1. **`ANTHROPIC_API_KEY` ekle ve beş farklı haritayla hikâye üret.**
-   Projenin doğrulanmamış tek varsayımı hikâye kalitesi; geri kalan her şey
-   çalışıyor. Karşılaştırma ölçütü [ornek-hikaye.md](ornek-hikaye.md).
-   Çıktılar zayıfsa prompt üzerinde çalışılır; hâlâ zayıfsa ürün fikri
-   burada durur — ki bu, 100+ saat kurtarır.
-2. **Backend'i bir yere deploy et** (Railway/Render/Fly). Şu an yalnızca
-   `localhost`; gerçek iPhone'da uygulama çalışamaz. HTTPS gelince
-   Info.plist'teki ATS istisnası kaldırılmalı.
-3. **İş modeli / platform çelişkisini çöz** (bkz. kararlar.md, madde 8).
-   Hediye ürünü mü, iOS uygulaması mı — ikisi aynı anda tutarlı değil.
+1. **Deploy'u fiilen yap.** Kod hazır ([DEPLOY.md](../DEPLOY.md), Dockerfile
+   yerelde uçtan uca test edildi) — eksik olan tek şey bir Railway/Render
+   hesabı açıp GitHub reponu bağlamak. Bu olmadan ne web sayfası ne iOS
+   uygulaması gerçek bir adrese sahip olur.
+2. **Hikâye kalitesini daha fazla örnekle gözle.** Şablon motoru her gün
+   iyileşiyor (bkz. hikaye-kalite-notlari.md); Gemini kıyası tek seferlik
+   kaldı. İkisi arasında üretimde hangisinin varsayılan olacağına
+   (`LLM_SAGLAYICI`) daha fazla örnekten sonra karar vermek gerekiyor.
+3. **KVKK metnini bir avukata gösterip kapalı betaya çık.** Kod tarafı
+   artık buna hazır (web istemcisi var, uyarı metni API'de); eksik olan
+   hukuki onay ve gerçek kullanıcıya açmak.
 
 ## Sınırlama ayarları
 

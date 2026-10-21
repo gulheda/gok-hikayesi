@@ -64,8 +64,8 @@ curl "https://generativelanguage.googleapis.com/v1beta/models?key=ANAHTAR"
   Kota dolduğunda sağlayıcı bunu açık bir mesajla bildirir.
 
 **Sınırı:** Prompt yedi mutlak kural içeriyor ve bunlara uyum modelden
-modele değişir. Çıktı Claude ile aynı olmayabilir; karşılaştırma ölçütü
-[ornek-hikaye.md](ornek-hikaye.md).
+modele değişir. Çıktı Claude ile aynı olmayabilir; karşılaştırma notları
+[hikaye-kalite-notlari.md](hikaye-kalite-notlari.md)'de.
 
 ---
 
