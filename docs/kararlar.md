@@ -117,20 +117,21 @@ meselesi. Öneri: kapalı betada ses kapalı başlasın, talep gelirse açılsı
 
 ---
 
-## 8. İş modeli ve platform — **AÇIK, planla çelişki var**
+## 8. İş modeli ve platform — **iş modeli karar verildi (21 Ekim 2026), platform hâlâ açık**
 
-Plan iki karar öneriyor ve bunlar birbiriyle uyuşmuyor:
+İş modeli: **tek seferlik hediye ürünü** (hesap yok, abonelik yok — kullanıcı
+bir kez doğum bilgisi girer, bir hikâye/ses alır, paylaşır).
 
-- Bölüm 13: "tek seferlik ücretli hediye ürünü"
-- Bölüm 2: "sadece iOS, native Swift"
+Ama bu, planın diğer kararıyla (Bölüm 2: "sadece iOS, native Swift") hâlâ
+çelişiyor: App Store'da dijital içerik satışı IAP zorunluluğu getirir
+(%15–30 komisyon), hediye alan kişinin uygulama indirmesini gerektirir ve
+planın öngördüğü tek moat olan viral paylaşımı zorlaştırır. **Hediye modeli
+için web + Stripe, iOS'tan daha uygun bir kanaldır** — bu henüz karar
+verilmedi, kullanıcıya sorulmalı.
 
-App Store'da dijital içerik satışı IAP zorunluluğu getirir (%15–30 komisyon),
-hediye alan kişinin uygulama indirmesini gerektirir ve planın öngördüğü tek
-moat olan viral paylaşımı zorlaştırır. Hediye modeli seçilirse web + Stripe
-daha uygun kanal.
-
-**Bu karar verilene kadar:** Backend her iki senaryoya da hazır — API
-istemciden bağımsız, iOS uygulaması yalnızca bir istemci.
+**Bu platform kararı verilene kadar:** Backend her iki senaryoya da hazır —
+API istemciden bağımsız, iOS uygulaması yalnızca bir istemci. Veri
+kalıcılığı gerekmiyor (hesap olmadığı için), bu da mimariyi basitleştiriyor.
 
 ---
 
