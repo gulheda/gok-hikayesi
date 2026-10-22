@@ -342,3 +342,18 @@ def test_gorunmeyen_cisimler_bozuk_kalibi_kullanmaz():
     _, govde = uret(harita)
     assert "hiçbiri görülemiyordu" in govde
     assert "tam olarak görünmü" not in govde
+
+
+def test_buyuk_ucgen_sahnesi_gecmis_zamanda_anlatir():
+    """Hakkari 1992-12-03 03:50: Ay–Mars–Plüton büyük üçgeni.
+
+    Etiket şimdiki zamandaydı ('açı yapıyor'), geçmiş zamanlı anlatıya
+    olduğu gibi giriyordu.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1992, 12, 3), birth_time=time(3, 50),
+        latitude=37.5744, longitude=43.7408, place_name="Hakkari"))
+    _, govde = uret(harita)
+    assert "kapalı bir devre buldun" in govde
+    assert "açı yapıyordu" in govde
+    assert "açı yapıyor;" not in govde and "açı yapıyor:" not in govde

@@ -113,6 +113,24 @@ Açık gözlemler (sonraki günler):
 - "Muğla 2001" hikâyesinde Jüpiter üç kişilik toplantıdan sonra tekrar anılıyor
   (zincir girişi var ama "Jüpiter yine oradaydı" ardından Merkür'ün gelmesi kopuk).
 
+## 22 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1985-06-18 14:30 Şanlıurfa
+- 1970-10-29 09:15 Ordu
+- 2005-02-08 20:45 Balıkesir
+- 1992-12-03 03:50 Hakkari
+
+Bulgu: Hakkari 1992'de büyük üçgen sahnesi "Ay, Mars, Plüton birbirine üçgen
+açı yapıyor" diyordu; geçmiş zamanlı anlatıda şimdiki zaman kopukluğu.
+Düzeltme: `motor.bolum_ucgen` etiketi "açı yapıyordu"ya çeviriyor. Test:
+`test_buyuk_ucgen_sahnesi_gecmis_zamanda_anlatir`.
+
+Açık gözlemler:
+- Meclis sahnesi "göğün aynı dar diliminde" diyor ama Hakkari'de Venüs–Satürn
+  arası ~20° (dar değil); sıkılık eşiği gözden geçirilmeli.
+- "gökyüzündekilerin hepsi görünmüyordu" (gece sahnesi) belirsiz okunuyor.
+
 ## LLM kıyası — 17 Ekim 2026 (elle, bir kerelik)
 
 Harita: 2003-07-03 09:00 Denizli, ad "Elif". Aynı haritadan hem `--sablon`

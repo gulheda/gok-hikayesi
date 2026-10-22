@@ -566,6 +566,8 @@ def bolum_ucgen(b: Baglam) -> List[str]:
     if "deseni: " not in etiket:
         return []
     govde = etiket.split("deseni: ")[1].split(";")[0]
+    # Etiket şimdiki zamanda; anlatı geçmiş zamanda akıyor.
+    govde = govde.replace("açı yapıyor", "açı yapıyordu")
     return [
         f"Sonra kapalı bir devre buldun: {govde}. Üçü arasında dolaşan bir "
         "şey vardı ve dışarı çıkmıyordu. İçine girmen gerekmedi; zaten "
