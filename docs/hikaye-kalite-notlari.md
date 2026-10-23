@@ -2,6 +2,29 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 23 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1988-03-14 07:20 Kars
+- 1999-08-11 11:05 Rize
+- 1976-11-02 22:10 Edirne
+- 2010-05-27 16:40 Antalya (genç ton)
+
+Bulgu: Kars'ta "Mars yine oradaydı" cümlesi geliyordu ama Mars önceki sahnede
+(kâse) hiç anılmamıştı; zincir bağlantısı dayanaksızdı.
+Düzeltme: `motor.uret` "yine/tekrar" girişini yalnızca cisim önceki sahnenin
+metninde geçiyorsa ekliyor. Test: `test_yine_baglantisi_anilmamis_cisim_icin_yazilmaz`.
+
+Açık gözlemler:
+- "Gökyüzünde Plüton gerileme hareketindeydi: ... görünüyorlardı" — tek cisimde
+  çoğul fiil.
+- Gündüz haritalarında (Rize 11:05, Antalya 16:40) kapanış "Gökyüzü açıktı ve
+  boştu" diyor; Güneş yukarıdayken boş demek tuhaf.
+- Edirne: "Merkür, Uranüs ile Mars Güneş'e o kadar yakındı" — virgül/ile karışık
+  sayım okunuşu bulandırıyor.
+- Antalya T-kare: Güneş–Neptün karesi üstteki açı listesinde görünmüyor, sahne
+  Neptün'ün "ikisiyle birden" çekiştiğini söylüyor; orb eşiği doğrulanmalı.
+
 ## 21 Ekim 2026
 
 Denenen haritalar (tarih saat il):

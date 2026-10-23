@@ -677,6 +677,7 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
 
     omurga = omurga_kur(chart)
     yazilanlar = set()
+    onceki_sahne = ""
     for durak in omurga.duraklar:
         bolum = BOLUM_KAYDI.get(durak.imza.key)
         if bolum is None or bolum in yazilanlar:
@@ -693,10 +694,14 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
         if durak.ortak_cisimler:
             karakter = KARAKTERLER.get(durak.ortak_cisimler[0])
             zaten_geciyor = karakter and karakter.unvan in parcalar[0][:150]
-            if karakter and not zaten_geciyor:
+            # "yine/tekrar" ancak cisim önceki sahnede gerçekten anıldıysa
+            # doğru; bazı bölümler (ör. kâse) ortak cismi adıyla anmıyor.
+            onceden_anildi = karakter and karakter.unvan in onceki_sahne
+            if karakter and onceden_anildi and not zaten_geciyor:
                 giris = baglam.sec(ZINCIR_GIRISLERI).format(ad=karakter.unvan)
                 parcalar[0] = giris + " " + parcalar[0]
         paragraflar.extend(parcalar)
+        onceki_sahne = " ".join(parcalar)
 
     paragraflar.extend(p for p in bolum_kapanis(baglam) if p)
     return _baslik(baglam), "\n\n".join(paragraflar)

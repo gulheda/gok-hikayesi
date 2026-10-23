@@ -357,3 +357,14 @@ def test_buyuk_ucgen_sahnesi_gecmis_zamanda_anlatir():
     assert "kapalı bir devre buldun" in govde
     assert "açı yapıyordu" in govde
     assert "açı yapıyor;" not in govde and "açı yapıyor:" not in govde
+
+
+def test_yine_baglantisi_anilmamis_cisim_icin_yazilmaz():
+    """Kars 1988-03-14 07:20: 'Mars yine oradaydı' deniyordu ama Mars
+    önceki sahnede (kâse) hiç anılmamıştı; 'yine' dayanaksız kalıyordu.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1988, 3, 14), birth_time=time(7, 20),
+        latitude=40.6013, longitude=43.0975, place_name="Kars"))
+    _, govde = uret(harita)
+    assert "Mars yine oradaydı" not in govde
