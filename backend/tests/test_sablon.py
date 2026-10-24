@@ -368,3 +368,13 @@ def test_yine_baglantisi_anilmamis_cisim_icin_yazilmaz():
         latitude=40.6013, longitude=43.0975, place_name="Kars"))
     _, govde = uret(harita)
     assert "Mars yine oradaydı" not in govde
+
+
+def test_kapanislar_hava_durumu_iddiasi_kurmaz():
+    """Denizli 1994-04-06 18:40 (gündüz): kapanış 'Gökyüzü açıktı ve boştu'
+    diyordu; doğum anının havası bilinemez, 'boş' demek de yanlış.
+    """
+    from app.story.sablon import sozluk
+    for havuz in (sozluk.KAPANISLAR, sozluk.KAPANISLAR_GECE,
+                  sozluk.KAPANISLAR_BELIRSIZ):
+        assert not any("açıktı ve boştu" in k for k in havuz)

@@ -2,6 +2,26 @@
 
 Şablon motoru (`--sablon`) için günlük inceleme kaydı. Aynı haritayı tekrar deneme.
 
+## 24 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1980-07-15 13:30 Mersin
+- 2001-01-19 02:15 Sivas
+- 1994-04-06 18:40 Denizli
+
+Bulgu: Gündüz kapanışı "Gökyüzü açıktı ve boştu" hava durumu iddiası kuruyordu
+(19 ve 21 Ekim'de de not edilmişti) ve gündüz için "boş" yanlış. Düzeltme:
+`KAPANISLAR[0]` artık "Gün ışığı hepsini örtmüştü" diyor. Test:
+`test_kapanislar_hava_durumu_iddiasi_kurmaz`.
+
+Açık gözlemler:
+- Sivas 2001: Ay ufkun altındayken "Kapıda Ay da vardı" denirken Ay'ın henüz
+  doğmadığı açılışta söylenmişti; ikisi birbirine çarpmıyor ama sahne "ikisini
+  aynı bakışta göremezdin" ile çelişmeyecek şekilde kalıyor.
+- Sivas/Denizli: "Ülkeden geçen dümdüz bir yol" sahnesi iki hikayede aynı
+  iskeleti taşıyor (orb 0.4 "yarım dereceden azdı").
+- Mersin: "Mars ... Geldiği yerde kimseyi bulamaz" geniş zaman, anlatı geçmişte.
+
 ## 23 Ekim 2026
 
 Denenen haritalar (tarih saat il):

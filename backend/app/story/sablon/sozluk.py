@@ -256,8 +256,8 @@ ACISAL_NOKTA_ADI: Dict[str, AcisalNokta] = {
 
 
 KAPANISLAR: List[str] = [
-    "O gün, {yer} üstünde, bunların hiçbiri görünmüyordu. Gökyüzü açıktı ve "
-    "boştu. Ama diziliş oradaydı ve bir daha hiç aynı olmayacaktı.",
+    "O gün, {yer} üstünde, bunların hiçbiri görünmüyordu. Gün ışığı hepsini "
+    "örtmüştü. Ama diziliş oradaydı ve bir daha hiç aynı olmayacaktı.",
     "Bu ülke o gün kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
     "biçimde dizilmedi; dizilseydi bile aynı yerden bakan kimse olmayacaktı.",
     "{yer} üstünde gündüzdü ve hiçbiri görünmüyordu. Görünmemesi, olmadıkları "
