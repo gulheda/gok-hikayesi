@@ -378,3 +378,16 @@ def test_kapanislar_hava_durumu_iddiasi_kurmaz():
     for havuz in (sozluk.KAPANISLAR, sozluk.KAPANISLAR_GECE,
                   sozluk.KAPANISLAR_BELIRSIZ):
         assert not any("açıktı ve boştu" in k for k in havuz)
+
+
+def test_yalniz_cisim_daha_once_anildiysa_yolda_rastlanmaz():
+    """Kırklareli 1978-09-23 11:25: Satürn kulede anıldıktan sonra 'yolun
+    kenarında birine rastladın: Satürn' deniyordu; aynı kişi iki kez
+    tanıtılıyordu.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1978, 9, 23), birth_time=time(11, 25),
+        latitude=41.7333, longitude=27.2167, place_name="Kırklareli"))
+    _, govde = uret(harita)
+    assert "birine rastladın: Satürn" not in govde
+    assert "Satürn'ü daha önce görmüştün" in govde

@@ -226,3 +226,23 @@ sürdürülmeli.
   API'si bunu açıkça reddediyor). Yani bu kıyas otomatikleşmedi, kullanıcı
   isterse elle tekrarlayabilir (`LLM_SAGLAYICI=gemini GEMINI_API_KEY=... 
   STORY_MODEL=gemini-3.5-flash python backend/tools/cli.py ...`).
+
+## 25 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1978-09-23 11:25 Kırklareli
+- 2000-04-14 21:55 Giresun
+- 1963-01-07 06:45 Niğde
+
+Bulgu: Kırklareli'de Satürn önce kulede anılıyor, sonra yalnız-cisim sahnesi
+"Yolun kenarında birine rastladın: Satürn" diyerek aynı kişiyi ikinci kez
+tanıtıyordu. Düzeltme: `Baglam.onceki_metin` eklendi; `bolum_yalniz` cisim
+önceden anıldıysa "Satürn'ü daha önce görmüştün; ama…" diyor. Test:
+`test_yalniz_cisim_daha_once_anildiysa_yolda_rastlanmaz`.
+
+Açık gözlemler:
+- Giresun'da "Ülkede akış yoktu… Yolun geri kalanında onu aradın" (su yok)
+  belirsiz; "Yol" önceki sahnede kurulmadığı için kopuk.
+- Kırklareli: Venüs "kapıda" ama Satürn'ün kuledeki sahnesine eklemlenme
+  cümlesi ("ikisini aynı bakışta göremezdin") okuru yorabiliyor.
+- LLM kıyası bu çalışmada yapılmadı (GEMINI_API_KEY yok).

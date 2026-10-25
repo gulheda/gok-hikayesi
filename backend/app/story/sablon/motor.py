@@ -74,6 +74,10 @@ class Baglam:
     # birleştirildiğini ele veren en belirgin işarettir.
     anlatilanlar: set = None
 
+    # Şimdiye dek yazılmış sahnelerin metni; bir cismin daha önce anılıp
+    # anılmadığına bakmak için ("yolda rastladın" demek yerine "görmüştün").
+    onceki_metin: str = ""
+
     def __post_init__(self):
         if self.anlatilanlar is None:
             self.anlatilanlar = set()
@@ -448,9 +452,18 @@ def bolum_yalniz(b: Baglam) -> List[str]:
     k = KARAKTERLER.get(anahtar or "", None)
     if not k:
         return []
+    if ad in b.onceki_metin:
+        giris = (
+            f"{belirtme(ad, ozel_ad=True)} daha önce görmüştün; ama ülkenin "
+            "geri kalanıyla hiçbir bağı yoktu"
+        )
+    else:
+        giris = (
+            f"Yolun kenarında birine rastladın: {ad}. Ülkenin geri kalanıyla "
+            "hiçbir bağı yoktu"
+        )
     return [
-        f"Yolun kenarında birine rastladın: {ad}. Ülkenin geri kalanıyla "
-        f"hiçbir bağı yoktu; ne bir ittifakı, ne bir çekişmesi. "
+        f"{giris}; ne bir ittifakı, ne bir çekişmesi. "
         f"{buyuk_harf(k.yalnizken)}. Yanına oturdun ve bir şey sormadın. "
         "Ülkede onunla konuşan ilk kişi sendin."
     ]
@@ -682,6 +695,7 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
         bolum = BOLUM_KAYDI.get(durak.imza.key)
         if bolum is None or bolum in yazilanlar:
             continue
+        baglam.onceki_metin = " ".join(paragraflar)
         parcalar = [p for p in bolum(baglam) if p]
         if not parcalar:
             continue

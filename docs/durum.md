@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 24 Ekim 2026
+Son güncelleme: 25 Ekim 2026 (şablon motoru: yalnız cisim daha önce anıldıysa tekrar tanıtılmıyor)
 
 ## Çalışan ve doğrulanmış
 
