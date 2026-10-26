@@ -246,3 +246,23 @@ Açık gözlemler:
 - Kırklareli: Venüs "kapıda" ama Satürn'ün kuledeki sahnesine eklemlenme
   cümlesi ("ikisini aynı bakışta göremezdin") okuru yorabiliyor.
 - LLM kıyası bu çalışmada yapılmadı (GEMINI_API_KEY yok).
+
+## 26 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1974-02-17 09:50 Kütahya
+- 2006-10-05 23:20 Zonguldak
+- 1986-06-29 05:35 Bitlis
+
+Bulgu: Eksik element paragrafı "Yolun geri kalanında onu aradın" diyordu;
+"Yol" sonraki sahnelerde kuruluyor, bu yüzden Zonguldak ve Bitlis'te kopuk
+okunuyordu (25 Ekim açık gözlemi). Düzeltme: "Ülkeyi baştan sona dolaşıp onu
+aradın." Test: `test_eksik_element_henuz_kurulmamis_yola_gonderme_yapmaz`.
+
+Açık gözlemler:
+- Kütahya'da "kapalı devre" Satürn, Jüpiter, Uranüs diye anılıyor; açı listesinde
+  gerçek üçgen Güneş-Satürn-Uranüs (Jüpiter-Satürn sapması ~2.4°); tutarlılık
+  kontrol edilmeli.
+- Zonguldak ve Bitlis'te "Ay ile Plüton / Neptün ile Plüton" sahnesinde Ay'ın
+  ve Neptün'ün derece cümlesi bire bir aynı kalıpta (tekrar eden şablon).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

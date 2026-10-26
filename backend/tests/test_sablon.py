@@ -391,3 +391,11 @@ def test_yalniz_cisim_daha_once_anildiysa_yolda_rastlanmaz():
     _, govde = uret(harita)
     assert "birine rastladın: Satürn" not in govde
     assert "Satürn'ü daha önce görmüştün" in govde
+
+
+def test_eksik_element_henuz_kurulmamis_yola_gonderme_yapmaz():
+    """'Yol' ancak ilerideki sahnelerde kurulur; eksik element paragrafı
+    onu önceden varsaymamalı."""
+    _, govde = uret(SAATLI)
+    assert "Yolun geri kalanında" not in govde
+    assert "baştan sona dolaşıp onu aradın" in govde

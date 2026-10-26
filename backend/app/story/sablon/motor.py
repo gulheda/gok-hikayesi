@@ -218,7 +218,7 @@ def bolum_ulke(b: Baglam) -> List[str]:
         secenekler = EKSIK_ELEMENT.get(eksik)
         if secenekler:
             paragraflar.append(
-                b.sec(secenekler) + " Yolun geri kalanında onu aradın."
+                b.sec(secenekler) + " Ülkeyi baştan sona dolaşıp onu aradın."
             )
     return paragraflar
 
