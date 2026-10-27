@@ -330,6 +330,20 @@ def test_farkli_acisal_noktalardaki_ikinci_cisim_orada_denmez():
     assert "Kapıda Plüton" in govde
 
 
+def test_farkli_acisal_noktadaki_ikinci_cisim_yalniz_degildi_demez():
+    """Sivas 1968-05-02 19:30: Mars Alçalan'da, Neptün Yükselen'de.
+
+    İkisi zıt uçtaydı; 'Yalnız değildi' aynı yerde olduklarını ima ediyordu.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1968, 5, 2), birth_time=time(19, 30),
+        latitude=39.7477, longitude=37.0179, place_name="Sivas"))
+    _, govde = uret(harita)
+    assert "Kapıda Neptün" in govde
+    assert "Yalnız değildi. Kapıda" not in govde
+    assert "Başka bir noktada da biri bekliyordu. Kapıda Neptün" in govde
+
+
 def test_gorunmeyen_cisimler_bozuk_kalibi_kullanmaz():
     """Sinop 1982-11-11 08:25: dört cisim Güneş'in ışığında kaybolmuştu.
 

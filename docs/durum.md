@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 26 Ekim 2026 (şablon motoru: eksik element paragrafı henüz kurulmamış "yola" gönderme yapmıyor)
+Son güncelleme: 27 Ekim 2026 (şablon motoru: farklı açısal noktalardaki ikinci cisim için "Yalnız değildi" denmiyor)
 
 ## Çalışan ve doğrulanmış
 

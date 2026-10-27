@@ -266,3 +266,27 @@ Açık gözlemler:
 - Zonguldak ve Bitlis'te "Ay ile Plüton / Neptün ile Plüton" sahnesinde Ay'ın
   ve Neptün'ün derece cümlesi bire bir aynı kalıpta (tekrar eden şablon).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 27 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1981-03-11 16:10 Erzurum
+- 1997-08-25 01:40 Mardin
+- 2010-11-30 12:05 Edirne
+- 1968-05-02 19:30 Sivas
+
+Bulgu: Sivas 1968'de Mars Alçalan'da, Neptün Yükselen'de (zıt uçlar) olduğu
+hâlde metin "Yalnız değildi. Kapıda Neptün de vardı" diyordu; Edirne'de de
+Güneş kulede, Neptün kapıda iken aynı kalıp, hemen ardından "Güneş'in
+ülkeyle hiçbir bağı yoktu" ile çelişiyordu. Düzeltme: farklı açısal noktada
+"Başka bir noktada da biri bekliyordu." Test:
+`test_farkli_acisal_noktadaki_ikinci_cisim_yalniz_degildi_demez`.
+
+Açık gözlemler:
+- Edirne: "Güneş'i daha önce görmüştün" ardından hemen "Güneş yine oradaydı"
+  art arda iki gönderme.
+- Edirne açılışında Neptün ve Chiron için "henüz doğmamıştı… ufkun 5 derece
+  altında" kalıbı iki kez bire bir tekrar ediyor.
+- Mardin: Merkür gerileme sahnesinde "peşinden gitmedin" sonra "yanına
+  oturdun" çelişkili.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
