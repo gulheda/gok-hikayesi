@@ -420,6 +420,13 @@ def bolum_bag(b: Baglam) -> List[str]:
     if not en_dar or en_dar.orb > 1.0:
         return []
 
+    # Aynı iki cisim "kapalı devre" sahnesinde zaten birbirine bağlandıysa
+    # onları ikinci kez "yol"da buluşturma.
+    _, _, devre = b.onceki_metin.partition("kapalı bir devre buldun:")
+    devre = devre.split(".")[0]
+    if en_dar.name_a_tr in devre and en_dar.name_b_tr in devre:
+        return []
+
     kalip = b.sec(ACI_ILISKISI.get(en_dar.type_key, ACI_ILISKISI["conjunction"]))
     iliski = kalip.format(a=en_dar.name_a_tr, b=en_dar.name_b_tr)
     sapma = (

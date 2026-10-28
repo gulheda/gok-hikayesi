@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 27 Ekim 2026 (şablon motoru: farklı açısal noktalardaki ikinci cisim için "Yalnız değildi" denmiyor)
+Son güncelleme: 28 Ekim 2026 (şablon motoru: kapalı devrede anlatılan çift "yol" sahnesinde yeniden anlatılmıyor)
 
 ## Çalışan ve doğrulanmış
 
@@ -44,7 +44,7 @@ için etiketli. Erişilebilirlik puntolarında saat anahtarı dikey yerleşiyor.
 **Uygulama ikonu.** CoreGraphics ile üretiliyor (`backend/tools/ikon-uret.swift`),
 asset kataloğunda ve derlenmiş pakette doğrulandı.
 
-**Hikâye kalitesi.** Şablon motoru gece/gündüz farkındalığı kazandı: Güneş ufkun altındaysa anlatı "gündüzdü", "o sabah" demiyor. Günlük inceleme kaydı: [hikaye-kalite-notlari.md](hikaye-kalite-notlari.md). Aynı burçtaki kavuşumlarda konum cümlesi artık tekrar etmiyor ("İkisi de Başak burcunun 12. derecesinde"). Güneş'e gömülü cisim meclis üyesiyse "bir kişi daha vardı" diye ikinci kez anılmıyor. Kapı bölümünde ikinci cisim başka bir açısal noktadaysa (örn. Tepe ve Yükselen) "oradaydı, birkaç adım ötede" denmiyor. Güneş'te kaybolan birden çok cisim artık "tam olarak görünmüyorlardı" gibi anlamsız kalıpla anlatılmıyor. Büyük üçgen sahnesi geçmiş zamanda anlatılıyor. Gündüz kapanışı artık "gökyüzü açıktı ve boştu" gibi hava durumu iddiası kurmuyor.
+**Hikâye kalitesi.** Şablon motoru gece/gündüz farkındalığı kazandı: Güneş ufkun altındaysa anlatı "gündüzdü", "o sabah" demiyor. Günlük inceleme kaydı: [hikaye-kalite-notlari.md](hikaye-kalite-notlari.md). Aynı burçtaki kavuşumlarda konum cümlesi artık tekrar etmiyor ("İkisi de Başak burcunun 12. derecesinde"). Güneş'e gömülü cisim meclis üyesiyse "bir kişi daha vardı" diye ikinci kez anılmıyor. Kapı bölümünde ikinci cisim başka bir açısal noktadaysa (örn. Tepe ve Yükselen) "oradaydı, birkaç adım ötede" denmiyor. Güneş'te kaybolan birden çok cisim artık "tam olarak görünmüyorlardı" gibi anlamsız kalıpla anlatılmıyor. Büyük üçgen sahnesi geçmiş zamanda anlatılıyor. Gündüz kapanışı artık "gökyüzü açıktı ve boştu" gibi hava durumu iddiası kurmuyor.  Kapalı devrede (büyük üçgen) anlatılan cisim çifti "dümdüz yol" sahnesinde ikinci kez anlatılmıyor.
 
 ## Kod hazır, canlı çalıştırılmadı
 

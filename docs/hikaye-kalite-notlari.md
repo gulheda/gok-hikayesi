@@ -290,3 +290,25 @@ Açık gözlemler:
 - Mardin: Merkür gerileme sahnesinde "peşinden gitmedin" sonra "yanına
   oturdun" çelişkili.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 28 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1989-07-14 03:20 Van
+- 1972-12-09 14:40 Antalya
+- 2003-02-21 22:05 Samsun
+- 1994-09-01 07:15 Hatay
+
+Bulgu: Hatay'da en dar açı (Mars–Jüpiter üçgeni) önce "kapalı devre"
+sahnesinde, sonra "dümdüz yol" sahnesinde aynı iki cisimle yeniden
+anlatılıyordu. Düzeltme: `bolum_bag`, çift önceki metindeki "kapalı bir devre
+buldun" cümlesinde geçiyorsa sahneyi atlıyor. Test:
+`test_kapali_devredeki_cift_yol_sahnesinde_ikinci_kez_anlatilmaz`.
+
+Açık gözlemler:
+- Van/Antalya: yönetici/ağırlık merkezi sahnesinde, kapıda zaten tanıtılan
+  cisim (Uranüs, Mars) "Ortaklık bölgesinde toplanmıştı" listesinde yeniden
+  sayılıyor; tanıtılmış kişi yabancı gibi tekrar anılıyor.
+- Samsun: "Venüs'ü daha önce görmüştün" — Venüs yalnızca açılıştaki "en
+  yakın gezegen" cümlesinde geçiyor, sahnede değil.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

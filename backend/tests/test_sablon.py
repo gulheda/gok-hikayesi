@@ -413,3 +413,15 @@ def test_eksik_element_henuz_kurulmamis_yola_gonderme_yapmaz():
     _, govde = uret(SAATLI)
     assert "Yolun geri kalanında" not in govde
     assert "baştan sona dolaşıp onu aradın" in govde
+
+
+def test_kapali_devredeki_cift_yol_sahnesinde_ikinci_kez_anlatilmaz():
+    """Hatay 1994-09-01 07:15: en dar açı Mars–Jüpiter üçgeni, 'kapalı devre'
+    sahnesinde zaten anlatılıyordu; 'dümdüz yol' aynı çifti yeniden
+    buluşturmamalı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1994, 9, 1), birth_time=time(7, 15),
+        latitude=36.2, longitude=36.16, place_name="Hatay"))
+    _, govde = uret(harita)
+    assert "kapalı bir devre buldun: Mars, Jüpiter, Satürn" in govde
+    assert "Mars ile Jüpiter" not in govde
