@@ -312,3 +312,25 @@ Açık gözlemler:
 - Samsun: "Venüs'ü daha önce görmüştün" — Venüs yalnızca açılıştaki "en
   yakın gezegen" cümlesinde geçiyor, sahnede değil.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 29 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1985-04-03 08:30 Rize
+- 1979-11-18 17:45 Konya
+- 2001-08-09 00:50 Muğla
+- 1992-01-26 13:10 Kars
+
+Bulgu: Rize'de omurga son durak olarak Merkür–Venüs açısını seçmişti ve
+bağlantı cümlesi "Aynı Merkür bir kez daha karşına çıktı" diyordu; ama
+`bolum_bag` omurgayı izlemeyip haritanın en dar açısını (Neptün–Plüton)
+anlatıyordu — bağlantı boşa gidiyordu. Düzeltme: `Baglam.durak_ilgili`;
+`bolum_bag` önce omurganın seçtiği çiftin açısını kullanıyor. Test:
+`test_yol_sahnesi_omurganin_sectigi_aciyi_anlatir`.
+
+Açık gözlemler:
+- Konya: "Merkür ile tekrar karşılaştın" ardından "Ülkenin bir yarısında kimse
+  yoktu" (boş yarım küre) sahnesi Merkür'e değmiyor; aynı tür bağlantı kopukluğu
+  başka bölümlerde (bolum_bos vb.) da olabilir.
+- Muğla ve Kars haritaları üretildi ama bu çalışmada ayrıntılı okunmadı.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

@@ -78,6 +78,11 @@ class Baglam:
     # anılmadığına bakmak için ("yolda rastladın" demek yerine "görmüştün").
     onceki_metin: str = ""
 
+    # Omurgada şu an anlatılan durağın gök cisimleri (anahtar). Bölüm,
+    # yapı seçerken omurganın seçtiğini izlemeli; yoksa bağlantı cümlesi
+    # bir cisme gönderme yapar, sahne başka cisimleri anlatır.
+    durak_ilgili: tuple = ()
+
     def __post_init__(self):
         if self.anlatilanlar is None:
             self.anlatilanlar = set()
@@ -416,7 +421,11 @@ def bolum_bag(b: Baglam) -> List[str]:
         return []
 
     # En dar açıyı haritadan doğrudan al; etiket ayrıştırmaya gerek yok.
-    en_dar = min(b.chart.aspects, key=lambda a: a.orb) if b.chart.aspects else None
+    adaylar = [
+        a for a in b.chart.aspects
+        if b.durak_ilgili and {a.body_a, a.body_b} == set(b.durak_ilgili)
+    ] or b.chart.aspects
+    en_dar = min(adaylar, key=lambda a: a.orb) if adaylar else None
     if not en_dar or en_dar.orb > 1.0:
         return []
 
@@ -704,6 +713,7 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
         if bolum is None or bolum in yazilanlar:
             continue
         baglam.onceki_metin = " ".join(paragraflar)
+        baglam.durak_ilgili = tuple(durak.imza.ilgili)
         parcalar = [p for p in bolum(baglam) if p]
         if not parcalar:
             continue

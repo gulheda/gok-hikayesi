@@ -425,3 +425,16 @@ def test_kapali_devredeki_cift_yol_sahnesinde_ikinci_kez_anlatilmaz():
     _, govde = uret(harita)
     assert "kapalı bir devre buldun: Mars, Jüpiter, Satürn" in govde
     assert "Mars ile Jüpiter" not in govde
+
+
+def test_yol_sahnesi_omurganin_sectigi_aciyi_anlatir():
+    """Rize 1985-04-03 08:30: omurga Merkür–Venüs açısını seçiyor ve bağlantı
+    cümlesi Merkür'e gönderme yapıyor; 'dümdüz yol' sahnesi haritanın en dar
+    ama omurgada olmayan Neptün–Plüton açısını anlatıp bağı koparmamalı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1985, 4, 3), birth_time=time(8, 30),
+        latitude=41.02, longitude=40.52, place_name="Rize"))
+    _, govde = uret(harita)
+    yol = govde.split("dümdüz bir yol vardı", 1)[1].split("\n\n")[0]
+    assert "Merkür" in yol and "Venüs" in yol
+    assert "Plüton" not in yol
