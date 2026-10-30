@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 29 Ekim 2026 (şablon motoru: "dümdüz yol" sahnesi omurganın seçtiği açıyı anlatıyor, bağlantı cümlesi boşa gitmiyor)
+Son güncelleme: 30 Ekim 2026 (şablon motoru: kapı sahnesi ağırlık merkezinden sonra gelirse "İlk durağın" denmiyor)
 
 ## Çalışan ve doğrulanmış
 

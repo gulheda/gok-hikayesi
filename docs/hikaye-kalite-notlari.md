@@ -334,3 +334,25 @@ Açık gözlemler:
   başka bölümlerde (bolum_bos vb.) da olabilir.
 - Muğla ve Kars haritaları üretildi ama bu çalışmada ayrıntılı okunmadı.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 30 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1990-03-22 11:00 Trabzon
+- 1983-12-05 21:30 Gaziantep
+- 2008-07-17 04:10 Balıkesir
+
+Bulgu: Gaziantep'te omurga ağırlık merkezi sahnesini kapıdan önce koyuyordu;
+metin "kapıda değildi" diyordu (kapı henüz anlatılmamış) ve sonra üçüncü
+sahnede "İlk durağın bodrum oldu" geliyordu. Düzeltme: kapı sahnesi
+ağırlık merkezinden sonra gelirse "Bir durağın da … oldu", meclis sahnesi
+"kapıda değildi" ekini yalnızca kapı daha önce anlatıldıysa kullanıyor.
+Test: `test_kapi_sahnesi_agirlik_merkezinden_sonraysa_ilk_durak_denmez`.
+
+Açık gözlemler:
+- Trabzon: kapıda Neptün ve Güneş farklı noktada, sonra Ay-Satürn-Neptün
+  meclisi Neptün'ü üçüncü kez anıyor (tanıtılmış kişi yabancı gibi).
+- Balıkesir: "Venüs … Ülkenin geri kalanıyla hiçbir bağı yoktu" ama Venüs
+  Güneş'le (Aslan 5°, Güneş Yengeç 24°) gömülü/yakın değil, doğru; yalnız
+  cisim sahnesi makul.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

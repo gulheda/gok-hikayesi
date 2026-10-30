@@ -262,8 +262,16 @@ def bolum_kapi(b: Baglam) -> List[str]:
         derece = imza.label.split("noktasına")[1].split("uzaklıkta")[0].strip()
         derece = derece.replace(".", ",")   # Türkçe ondalık ayracı
 
+    # Omurga bu sahneyi başka bir sahnenin ardına koyduysa "ilk durak" demek
+    # sırayı bozar.
+    ilk = (
+        "Yürüdün ve ülkenin ağırlık merkezine vardın" not in b.onceki_metin
+    )
+    durak_cumlesi = (
+        f"İlk durağın {kurgu} oldu." if ilk else f"Bir durağın da {kurgu} oldu."
+    )
     satirlar.append(
-        f"İlk durağın {kurgu} oldu. {nokta.varis}; {nokta.ikinci}. "
+        f"{durak_cumlesi} {nokta.varis}; {nokta.ikinci}. "
         f"{buyuk_harf(bulunma(kurgu))} {b.olcumle(cisim_adi)} bekliyordu"
         + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
         + f": {rol}. O anda gökyüzüne bakabilseydin, onu tam orada bulurdun."
@@ -327,8 +335,10 @@ def bolum_meclis(b: Baglam) -> List[str]:
     yer_tarifi = (
         f"{tema} bölgesinde" if tema else "tek bir bölgede"
     )
+    # "Kapıda değildi" yalnızca kapı sahnesi anlatıldıysa anlam taşır.
+    kapi_ek = "; kapıda değildi" if "İlk durağın" in b.onceki_metin else ""
     satirlar = [
-        f"Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi. "
+        f"Yürüdün ve ülkenin ağırlık merkezine vardın{kapi_ek}. "
         f"{buyuk_harf(yer_tarifi)} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
         f"Gökyüzünde de öyleydiler: {b.an} "

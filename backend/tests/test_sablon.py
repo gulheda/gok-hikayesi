@@ -438,3 +438,16 @@ def test_yol_sahnesi_omurganin_sectigi_aciyi_anlatir():
     yol = govde.split("dümdüz bir yol vardı", 1)[1].split("\n\n")[0]
     assert "Merkür" in yol and "Venüs" in yol
     assert "Plüton" not in yol
+
+
+def test_kapi_sahnesi_agirlik_merkezinden_sonraysa_ilk_durak_denmez():
+    """Gaziantep 1983-12-05 21:30: omurga ağırlık merkezi sahnesini kapıdan
+    önce koyuyor; 'kapıda değildi' henüz anlatılmamış kapıya, 'İlk durağın'
+    ise ikinci sahneye gönderme yapmamalı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1983, 12, 5), birth_time=time(21, 30),
+        latitude=37.07, longitude=37.38, place_name="Gaziantep"))
+    _, govde = uret(harita)
+    assert "ağırlık merkezine vardın; kapıda değildi" not in govde
+    assert "İlk durağın" not in govde
+    assert "Bir durağın da bodrum oldu" in govde
