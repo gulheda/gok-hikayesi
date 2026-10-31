@@ -508,8 +508,13 @@ def bolum_geri(b: Baglam) -> List[str]:
     k = KARAKTERLER.get(anahtar or "", None)
     if not k or not k.gerilerken:
         return []
+    if ad in b.onceki_metin:
+        # Aynı cisim meclis/gömülü sahnesinde anılmış: yeni biri gibi tanıtma.
+        bas = f"{ad} ise sen ona yaklaştıkça uzaklaşıyordu."
+    else:
+        bas = f"Bir de {ad} vardı ve sen ona yaklaştıkça o uzaklaşıyordu."
     return [
-        f"Bir de {ad} vardı ve sen ona yaklaştıkça o uzaklaşıyordu. Yüzü "
+        f"{bas} Yüzü "
         f"ileriye dönüktü ama adımları geriye gidiyordu: {k.gerilerken}. "
         "Sebebini sormaya kalktığında bir adım daha geriledi. Peşinden "
         "gitmedin; ülkede kovalanmayı istemeyen birinin olduğunu öğrendin."

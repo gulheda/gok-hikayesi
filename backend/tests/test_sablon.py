@@ -451,3 +451,14 @@ def test_kapi_sahnesi_agirlik_merkezinden_sonraysa_ilk_durak_denmez():
     assert "ağırlık merkezine vardın; kapıda değildi" not in govde
     assert "İlk durağın" not in govde
     assert "Bir durağın da bodrum oldu" in govde
+
+
+def test_gerileyen_cisim_daha_once_anildiysa_bir_de_denmez():
+    """Adana 1987-10-30 10:40: Merkür meclis sahnesinde anıldıktan sonra
+    'Bir de Merkür vardı' deniyordu; aynı kişi yeni biri gibi geliyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1987, 10, 30), birth_time=time(10, 40),
+        latitude=37.0, longitude=35.3213, place_name="Adana"))
+    _, govde = uret(harita)
+    assert "Bir de Merkür vardı" not in govde
+    assert "Merkür ise sen ona yaklaştıkça uzaklaşıyordu" in govde

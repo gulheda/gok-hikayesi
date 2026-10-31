@@ -356,3 +356,23 @@ Açık gözlemler:
   Güneş'le (Aslan 5°, Güneş Yengeç 24°) gömülü/yakın değil, doğru; yalnız
   cisim sahnesi makul.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 31 Ekim 2026
+
+Denenen haritalar (tarih saat il):
+- 1976-05-19 15:25 Çanakkale
+- 1999-01-08 02:15 Denizli
+- 1987-10-30 10:40 Adana
+
+Bulgu: Adana'da Merkür meclis sahnesinde (Güneş, Merkür, Plüton) anıldıktan
+sonra gerileme sahnesi "Bir de Merkür vardı" diyordu; Çanakkale'de de aynı
+cisim gömülü sahnesinde anıldıktan sonra aynı kalıp geliyordu. Düzeltme:
+`bolum_geri` cisim önceki metinde geçiyorsa "Merkür ise sen ona yaklaştıkça
+uzaklaşıyordu" diyor. Test: `test_gerileyen_cisim_daha_once_anildiysa_bir_de_denmez`.
+
+Açık gözlemler:
+- Denizli: meclis üyeleri Güneş (Oğlak 17°) ve Kova'daki üç cisim, yayılım
+  ~24°; metin "göğün aynı dar diliminde" diyor, iddia fazla güçlü.
+- Çanakkale: Güneş–Venüs–Jüpiter meclisi ~16° yayılıyor, aynı "dar dilim" iddiası.
+- Denizli kısa (166 kelime) ama tutarlı; gece doğanlar için anlatı akıyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
