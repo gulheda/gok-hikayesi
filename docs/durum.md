@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 31 Ekim 2026 (şablon motoru: meclis/gömülü sahnesinde anılan gerileyen cisim "Bir de X vardı" diye yeniden tanıtılmıyor)
+Son güncelleme: 1 Kasım 2026 (şablon motoru: 14:00-16:00 doğumlar "öğlesi" değil "öğleden sonrası")
 
 ## Çalışan ve doğrulanmış
 

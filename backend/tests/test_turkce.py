@@ -174,7 +174,7 @@ def test_tarih_yazi():
 
 
 @pytest.mark.parametrize("saat,beklenen", [
-    (9, "sabahı"), (12, "öğlesi"), (17, "ikindisi"), (21, "akşamı"), (3, "gecesi"),
+    (9, "sabahı"), (12, "öğlesi"), (13, "öğlesi"), (14, "öğleden sonrası"), (15, "öğleden sonrası"), (16, "ikindisi"), (17, "ikindisi"), (21, "akşamı"), (3, "gecesi"),
 ])
 def test_gunun_vakti(saat, beklenen):
     assert gunun_vakti(saat) == beklenen

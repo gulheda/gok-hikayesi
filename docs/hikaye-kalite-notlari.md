@@ -376,3 +376,22 @@ Açık gözlemler:
 - Çanakkale: Güneş–Venüs–Jüpiter meclisi ~16° yayılıyor, aynı "dar dilim" iddiası.
 - Denizli kısa (166 kelime) ama tutarlı; gece doğanlar için anlatı akıyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 1 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1994-06-14 06:20 Sivas
+- 1981-02-27 22:05 Edirne
+- 2005-09-03 14:40 Van
+
+Bulgu: Van'da saat 14:40 için giriş "3 Eylül 2005 öğlesi" diyordu; 14:00'ten
+sonrası öğle sayılmaz. Düzeltme: `gunun_vakti` 11–14 öğlesi, 14–16
+"öğleden sonrası", 16–19 ikindisi. Test: `test_gunun_vakti` genişletildi.
+
+Açık gözlemler:
+- Sivas: "Başka bir noktada da biri bekliyordu. Kulede Satürn de vardı" —
+  kule daha önce tanıtılmamış, "de" ekiyle hafif kopuk.
+- Edirne: "Mars ile Venüs ... görülemiyordu" ardından meclis sahnesi "o gece
+  üçü birden göğün aynı dar diliminde" diyor; tutarlı ama gece/Güneş altta.
+- Van: 'Chiron' on cisim sayımı dışında olduğu hâlde gerileme cümlesinde geçiyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

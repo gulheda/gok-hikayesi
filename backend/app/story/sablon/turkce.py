@@ -223,9 +223,11 @@ def gunun_vakti(saat: int) -> str:
     """Saatten günün vaktini verir; anlatıya 'sabahı', 'akşamı' diye girer."""
     if 5 <= saat < 11:
         return "sabahı"
-    if 11 <= saat < 15:
+    if 11 <= saat < 14:
         return "öğlesi"
-    if 15 <= saat < 19:
+    if 14 <= saat < 16:
+        return "öğleden sonrası"
+    if 16 <= saat < 19:
         return "ikindisi"
     if 19 <= saat < 23:
         return "akşamı"
