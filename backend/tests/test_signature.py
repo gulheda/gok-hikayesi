@@ -325,3 +325,10 @@ def test_duyarli_yapilar_yine_de_seyrek_sayilir():
 def test_olculmemis_yapi_duyarli_sayilmaz():
     from app.story.nadirlik import Olcum
     assert not Olcum("yok", None).senaryoya_duyarli
+
+
+def test_t_kare_cumlesinde_virgulden_sonra_ve_yok():
+    d = t_kare(AFYON)
+    assert d is not None
+    assert ", ve " not in d.tanim
+    assert " ise ikisiyle birden çekişiyor" in d.tanim

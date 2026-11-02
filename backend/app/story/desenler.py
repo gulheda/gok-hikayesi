@@ -193,7 +193,7 @@ def t_kare(chart: NatalChart) -> Optional[Desen]:
                 return Desen(
                     "t_kare",
                     f"T-kare deseni: {karsit.name_a_tr} ile {karsit.name_b_tr} "
-                    f"karşı karşıya, ve {cisim.name_tr if cisim else aday} "
+                    f"karşı karşıya; {cisim.name_tr if cisim else aday} ise "
                     "ikisiyle birden çekişiyor.",
                     (karsit.body_a, karsit.body_b, aday),
                 )

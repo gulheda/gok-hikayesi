@@ -395,3 +395,19 @@ Açık gözlemler:
   üçü birden göğün aynı dar diliminde" diyor; tutarlı ama gece/Güneş altta.
 - Van: 'Chiron' on cisim sayımı dışında olduğu hâlde gerileme cümlesinde geçiyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 2 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1992-08-11 07:45 Erzurum
+- 1978-04-02 18:20 Mersin
+- 2001-12-25 12:30 Samsun
+
+Bulgu: Samsun'da T-kare cümlesi "karşı karşıya, ve Mars ikisiyle birden
+çekişiyor" diyordu (virgülden sonra "ve"). Düzeltme: "karşı karşıya; Mars ise
+ikisiyle birden çekişiyor". Test: `test_t_kare_cumlesinde_virgulden_sonra_ve_yok`.
+
+Açık gözlemler:
+- Samsun: Merkür kulede anıldıktan sonra Güneş-Merkür-Venüs meclisinde üçüncü kez geçiyor.
+- Erzurum: "Yolun iki ucu da yerinden kımıldamadığı için" dümdüz yol cümlesi, uçlardan Neptün gerileyen olduğu hâlde sabitlik iddia ediyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

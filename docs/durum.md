@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 1 Kasım 2026 (şablon motoru: 14:00-16:00 doğumlar "öğlesi" değil "öğleden sonrası")
+Son güncelleme: 2 Kasım 2026 (şablon motoru: T-kare cümlesinde "karşı karşıya, ve" düzeltildi)
 
 ## Çalışan ve doğrulanmış
 
