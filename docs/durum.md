@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 2 Kasım 2026 (şablon motoru: T-kare cümlesinde "karşı karşıya, ve" düzeltildi)
+Son güncelleme: 3 Kasım 2026 (şablon motoru: ikinci durak cümlesi "Duraklarından biri de X oldu" yapıldı)
 
 ## Çalışan ve doğrulanmış
 

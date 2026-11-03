@@ -268,7 +268,7 @@ def bolum_kapi(b: Baglam) -> List[str]:
         "Yürüdün ve ülkenin ağırlık merkezine vardın" not in b.onceki_metin
     )
     durak_cumlesi = (
-        f"İlk durağın {kurgu} oldu." if ilk else f"Bir durağın da {kurgu} oldu."
+        f"İlk durağın {kurgu} oldu." if ilk else f"Duraklarından biri de {kurgu} oldu."
     )
     satirlar.append(
         f"{durak_cumlesi} {nokta.varis}; {nokta.ikinci}. "

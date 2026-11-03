@@ -450,7 +450,8 @@ def test_kapi_sahnesi_agirlik_merkezinden_sonraysa_ilk_durak_denmez():
     _, govde = uret(harita)
     assert "ağırlık merkezine vardın; kapıda değildi" not in govde
     assert "İlk durağın" not in govde
-    assert "Bir durağın da bodrum oldu" in govde
+    assert "Duraklarından biri de bodrum oldu" in govde
+    assert "Bir durağın da" not in govde
 
 
 def test_gerileyen_cisim_daha_once_anildiysa_bir_de_denmez():

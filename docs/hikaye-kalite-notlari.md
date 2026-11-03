@@ -411,3 +411,21 @@ Açık gözlemler:
 - Samsun: Merkür kulede anıldıktan sonra Güneş-Merkür-Venüs meclisinde üçüncü kez geçiyor.
 - Erzurum: "Yolun iki ucu da yerinden kımıldamadığı için" dümdüz yol cümlesi, uçlardan Neptün gerileyen olduğu hâlde sabitlik iddia ediyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 3 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1983-03-21 05:50 Trabzon
+- 1970-11-08 23:30 Kayseri
+- 2012-07-16 16:10 Muğla
+- 1996-01-30 09:05 Diyarbakır
+
+Bulgu: Kayseri'de ikinci durak "Bir durağın da bodrum oldu" diyordu; kalıp
+bozuk Türkçe (sahiplik ekiyle kopuk). Düzeltme: "Duraklarından biri de bodrum
+oldu." Test: `test_kapi_sahnesi_agirlik_merkezinden_sonra...` genişletildi.
+
+Açık gözlemler:
+- Kayseri: "Başka bir noktada da biri bekliyordu. Kulede Satürn de vardı" hâlâ kopuk.
+- Diyarbakır: "Jüpiter yine oradaydı" hemen "Jüpiter'i daha önce görmüştün" ardından; tekrarlı.
+- Diyarbakır: Güneş-Mars-Uranüs "dar dilim" iddiası ~8° yayılıma rağmen.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
