@@ -463,3 +463,23 @@ def test_gerileyen_cisim_daha_once_anildiysa_bir_de_denmez():
     _, govde = uret(harita)
     assert "Bir de Merkür vardı" not in govde
     assert "Merkür ise sen ona yaklaştıkça uzaklaşıyordu" in govde
+
+
+def test_yol_sahnesi_gerileyen_uc_icin_sabitlik_iddia_etmez():
+    """Erzurum 1992-08-11 07:45: yolun ucundaki Neptün gerileyen cisim;
+    'iki ucu da yerinden kımıldamadığı' iddiası yanlış olurdu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1992, 8, 11), birth_time=time(7, 45),
+        latitude=39.9, longitude=41.27, place_name="Erzurum"))
+    _, govde = uret(harita)
+    yol = govde.split("dümdüz bir yol vardı", 1)[1].split("\n\n")[0]
+    assert "kımıldamadığı" not in yol
+    assert "geriye doğru kayıyordu" in yol
+
+
+def test_yol_sahnesi_sabit_uclar_icin_sabitlik_cumlesi_korunur():
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1990, 3, 12), birth_time=time(8, 30),
+        latitude=36.9, longitude=30.7, place_name="Antalya"))
+    _, govde = uret(harita)
+    assert "iki ucu da yerinden kımıldamadığı" in govde

@@ -429,3 +429,26 @@ Açık gözlemler:
 - Diyarbakır: "Jüpiter yine oradaydı" hemen "Jüpiter'i daha önce görmüştün" ardından; tekrarlı.
 - Diyarbakır: Güneş-Mars-Uranüs "dar dilim" iddiası ~8° yayılıma rağmen.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 4 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1990-03-12 08:30 Antalya
+- 1985-12-05 19:45 Gaziantep
+- 2008-05-27 03:10 Eskişehir
+- 1973-09-18 13:00 Malatya
+
+Bulgu: "Dümdüz yol" sahnesi uçlardan biri gerileyen cisim olsa da "Yolun iki
+ucu da yerinden kımıldamadığı için" diyordu (2 Kasım Erzurum gözlemi; Neptün
+R). Düzeltme: uç gerileyense "Yolun uçlarından biri geriye doğru kayıyordu,
+yine de yürümek kolaydı". Testler: `test_yol_sahnesi_gerileyen_uc_icin_...`,
+`test_yol_sahnesi_sabit_uclar_icin_...`.
+
+Açık gözlemler:
+- Malatya: Merkür kulede, sonra meclis sahnesinde yeniden; Plüton da kulede
+  "Yalnız değildi" ile sonra meclisde tekrar anılıyor.
+- Gaziantep: "Merkür yine oradaydı" meclis sahnesinden hemen sonra, boş yarı
+  sahnesinde Merkür'ün alakası belirsiz.
+- Antalya/Gaziantep/Malatya: "Işığın içinde kaybolmuştu" Plüton (9°) / Uranüs (4°) için
+  astrolojik olarak zorlama.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

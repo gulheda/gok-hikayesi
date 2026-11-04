@@ -458,12 +458,23 @@ def bolum_bag(b: Baglam) -> List[str]:
     konumlar = ""
     if a_cisim and b_cisim:
         konumlar = " " + _iki_konum(a_cisim, b_cisim)
+    # Uçlardan biri gerileyen cisimse "yerinden kımıldamadı" iddiası yanlış olur.
+    if (a_cisim and a_cisim.is_retrograde) or (b_cisim and b_cisim.is_retrograde):
+        sonuc = (
+            "Yolun uçlarından biri geriye doğru kayıyordu, yine de yürümek "
+            "kolaydı — zor olan, nereye gittiğini bilmemekti."
+        )
+    else:
+        sonuc = (
+            "Yolun iki ucu da yerinden kımıldamadığı için yürümek "
+            "kolaydı — zor olan, nereye gittiğini bilmemekti."
+        )
     return [
         f"Ülkeden geçen dümdüz bir yol vardı ve o yolu yürüdün: {iliski}."
         + konumlar
         + f" Tam açıdan sapma {sapma}; ülkedeki hiçbir şey bu kadar düzgün "
-        "değildi. Yolun iki ucu da yerinden kımıldamadığı için yürümek "
-        "kolaydı — zor olan, nereye gittiğini bilmemekti."
+        "değildi. "
+        + sonuc
     ]
 
 
