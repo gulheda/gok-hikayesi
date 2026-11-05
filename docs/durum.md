@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 4 Kasım 2026 (şablon motoru: "dümdüz yol" sahnesi gerileyen uç için sabitlik iddia etmiyor)
+Son güncelleme: 5 Kasım 2026 (şablon motoru: iki ucu da gerileyen "dümdüz yol" sahnesi doğru sayıyı söylüyor)
 
 ## Çalışan ve doğrulanmış
 

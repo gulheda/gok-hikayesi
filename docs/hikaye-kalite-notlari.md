@@ -452,3 +452,22 @@ Açık gözlemler:
 - Antalya/Gaziantep/Malatya: "Işığın içinde kaybolmuştu" Plüton (9°) / Uranüs (4°) için
   astrolojik olarak zorlama.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 5 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1988-06-09 10:20 Konya
+- 1999-02-14 22:15 Van
+- 1965-10-30 06:40 Sivas
+- 2005-08-03 15:50 Edirne
+
+Bulgu: Konya'da "dümdüz yol" sahnesinin iki ucu da (Merkür, Venüs) gerileyen
+olduğu hâlde "Yolun uçlarından biri geriye doğru kayıyordu" deniyordu.
+Düzeltme: iki uç da gerileyense "Yolun iki ucu da geriye doğru kayıyordu".
+Test: `test_yol_sahnesi_iki_uc_da_gerileyense_biri_denmez`.
+
+Açık gözlemler:
+- Van: "Başka bir noktada da biri bekliyordu. Kapıda Mars da vardı" hâlâ kopuk.
+- Sivas: "Güneş ile tekrar karşılaştın" ardından "kapıda değildi" belirsiz.
+- Edirne: "Plüton'u daha önce görmüştün" ama Plüton hiç anılmamıştı; Güneş meclisi "Güneş, Ay, Satürn" ama giriş Merkür/Satürn gömülü diyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

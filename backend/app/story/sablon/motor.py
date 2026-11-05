@@ -459,7 +459,14 @@ def bolum_bag(b: Baglam) -> List[str]:
     if a_cisim and b_cisim:
         konumlar = " " + _iki_konum(a_cisim, b_cisim)
     # Uçlardan biri gerileyen cisimse "yerinden kımıldamadı" iddiası yanlış olur.
-    if (a_cisim and a_cisim.is_retrograde) or (b_cisim and b_cisim.is_retrograde):
+    geri_a = bool(a_cisim and a_cisim.is_retrograde)
+    geri_b = bool(b_cisim and b_cisim.is_retrograde)
+    if geri_a and geri_b:
+        sonuc = (
+            "Yolun iki ucu da geriye doğru kayıyordu, yine de yürümek "
+            "kolaydı — zor olan, nereye gittiğini bilmemekti."
+        )
+    elif geri_a or geri_b:
         sonuc = (
             "Yolun uçlarından biri geriye doğru kayıyordu, yine de yürümek "
             "kolaydı — zor olan, nereye gittiğini bilmemekti."

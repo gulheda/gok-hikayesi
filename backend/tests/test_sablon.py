@@ -483,3 +483,15 @@ def test_yol_sahnesi_sabit_uclar_icin_sabitlik_cumlesi_korunur():
         latitude=36.9, longitude=30.7, place_name="Antalya"))
     _, govde = uret(harita)
     assert "iki ucu da yerinden kımıldamadığı" in govde
+
+
+def test_yol_sahnesi_iki_uc_da_gerileyense_biri_denmez():
+    """Konya 1988-06-09 10:20: yolun iki ucu da (Merkür, Venüs) gerileyen;
+    'uçlarından biri' yanlış sayı verirdi."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1988, 6, 9), birth_time=time(10, 20),
+        latitude=37.87, longitude=32.48, place_name="Konya"))
+    _, govde = uret(harita)
+    yol = govde.split("dümdüz bir yol vardı", 1)[1].split("\n\n")[0]
+    assert "uçlarından biri" not in yol
+    assert "Yolun iki ucu da geriye doğru kayıyordu" in yol
