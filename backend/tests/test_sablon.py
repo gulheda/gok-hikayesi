@@ -495,3 +495,15 @@ def test_yol_sahnesi_iki_uc_da_gerileyense_biri_denmez():
     yol = govde.split("dümdüz bir yol vardı", 1)[1].split("\n\n")[0]
     assert "uçlarından biri" not in yol
     assert "Yolun iki ucu da geriye doğru kayıyordu" in yol
+
+
+def test_ufuktaki_cisim_yukselme_suresi_dereceyle_uyumlu():
+    """8° yükselmiş cisim için 'birkaç dakika önce' denmez (~32 dk)."""
+    from app.story.sablon.gokyuzu import ufuktakiler
+    erzurum = calculate_chart(BirthInput(
+        birth_date=date(1978, 12, 19), birth_time=time(2, 40),
+        latitude=39.9055, longitude=41.2658, place_name="Erzurum"))
+    metin = " ".join(o.cumle for o in ufuktakiler(erzurum))
+    assert "Plüton doğu ufkunun" in metin
+    assert "birkaç dakika önce" not in metin
+    assert "yaklaşık 3" in metin and "dakika önce yükselmişti" in metin

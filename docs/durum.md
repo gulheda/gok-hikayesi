@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 5 Kasım 2026 (şablon motoru: iki ucu da gerileyen "dümdüz yol" sahnesi doğru sayıyı söylüyor)
+Son güncelleme: 6 Kasım 2026 (şablon motoru: ufukta yeni doğan cisim için "birkaç dakika önce" yerine dereceye uygun süre)
 
 ## Çalışan ve doğrulanmış
 

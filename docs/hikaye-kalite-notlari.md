@@ -471,3 +471,21 @@ Açık gözlemler:
 - Sivas: "Güneş ile tekrar karşılaştın" ardından "kapıda değildi" belirsiz.
 - Edirne: "Plüton'u daha önce görmüştün" ama Plüton hiç anılmamıştı; Güneş meclisi "Güneş, Ay, Satürn" ama giriş Merkür/Satürn gömülü diyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 6 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1992-04-08 11:25 Samsun
+- 1978-12-19 02:40 Erzurum
+- 2001-09-05 17:35 Mersin
+- 1958-07-23 20:10 Denizli
+
+Bulgu: Erzurum'da Plüton ufuktan 8° yukarıda olduğu hâlde "birkaç dakika önce
+yükselmişti" deniyordu (8° ≈ 32 dk). Düzeltme: 10 dakikadan uzunsa "yaklaşık N
+dakika önce yükselmişti". Test: `test_ufuktaki_cisim_yukselme_suresi_dereceyle_uyumlu`.
+
+Açık gözlemler:
+- Mersin: "Başka bir noktada da biri bekliyordu. Kapıda Neptün de vardı" hâlâ kopuk.
+- Denizli: Venüs–Neptün "dümdüz yol" + Mars–Neptün-Güneş çekişmesi aynı haritada; Neptün üç sahnede.
+- Erzurum: "ufkun 8 derece üstündeydi" aslında ekliptik farkı, yükseklik değil (söylem yaklaşık).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

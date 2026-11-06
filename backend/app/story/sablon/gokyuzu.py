@@ -153,9 +153,16 @@ def ufuktakiler(chart: NatalChart) -> List[GokOlgusu]:
             continue
         if fark < 0:
             # Boylamı Yükselen'den küçük: çoktan doğmuş, ufkun üstünde.
+            # Yükselen'e her 15° ≈ 1 saat: 8° yaklaşık yarım saat eder,
+            # "birkaç dakika" demek yanlış olur.
+            dakika = int(round(abs(fark) / 15.0 * 60))
+            zaman = (
+                "birkaç dakika önce" if dakika < 10
+                else f"yaklaşık {dakika} dakika önce"
+            )
             durum = (
                 f"{body.name_tr} doğu ufkunun {_derece_yazi(abs(fark))} "
-                "üstündeydi; birkaç dakika önce yükselmişti"
+                f"üstündeydi; {zaman} yükselmişti"
             )
         else:
             dakika = int(round(fark / 15.0 * 60))
