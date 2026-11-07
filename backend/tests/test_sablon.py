@@ -327,7 +327,7 @@ def test_farkli_acisal_noktalardaki_ikinci_cisim_orada_denmez():
     _, govde = uret(harita)
     assert "Plüton" in govde
     assert "Plüton de oradaydı" not in govde and "Plüton da oradaydı" not in govde
-    assert "Kapıda Plüton" in govde
+    assert "Kapıda ise Plüton bekliyordu" in govde
 
 
 def test_farkli_acisal_noktadaki_ikinci_cisim_yalniz_degildi_demez():
@@ -339,9 +339,9 @@ def test_farkli_acisal_noktadaki_ikinci_cisim_yalniz_degildi_demez():
         birth_date=date(1968, 5, 2), birth_time=time(19, 30),
         latitude=39.7477, longitude=37.0179, place_name="Sivas"))
     _, govde = uret(harita)
-    assert "Kapıda Neptün" in govde
+    assert "Kapıda ise Neptün bekliyordu" in govde
     assert "Yalnız değildi. Kapıda" not in govde
-    assert "Başka bir noktada da biri bekliyordu. Kapıda Neptün" in govde
+    assert "Başka bir noktada da biri bekliyordu" not in govde
 
 
 def test_gorunmeyen_cisimler_bozuk_kalibi_kullanmaz():

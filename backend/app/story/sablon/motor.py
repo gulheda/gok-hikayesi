@@ -289,10 +289,8 @@ def bolum_kapi(b: Baglam) -> List[str]:
             # Başka bir açısal noktaya yakınsa "orada, birkaç adım ötede"
             # demek yanlış olur (Yükselen ile Tepe çeyrek daire uzakta).
             yer_cumlesi = (
-                f"Başka bir noktada da biri bekliyordu. "
-                f"{buyuk_harf(bulunma(ikinci_nokta.ad))} "
-                f"{ikinci_adi} {de_baglaci(ikinci_adi)} vardı; ikisini aynı "
-                "bakışta göremezdin."
+                f"{buyuk_harf(bulunma(ikinci_nokta.ad))} ise "
+                f"{ikinci_adi} bekliyordu; ikisini aynı bakışta göremezdin."
             )
         satirlar.append(
             yer_cumlesi + " Hangisinin sana yol gösterdiğini, hangisinin "

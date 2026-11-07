@@ -489,3 +489,22 @@ Açık gözlemler:
 - Denizli: Venüs–Neptün "dümdüz yol" + Mars–Neptün-Güneş çekişmesi aynı haritada; Neptün üç sahnede.
 - Erzurum: "ufkun 8 derece üstündeydi" aslında ekliptik farkı, yükseklik değil (söylem yaklaşık).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 7 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1994-05-17 09:15 Adana
+- 1981-10-02 21:40 Kocaeli
+- 2010-02-11 13:25 Hatay
+
+Bulgu: Kapı sahnesinde ikinci cisim başka bir açısal noktadaysa "Başka bir
+noktada da biri bekliyordu. Kulede Uranüs de vardı" deniyordu; art arda iki
+yer belirteci kopuktu (4-6 Kasım'da üç kez açık gözlem olarak not edilmişti).
+Düzeltme: "Kulede ise Uranüs bekliyordu; ikisini aynı bakışta göremezdin."
+Testler: Sivas ve Malatya testleri yeni kalıba göre güncellendi.
+
+Açık gözlemler:
+- Kocaeli: Jüpiter ve Satürn Güneş'te "görülemiyor" denirken meclis sahnesinde
+  ikisi de "dört kişi" arasında sayılıyor (tutarlı ama okuyucuya kopuk gelebilir).
+- Adana: "Yolun uçlarından biri geriye doğru kayıyordu" Güneş–Uranüs için doğru (Uranüs R).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

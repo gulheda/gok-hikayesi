@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 6 Kasım 2026 (şablon motoru: ufukta yeni doğan cisim için "birkaç dakika önce" yerine dereceye uygun süre)
+Son güncelleme: 7 Kasım 2026 (şablon motoru: kapı sahnesinde ikinci açısal nokta cümlesi akıcı)
 
 ## Çalışan ve doğrulanmış
 
