@@ -174,6 +174,10 @@ def bolum_gokyuzu(b: Baglam) -> List[str]:
 
     if ch.birth.time_known:
         vakit = gunun_vakti(ch.birth.birth_time.hour)
+        # Kış akşamlarında saat "ikindi" aralığında olsa da Güneş batmış
+        # olabilir; anlatı sonradan "o gece" dediği için açılış da uyumlu olmalı.
+        if b.gunduz is False and vakit in ("öğlesi", "öğleden sonrası", "ikindisi"):
+            vakit = "akşamı"
         yaz = " O yıl yaz saati uygulanıyordu." if i.is_dst else ""
         acilis = (
             f"{tarih_yazi(ch.birth.birth_date)} {vakit}, {b.yer_kisa} "

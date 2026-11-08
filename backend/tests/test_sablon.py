@@ -507,3 +507,13 @@ def test_ufuktaki_cisim_yukselme_suresi_dereceyle_uyumlu():
     assert "Plüton doğu ufkunun" in metin
     assert "birkaç dakika önce" not in metin
     assert "yaklaşık 3" in metin and "dakika önce yükselmişti" in metin
+
+
+def test_gunes_batmissa_acilis_ikindi_demez():
+    """30 Kasım 2013 16:40 Bursa: Güneş ufkun altında; 'ikindisi' denmemeli."""
+    ch = calculate_chart(BirthInput(
+        birth_date=date(2013, 11, 30), birth_time=time(16, 40),
+        latitude=40.1826, longitude=29.0669, place_name="Bursa, Türkiye"))
+    metin = " ".join(uret(ch))
+    assert "ikindisi" not in metin
+    assert "30 Kasım 2013 akşamı" in metin

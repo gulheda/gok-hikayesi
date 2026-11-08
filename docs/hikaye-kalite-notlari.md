@@ -508,3 +508,22 @@ Açık gözlemler:
   ikisi de "dört kişi" arasında sayılıyor (tutarlı ama okuyucuya kopuk gelebilir).
 - Adana: "Yolun uçlarından biri geriye doğru kayıyordu" Güneş–Uranüs için doğru (Uranüs R).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 8 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1996-01-25 07:05 Trabzon
+- 1969-07-20 20:17 Diyarbakır
+- 2013-11-30 16:40 Bursa
+- 1975-04-02 23:55 Kayseri
+
+Bulgu: Bursa'da Güneş batmışken (16:40, Kasım) açılış "ikindisi" diyor, sonra
+"o gece" geçiyordu; vakit yalnızca saate bakıyordu. Düzeltme: Güneş ufkun
+altındaysa öğle/ikindi vakitleri "akşamı" olur. Test:
+`test_gunes_batmissa_acilis_ikindi_demez`.
+
+Açık gözlemler:
+- Trabzon: Güneş + Mars kapıda iken "Aynı Güneş bir kez daha karşına çıktı" boş yarı sahnesinde belirsiz.
+- Kayseri: "Bodrumda ise Merkür bekliyordu" kapıdaki Neptün'e bağlanışı biraz sert.
+- Diyarbakır: Merkür yalnız "kaybolmuştu" açılışta; ışık/görünürlük dili tutarlı.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

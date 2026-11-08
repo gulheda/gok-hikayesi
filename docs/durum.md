@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 7 Kasım 2026 (şablon motoru: kapı sahnesinde ikinci açısal nokta cümlesi akıcı)
+Son güncelleme: 8 Kasım 2026 (şablon motoru: Güneş batmışken açılış "ikindisi" demiyor)
 
 ## Çalışan ve doğrulanmış
 
