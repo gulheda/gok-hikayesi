@@ -57,6 +57,8 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
+Son: 9 Kasım — element üçlü beraberliğinde "tek madde baskın" denmesi düzeltildi.
+
 ## Yapılmadı
 
 - Ses dosyası depolama (S3/R2) — hediye ürününde gerekmeyebilir, TTS

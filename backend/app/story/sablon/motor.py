@@ -214,12 +214,22 @@ def bolum_ulke(b: Baglam) -> List[str]:
     madde, nitelik = ELEMENT_MADDESI.get(baskin or "Su", ("akış", ""))
 
     sayim = ", ".join(f"{k.lower()} {v}" for k, v in denge.elements.items())
+    en_cok = max(denge.elements.values(), default=0)
+    esitler = [k for k, v in denge.elements.items() if v == en_cok]
+    if len(esitler) >= 3:
+        # Üçlü (veya dörtlü) beraberlikte tek bir maddeyi öne çıkarmak yanlış.
+        maddeler = [ELEMENT_MADDESI[k][0] for k in esitler if k in ELEMENT_MADDESI]
+        liste = ", ".join(maddeler[:-1]) + " ve " + maddeler[-1]
+        sonuc = (f"yani ülkenin ağırlığı {liste} arasında eşit "
+                 f"paylaşılmıştı; hiçbiri ötekilere baskın çıkamıyordu.")
+    else:
+        sonuc = (f"yani ülkenin ağırlığı {madde} tarafındaydı; {madde} "
+                 f"{nitelik}.")
     ilk = b.hitapla(
         f"şimdi o on gök cismini bir ülkenin sakinleri say; durdukları "
         f"burçları da o ülkenin bölgeleri. Sen o ülkeye girdin ve eşiği "
         f"geçtikten sonra geri dönmedin. Sayım yapıldığında {sayim} "
-        f"çıkıyordu, yani ülkenin ağırlığı {madde} tarafındaydı; {madde} "
-        f"{nitelik}."
+        f"çıkıyordu, {sonuc}"
     )
 
     paragraflar = [ilk]

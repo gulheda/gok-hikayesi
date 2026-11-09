@@ -527,3 +527,21 @@ Açık gözlemler:
 - Kayseri: "Bodrumda ise Merkür bekliyordu" kapıdaki Neptün'e bağlanışı biraz sert.
 - Diyarbakır: Merkür yalnız "kaybolmuştu" açılışta; ışık/görünürlük dili tutarlı.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 9 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1987-03-14 06:30 Antalya
+- 1999-08-17 03:02 Kocaeli
+- 2005-12-25 12:00 Van
+- 1972-06-09 15:45 Sivas
+
+Bulgu: Antalya'da ateş 3, toprak 3, su 3 (üçlü beraberlik) iken ülke sahnesi
+"ağırlığı ışık tarafındaydı" diyordu; `max()` ilk elementi seçtiği için yanlış.
+Düzeltme: üç ve üzeri beraberlikte "ışık, taş ve akış arasında eşit paylaşılmıştı".
+Test: `test_uclu_element_beraberliginde_tek_madde_baskin_denmez`.
+
+Açık gözlemler:
+- Van: ateş 3 = hava 3 ikili beraberlikte hâlâ ilk elementi (ışık) seçiyor.
+- Antalya: Jüpiter hem "henüz doğmamıştı" hem "kimse göremezdi" (ikisi birden fazla).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

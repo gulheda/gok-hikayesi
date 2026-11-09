@@ -517,3 +517,15 @@ def test_gunes_batmissa_acilis_ikindi_demez():
     metin = " ".join(uret(ch))
     assert "ikindisi" not in metin
     assert "30 Kasım 2013 akşamı" in metin
+
+
+def test_uclu_element_beraberliginde_tek_madde_baskin_denmez():
+    """Antalya 1987: ateş 3, toprak 3, su 3 -> 'ışık tarafındaydı' yanlıştı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1987, 3, 14), birth_time=time(6, 30),
+        latitude=36.8969, longitude=30.7133, place_name="Antalya"))
+    sayilar = sorted(harita.balance.elements.values(), reverse=True)
+    assert sayilar[0] == sayilar[1] == sayilar[2]
+    metin = uret(harita)[1]
+    assert "arasında eşit paylaşılmıştı" in metin
+    assert "tarafındaydı" not in metin
