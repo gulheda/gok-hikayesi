@@ -103,3 +103,4 @@ kapalı beta için seçildi.
 `PROXY_ARKASINDA` **yalnızca** güvenilen bir vekil sunucunun arkasındayken
 açılmalı. Doğrudan internete açık bir sunucuda açılırsa herkes bu başlığı
 uydurup kaynak başına sınırı tamamen atlayabilir.
+- 10 Kasım: ikili element beraberliğinde ülke sahnesi tek maddeyi baskın göstermiyor (Van).

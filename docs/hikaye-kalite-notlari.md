@@ -545,3 +545,16 @@ Açık gözlemler:
 - Van: ateş 3 = hava 3 ikili beraberlikte hâlâ ilk elementi (ışık) seçiyor.
 - Antalya: Jüpiter hem "henüz doğmamıştı" hem "kimse göremezdi" (ikisi birden fazla).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 10 Kasım 2026
+
+Denenen harita: 2005-12-25 12:00 Van (9 Kasım'daki açık gözlemin takibi).
+
+Bulgu: ateş 3 = hava 3 (ikili beraberlik) iken ülke sahnesi "ağırlığı ışık
+tarafındaydı" diyordu. Düzeltme: ikili beraberlikte "ışık ile söz arasında eşit
+paylaşılmıştı; ikisi birbirine denkti". Test:
+`test_ikili_element_beraberliginde_tek_madde_baskin_denmez`.
+
+Açık gözlemler:
+- Antalya: Jüpiter hem "henüz doğmamıştı" hem "kimse göremezdi" (hâlâ açık).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

@@ -216,7 +216,12 @@ def bolum_ulke(b: Baglam) -> List[str]:
     sayim = ", ".join(f"{k.lower()} {v}" for k, v in denge.elements.items())
     en_cok = max(denge.elements.values(), default=0)
     esitler = [k for k, v in denge.elements.items() if v == en_cok]
-    if len(esitler) >= 3:
+    if len(esitler) == 2:
+        # İkili beraberlikte de tek madde baskın denmez (Van 2005: ateş = hava).
+        m1, m2 = (ELEMENT_MADDESI[k][0] for k in esitler)
+        sonuc = (f"yani ülkenin ağırlığı {m1} ile {m2} arasında eşit "
+                 f"paylaşılmıştı; ikisi birbirine denkti.")
+    elif len(esitler) >= 3:
         # Üçlü (veya dörtlü) beraberlikte tek bir maddeyi öne çıkarmak yanlış.
         maddeler = [ELEMENT_MADDESI[k][0] for k in esitler if k in ELEMENT_MADDESI]
         liste = ", ".join(maddeler[:-1]) + " ve " + maddeler[-1]

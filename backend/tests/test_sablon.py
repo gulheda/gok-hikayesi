@@ -529,3 +529,15 @@ def test_uclu_element_beraberliginde_tek_madde_baskin_denmez():
     metin = uret(harita)[1]
     assert "arasında eşit paylaşılmıştı" in metin
     assert "tarafındaydı" not in metin
+
+
+def test_ikili_element_beraberliginde_tek_madde_baskin_denmez():
+    """Van 2005: ateş 3 = hava 3 -> 'ışık tarafındaydı' yanlıştı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(2005, 12, 25), birth_time=time(12, 0),
+        latitude=38.4891, longitude=43.4089, place_name="Van"))
+    sayilar = sorted(harita.balance.elements.values(), reverse=True)
+    assert sayilar[0] == sayilar[1] > sayilar[2]
+    metin = uret(harita)[1]
+    assert "arasında eşit paylaşılmıştı" in metin
+    assert "tarafındaydı" not in metin
