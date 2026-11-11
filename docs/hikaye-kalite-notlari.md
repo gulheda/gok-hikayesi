@@ -558,3 +558,21 @@ paylaşılmıştı; ikisi birbirine denkti". Test:
 Açık gözlemler:
 - Antalya: Jüpiter hem "henüz doğmamıştı" hem "kimse göremezdi" (hâlâ açık).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 11 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1983-11-08 05:50 Muğla
+- 1991-07-30 18:20 Ordu
+- 2002-01-19 14:05 Şanlıurfa
+- 1967-04-11 00:30 Tekirdağ
+
+Bulgu: Muğla'da meclis (Güneş, Merkür, Satürn, Plüton) en uzak ikisi ~20°
+ayrıyken "göğün aynı dar diliminde" deniyordu (4-5 Kasım Diyarbakır'da da
+gözlenmişti). Düzeltme: yayılım 12°'yi aşarsa "aynı kuşağında; en uzak ikisinin
+arası yaklaşık N derece". Test: `test_genis_yayilimli_meclis_dar_dilim_denmez`.
+
+Açık gözlemler:
+- Ordu: "Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi." hâlâ sert.
+- Tekirdağ: Güneş ufkun altındayken meclis "o gece üçü birden gökyüzünde" diyor (Güneş görünmez).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

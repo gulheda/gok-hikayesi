@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 8 Kasım 2026 (şablon motoru: Güneş batmışken açılış "ikindisi" demiyor)
+Son güncelleme: 11 Kasım 2026 (şablon motoru: geniş yayılımlı meclis "dar dilim" denmiyor)
 
 ## Çalışan ve doğrulanmış
 
@@ -104,3 +104,4 @@ kapalı beta için seçildi.
 açılmalı. Doğrudan internete açık bir sunucuda açılırsa herkes bu başlığı
 uydurup kaynak başına sınırı tamamen atlayabilir.
 - 10 Kasım: ikili element beraberliğinde ülke sahnesi tek maddeyi baskın göstermiyor (Van).
+- 11 Kasım: geniş yayılımlı (>12°) meclis sahnesi "aynı dar diliminde" demiyor, yayılımı söylüyor (Muğla).

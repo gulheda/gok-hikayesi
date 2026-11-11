@@ -541,3 +541,14 @@ def test_ikili_element_beraberliginde_tek_madde_baskin_denmez():
     metin = uret(harita)[1]
     assert "arasında eşit paylaşılmıştı" in metin
     assert "tarafındaydı" not in metin
+
+
+def test_genis_yayilimli_meclis_dar_dilim_denmez():
+    """Muğla 1983-11-08 05:50: Güneş–Plüton ~20° ayrı; 'dar dilim' yanlış."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1983, 11, 8), birth_time=time(5, 50),
+        latitude=37.2153, longitude=28.3636, place_name="Muğla"))
+    metin = uret(harita)[1]
+    assert "ağırlık merkezine" in metin
+    assert "aynı dar diliminde" not in metin
+    assert "en uzak ikisinin arası" in metin

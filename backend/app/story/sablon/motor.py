@@ -354,13 +354,29 @@ def bolum_meclis(b: Baglam) -> List[str]:
     )
     # "Kapıda değildi" yalnızca kapı sahnesi anlatıldıysa anlam taşır.
     kapi_ek = "; kapıda değildi" if "İlk durağın" in b.onceki_metin else ""
+    # "Dar dilim" yalnızca gerçekten yakınsa doğru; burç/ev yığını 25°'ye
+    # kadar yayılabilir, o zaman yayılım dürüstçe söylenir.
+    from ...astro.aspects import angular_separation
+
+    boylamlar = [c.longitude for c in b.chart.bodies if c.name_tr in adlar]
+    yayilim = max(
+        (angular_separation(x, y) for x in boylamlar for y in boylamlar),
+        default=0.0,
+    )
+    if yayilim <= 12:
+        dilim = "göğün aynı dar diliminde duruyordu."
+    else:
+        dilim = (
+            "göğün aynı kuşağında duruyordu; en uzak ikisinin arası "
+            f"yaklaşık {round(yayilim)} dereceydi."
+        )
     satirlar = [
         f"Yürüdün ve ülkenin ağırlık merkezine vardın{kapi_ek}. "
         f"{buyuk_harf(yer_tarifi)} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
         f"Gökyüzünde de öyleydiler: {b.an} "
         f"{belirtme(sayi_sifat(len(adlar)))} birden, "
-        "göğün aynı dar diliminde duruyordu. Kapıyı çalmadan girdin ve "
+        f"{dilim} Kapıyı çalmadan girdin ve "
         "konuşma kesilmedi."
     ]
 
