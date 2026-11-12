@@ -576,3 +576,20 @@ Açık gözlemler:
 - Ordu: "Yürüdün ve ülkenin ağırlık merkezine vardın; kapıda değildi." hâlâ sert.
 - Tekirdağ: Güneş ufkun altındayken meclis "o gece üçü birden gökyüzünde" diyor (Güneş görünmez).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 12 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1995-10-03 21:10 Erzurum
+- 1978-02-26 09:15 Edirne
+- 2010-05-21 23:40 Mardin
+
+Bulgu: Erzurum'da "Merkür yine oradaydı." bağlantısından sonra gelen meclis
+sahnesinde (Ay, Uranüs, Neptün) Merkür yoktu; bağlantı cümlesi havada kalıyordu.
+Düzeltme: zincir girişi, ortak cisim yeni sahnenin metninde de anılıyorsa eklenir.
+Test: `test_zincir_girisi_yeni_sahnede_anilmayan_cismi_yine_demez`.
+
+Açık gözlemler:
+- Erzurum: Merkür gömülü sahnesinden hemen sonra "Merkür ise sen ona yaklaştıkça…" gerileme sahnesi tekrarlı hissettiriyor.
+- Mardin: "Biri Balık 27., öteki Başak 27." dümdüz yol sahnesi iyi; kapalı devre sahnesi kısa.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 11 Kasım 2026 (şablon motoru: geniş yayılımlı meclis "dar dilim" denmiyor)
+Son güncelleme: 12 Kasım 2026 (şablon motoru: sahnede anılmayan cisim için "yine oradaydı" bağlantısı kalktı)
 
 ## Çalışan ve doğrulanmış
 
@@ -105,3 +105,4 @@ açılmalı. Doğrudan internete açık bir sunucuda açılırsa herkes bu başl
 uydurup kaynak başına sınırı tamamen atlayabilir.
 - 10 Kasım: ikili element beraberliğinde ülke sahnesi tek maddeyi baskın göstermiyor (Van).
 - 11 Kasım: geniş yayılımlı (>12°) meclis sahnesi "aynı dar diliminde" demiyor, yayılımı söylüyor (Muğla).
+- 12 Kasım: zincir bağlantı cümlesi ("X yine oradaydı") yalnızca X yeni sahnede de anılıyorsa ekleniyor (Erzurum).

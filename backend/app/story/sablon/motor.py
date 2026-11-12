@@ -795,7 +795,11 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
             # "yine/tekrar" ancak cisim önceki sahnede gerçekten anıldıysa
             # doğru; bazı bölümler (ör. kâse) ortak cismi adıyla anmıyor.
             onceden_anildi = karakter and karakter.unvan in onceki_sahne
-            if karakter and onceden_anildi and not zaten_geciyor:
+            # Yeni sahnede de anılmıyorsa "X yine oradaydı" havada kalır
+            # (Erzurum 1995: bağlantı Merkür, sahnede Ay-Uranüs-Neptün).
+            yeni_sahnede_var = karakter and karakter.unvan in " ".join(parcalar)
+            if (karakter and onceden_anildi and yeni_sahnede_var
+                    and not zaten_geciyor):
                 giris = baglam.sec(ZINCIR_GIRISLERI).format(ad=karakter.unvan)
                 parcalar[0] = giris + " " + parcalar[0]
         paragraflar.extend(parcalar)

@@ -552,3 +552,14 @@ def test_genis_yayilimli_meclis_dar_dilim_denmez():
     assert "ağırlık merkezine" in metin
     assert "aynı dar diliminde" not in metin
     assert "en uzak ikisinin arası" in metin
+
+
+def test_zincir_girisi_yeni_sahnede_anilmayan_cismi_yine_demez():
+    """Erzurum 1995-10-03 21:10: 'Merkür yine oradaydı' sonrası sahnede Merkür yok."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1995, 10, 3), birth_time=time(21, 10),
+        latitude=39.9, longitude=41.27, place_name="Erzurum"))
+    metin = uret(harita)[1]
+    assert "Merkür yine oradaydı" not in metin
+    assert "Aynı Merkür bir kez daha" not in metin
+    assert "Merkür ile tekrar karşılaştın" not in metin
