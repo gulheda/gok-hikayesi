@@ -593,3 +593,21 @@ Açık gözlemler:
 - Erzurum: Merkür gömülü sahnesinden hemen sonra "Merkür ise sen ona yaklaştıkça…" gerileme sahnesi tekrarlı hissettiriyor.
 - Mardin: "Biri Balık 27., öteki Başak 27." dümdüz yol sahnesi iyi; kapalı devre sahnesi kısa.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 13 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1989-09-12 07:45 Samsun
+- 2001-02-03 22:10 Gaziantep
+- 1980-06-25 13:30 Eskişehir
+- 1993-12-01 04:20 Konya
+
+Bulgu: CLI çıktısında başlık `str.upper()` ile büyütüldüğü için "Ateşi olmayan
+ülke" -> "ATEŞI OLMAYAN ÜLKE" (noktalı İ kayboluyordu). Düzeltme:
+`turkce.buyuk_metin` (i->İ, ı->I) ve cli.py bunu kullanıyor. Test:
+`test_buyuk_metin_turkce_i_harflerini_dogru_buyutur`.
+
+Açık gözlemler:
+- Samsun: Jüpiter "kulede" + Neptün "bodrumda" sonrası "ikisini aynı bakışta göremezdin" biraz mekanik.
+- Konya: kapı sahnesi sonrası kapanış çok kısa (187 kelime); Merkür/Venüs/Plüton meclisinde Güneş görünmezken "o gece üçü birden" iddiası.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

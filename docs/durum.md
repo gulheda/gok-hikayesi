@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 12 Kasım 2026 (şablon motoru: sahnede anılmayan cisim için "yine oradaydı" bağlantısı kalktı)
+Son güncelleme: 13 Kasım 2026 (CLI başlığında Türkçe büyük harf: ATEŞİ)
 
 ## Çalışan ve doğrulanmış
 

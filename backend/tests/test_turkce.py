@@ -199,3 +199,9 @@ def test_turkce_buyuk_harf(metin, beklenen):
     doğrusu 'İ'dir. Bu hata sessizdir ve metni anında yabancı gösterir."""
     from app.story.sablon.turkce import buyuk_harf
     assert buyuk_harf(metin) == beklenen
+
+
+def test_buyuk_metin_turkce_i_harflerini_dogru_buyutur():
+    from app.story.sablon.turkce import buyuk_metin
+    assert buyuk_metin("Ateşi olmayan ülke") == "ATEŞİ OLMAYAN ÜLKE"
+    assert buyuk_metin("kapıda duranlar") == "KAPIDA DURANLAR"

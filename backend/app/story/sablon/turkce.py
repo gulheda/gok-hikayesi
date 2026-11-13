@@ -44,6 +44,11 @@ def _kucult(harf: str) -> str:
     return harf.replace("I", "ı").replace("İ", "i").lower()
 
 
+def buyuk_metin(metin: str) -> str:
+    """Türkçeye duyarlı tümünü büyütme: i -> İ, ı -> I ("ATEŞİ", "KAPIDA")."""
+    return metin.replace("i", "İ").replace("ı", "I").upper()
+
+
 def buyuk_harf(metin: str) -> str:
     """Türkçeye duyarlı ilk harf büyütme.
 

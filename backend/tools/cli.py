@@ -19,6 +19,7 @@ from app.astro.chart import BirthInput, calculate_chart
 from app.astro.timeutil import TimeResolutionError
 from app.geo.geocode import GeocodingError, geocode
 from app.story.brief import olgusal_panel
+from app.story.sablon.turkce import buyuk_metin
 from app.story.generator import (
     StoryGenerationError,
     generate_story,
@@ -51,7 +52,7 @@ def _hikaye_bolumu(story) -> list:
         "",
         "=" * 72,
         "",
-        story.title.upper(),
+        buyuk_metin(story.title),
         "",
         story.body,
         "",
