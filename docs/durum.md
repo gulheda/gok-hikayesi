@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 13 Kasım 2026 (CLI başlığında Türkçe büyük harf: ATEŞİ)
+Son güncelleme: 14 Kasım 2026 (tek gerileyen cisimde çoğul fiil düzeltmesi)
 
 ## Çalışan ve doğrulanmış
 
@@ -57,7 +57,7 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 9 Kasım — element üçlü beraberliğinde "tek madde baskın" denmesi düzeltildi.
+Son: 14 Kasım — tek gerileyen cisim için "görünüyordu" (çoğul fiil düzeltildi).
 
 ## Yapılmadı
 

@@ -611,3 +611,21 @@ Açık gözlemler:
 - Samsun: Jüpiter "kulede" + Neptün "bodrumda" sonrası "ikisini aynı bakışta göremezdin" biraz mekanik.
 - Konya: kapı sahnesi sonrası kapanış çok kısa (187 kelime); Merkür/Venüs/Plüton meclisinde Güneş görünmezken "o gece üçü birden" iddiası.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 14 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1984-01-22 10:10 Bolu
+- 1997-11-09 19:35 Isparta
+- 2003-06-30 02:50 Artvin
+- 1969-03-03 16:15 Manisa
+
+Bulgu: Bolu'da yalnız Chiron gerileyendi ama cümle "görünüyorlardı" (çoğul)
+diye bitiyordu. Düzeltme: tek cisimde "görünüyordu". Test:
+`test_tek_gerileyen_cisim_icin_cogul_fiil_kullanilmaz`.
+
+Açık gözlemler:
+- Isparta: Güneş batmışken (19:35) "bunların bir kısmı ufkun altındaydı" kapanışı belirsiz; "O gece üçü birden göğün aynı kuşağında" Güneş'siz meclis için hâlâ iddialı.
+- Artvin: gece 02:50'de meclis (Güneş, Ay, Satürn) "o gece üçü birden gökyüzünde" — Güneş ufkun altında (11 Kasım'daki gözlem sürüyor).
+- Manisa: Merkür "Taşıdığı haberi verecek kimse bulamaz" cümlesi geniş zaman, anlatının geçmişiyle uyumsuz.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

@@ -563,3 +563,17 @@ def test_zincir_girisi_yeni_sahnede_anilmayan_cismi_yine_demez():
     assert "Merkür yine oradaydı" not in metin
     assert "Aynı Merkür bir kez daha" not in metin
     assert "Merkür ile tekrar karşılaştın" not in metin
+
+
+def test_tek_gerileyen_cisim_icin_cogul_fiil_kullanilmaz():
+    """Bolu 1984: yalnız Chiron geriydi, 'görünüyorlardı' deniyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1984, 1, 22), birth_time=time(10, 10),
+        latitude=40.7396, longitude=31.6061, place_name="Bolu"))
+    olgu = next(o for o in topla(harita) if o.anahtar == "gerileyen")
+    assert "görünüyordu" in olgu.cumle and "görünüyorlardı" not in olgu.cumle
+    cok = calculate_chart(BirthInput(
+        birth_date=date(1969, 3, 3), birth_time=time(16, 15),
+        latitude=38.6, longitude=27.4, place_name="Manisa"))
+    olgu2 = next(o for o in topla(cok) if o.anahtar == "gerileyen")
+    assert "görünüyorlardı" in olgu2.cumle

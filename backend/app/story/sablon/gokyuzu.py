@@ -206,10 +206,11 @@ def gerileyenler(chart: NatalChart) -> Optional[GokOlgusu]:
     if not geri:
         return None
     liste = ", ".join(geri[:-1]) + " ve " + geri[-1] if len(geri) > 1 else geri[0]
+    fiil = "görünüyorlardı" if len(geri) > 1 else "görünüyordu"
     return GokOlgusu(
         "gerileyen",
         f"Gökyüzünde {liste} gerileme hareketindeydi: Dünya'dan bakınca "
-        "burçlar boyunca geriye doğru ilerliyor gibi görünüyorlardı.",
+        f"burçlar boyunca geriye doğru ilerliyor gibi {fiil}.",
         onem=20.0,
     )
 
