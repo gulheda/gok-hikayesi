@@ -370,13 +370,22 @@ def bolum_meclis(b: Baglam) -> List[str]:
             "göğün aynı kuşağında duruyordu; en uzak ikisinin arası "
             f"yaklaşık {round(yayilim)} dereceydi."
         )
+    if "Güneş" in adlar and b.gunduz is False:
+        # Güneş ufkun altındaysa "o gece üçü birden gökyüzünde" yanlış olur.
+        gokyuzu_cumlesi = (
+            "Haritada öyleydiler; Güneş ufkun altında olduğundan gökyüzünde "
+            f"seçilemezdi ama diziliş yerindeydi: {dilim}"
+        )
+    else:
+        gokyuzu_cumlesi = (
+            f"Gökyüzünde de öyleydiler: {b.an} "
+            f"{belirtme(sayi_sifat(len(adlar)))} birden, {dilim}"
+        )
     satirlar = [
         f"Yürüdün ve ülkenin ağırlık merkezine vardın{kapi_ek}. "
         f"{buyuk_harf(yer_tarifi)} "
         f"{sayi_sifat(len(adlar))} kişi toplanmıştı: {', '.join(adlar)}. "
-        f"Gökyüzünde de öyleydiler: {b.an} "
-        f"{belirtme(sayi_sifat(len(adlar)))} birden, "
-        f"{dilim} Kapıyı çalmadan girdin ve "
+        f"{gokyuzu_cumlesi} Kapıyı çalmadan girdin ve "
         "konuşma kesilmedi."
     ]
 

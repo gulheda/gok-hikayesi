@@ -629,3 +629,22 @@ Açık gözlemler:
 - Artvin: gece 02:50'de meclis (Güneş, Ay, Satürn) "o gece üçü birden gökyüzünde" — Güneş ufkun altında (11 Kasım'daki gözlem sürüyor).
 - Manisa: Merkür "Taşıdığı haberi verecek kimse bulamaz" cümlesi geniş zaman, anlatının geçmişiyle uyumsuz.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 15 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1975-08-17 11:25 Kayseri
+- 1988-12-24 23:05 Trabzon
+- 2006-04-02 06:40 Van
+
+Bulgu: Güneş ufkun altındayken (gece) Güneş'i içeren meclis sahnesi "o gece
+dördü birden göğün aynı kuşağında" diyordu (Tekirdağ/Artvin/Isparta/Konya'da
+da gözlenen açık sorun). Düzeltme: Güneş meclisteyse ve gece ise "Haritada
+öyleydiler; Güneş ufkun altında olduğundan gökyüzünde seçilemezdi ama diziliş
+yerindeydi". Test: `test_gunes_ufuk_altindayken_meclis_gokyuzunde_birden_denmez`.
+
+Açık gözlemler:
+- Trabzon: gece 23:05'te "Güneş'e yakın olduğu için görülemiyordu" (gömülü cisimler) — gece zaten hiçbiri görünmez, cümle gece için anlamsız.
+- Trabzon: "Hava hiçbir yerde yoktu" cümlesi element adı olarak muğlak (hava = atmosfer okunabilir).
+- Van: 216 kelime, kısa; kapanış "çıkarken onu içeri kendinin getirmiş olduğunu fark ettin" tekrarlı kalıp (Toprak/Hava/Ateş eksikliği hep aynı).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

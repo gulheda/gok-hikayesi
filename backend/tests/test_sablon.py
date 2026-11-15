@@ -577,3 +577,14 @@ def test_tek_gerileyen_cisim_icin_cogul_fiil_kullanilmaz():
         latitude=38.6, longitude=27.4, place_name="Manisa"))
     olgu2 = next(o for o in topla(cok) if o.anahtar == "gerileyen")
     assert "görünüyorlardı" in olgu2.cumle
+
+
+def test_gunes_ufuk_altindayken_meclis_gokyuzunde_birden_denmez():
+    """Trabzon 1988-12-24 23:05: Güneş meclisteydi ama gece; 'o gece dördü birden gökyüzünde' yanlıştı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1988, 12, 24), birth_time=time(23, 5),
+        latitude=41.0, longitude=39.72, place_name="Trabzon"))
+    metin = uret(harita)[1]
+    assert "ağırlık merkezine" in metin
+    assert "o gece dördü birden" not in metin
+    assert "ufkun altında olduğundan" in metin
