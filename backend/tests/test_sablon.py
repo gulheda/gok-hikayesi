@@ -588,3 +588,13 @@ def test_gunes_ufuk_altindayken_meclis_gokyuzunde_birden_denmez():
     assert "ağırlık merkezine" in metin
     assert "o gece dördü birden" not in metin
     assert "ufkun altında olduğundan" in metin
+
+
+def test_gece_meclisi_cumlesi_ozneyi_kaybetmez():
+    """Hatay 1983-03-28 05:30: 'Haritada öyleydiler; ...: göğün aynı kuşağında duruyordu' öznesizdi."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1983, 3, 28), birth_time=time(5, 30),
+        latitude=36.2, longitude=36.16, place_name="Hatay"))
+    metin = uret(harita)[1]
+    assert "seçilemezlerdi" in metin
+    assert "yerindeydi: hepsi göğün aynı" in metin

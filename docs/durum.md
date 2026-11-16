@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 15 Kasım 2026 (Güneş ufkun altındayken meclis sahnesi düzeltmesi)
+Son güncelleme: 16 Kasım 2026 (gece meclis cümlesi öznesizliği düzeltmesi)
 
 ## Çalışan ve doğrulanmış
 
@@ -57,7 +57,7 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 15 Kasım — Güneş ufkun altındaysa meclis sahnesi "gökyüzünde üçü birden" demiyor.
+Son: 16 Kasım — gece meclisi cümlesi "seçilemezlerdi ... hepsi göğün aynı kuşağında" (özne uyumu).
 
 ## Yapılmadı
 
@@ -106,3 +106,4 @@ uydurup kaynak başına sınırı tamamen atlayabilir.
 - 10 Kasım: ikili element beraberliğinde ülke sahnesi tek maddeyi baskın göstermiyor (Van).
 - 11 Kasım: geniş yayılımlı (>12°) meclis sahnesi "aynı dar diliminde" demiyor, yayılımı söylüyor (Muğla).
 - 12 Kasım: zincir bağlantı cümlesi ("X yine oradaydı") yalnızca X yeni sahnede de anılıyorsa ekleniyor (Erzurum).
+- 16 Kasım: Güneş ufkun altındayken meclis cümlesi özne uyumlu ("hepsi ... duruyordu") (Hatay).

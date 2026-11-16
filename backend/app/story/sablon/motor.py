@@ -374,7 +374,7 @@ def bolum_meclis(b: Baglam) -> List[str]:
         # Güneş ufkun altındaysa "o gece üçü birden gökyüzünde" yanlış olur.
         gokyuzu_cumlesi = (
             "Haritada öyleydiler; Güneş ufkun altında olduğundan gökyüzünde "
-            f"seçilemezdi ama diziliş yerindeydi: {dilim}"
+            f"seçilemezlerdi ama diziliş yerindeydi: hepsi {dilim}"
         )
     else:
         gokyuzu_cumlesi = (

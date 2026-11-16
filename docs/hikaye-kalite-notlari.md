@@ -648,3 +648,20 @@ Açık gözlemler:
 - Trabzon: "Hava hiçbir yerde yoktu" cümlesi element adı olarak muğlak (hava = atmosfer okunabilir).
 - Van: 216 kelime, kısa; kapanış "çıkarken onu içeri kendinin getirmiş olduğunu fark ettin" tekrarlı kalıp (Toprak/Hava/Ateş eksikliği hep aynı).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 16 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1991-07-14 15:50 Sivas
+- 1983-03-28 05:30 Hatay
+- 2000-11-11 12:00 Rize
+
+Bulgu: Hatay'da gece meclisi cümlesi "Haritada öyleydiler; ... yerindeydi: göğün
+aynı kuşağında duruyordu" öznesiz ve çoğul/tekil uyumsuzdu. Düzeltme:
+"seçilemezlerdi ama diziliş yerindeydi: hepsi göğün aynı ... duruyordu".
+Test: `test_gece_meclisi_cumlesi_ozneyi_kaybetmez`.
+
+Açık gözlemler:
+- Sivas: "Yolun iki ucu da yerinden kımıldamadığı için yürümek kolaydı" süslü ama anlam bulanık; Satürn "Saydığı şeyi kimseye bildirmez" geniş zaman.
+- Rize: "Bodrumda ise Jüpiter bekliyordu; ikisini aynı bakışta göremezdin" mekanik kalıp (Samsun'da da vardı).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
