@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 16 Kasım 2026 (gece meclis cümlesi öznesizliği düzeltmesi)
+Son güncelleme: 17 Kasım 2026 (Güneş tutulması sahnesinde yerel kararma iddiası kaldırıldı)
 
 ## Çalışan ve doğrulanmış
 
@@ -57,7 +57,7 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 16 Kasım — gece meclisi cümlesi "seçilemezlerdi ... hepsi göğün aynı kuşağında" (özne uyumu).
+Son: 17 Kasım — tutulma sahnesi "tutulma mevsimiydi" (yerel "gündüz karardı" iddiası yok).
 
 ## Yapılmadı
 

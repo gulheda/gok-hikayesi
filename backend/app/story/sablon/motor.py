@@ -631,9 +631,10 @@ def bolum_tutulma(b: Baglam) -> List[str]:
         )
     elif gunes_mi:
         sahne = (
-            "Sen geldiğinde gökyüzünde bir şey örtülüyordu. Ay, Güneş'in "
-            "önünden geçti ve gündüz kısa bir süre karardı. Ülkeye, ışığın "
-            "kesildiği o aralıkta girdin."
+            "Sen geldiğinde Güneş ile Ay aynı hizadaydı ve Ay düğümüne de "
+            "çok yakındı: tutulma mevsimiydi. Ay, Güneş'in önünden "
+            "geçebilecek kadar tam hizadaydı. Ülkeye, ışığın kesilmeye en "
+            "yakın olduğu aralıkta girdin."
         )
     else:
         sahne = (

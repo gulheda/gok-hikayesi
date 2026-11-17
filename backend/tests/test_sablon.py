@@ -598,3 +598,13 @@ def test_gece_meclisi_cumlesi_ozneyi_kaybetmez():
     metin = uret(harita)[1]
     assert "seçilemezlerdi" in metin
     assert "yerindeydi: hepsi göğün aynı" in metin
+
+
+def test_gunes_tutulmasi_gunduz_yerel_kararma_iddia_etmez():
+    """Muğla 2010-01-15 14:05: tutulma yalnız geometrik olasılık; 'gündüz karardı' Türkiye'de yanlıştı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(2010, 1, 15), birth_time=time(14, 5),
+        latitude=37.2153, longitude=28.3636, place_name="Muğla"))
+    metin = uret(harita)[1]
+    assert "tutulma mevsimiydi" in metin
+    assert "kısa bir süre karardı" not in metin

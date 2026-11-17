@@ -665,3 +665,24 @@ Açık gözlemler:
 - Sivas: "Yolun iki ucu da yerinden kımıldamadığı için yürümek kolaydı" süslü ama anlam bulanık; Satürn "Saydığı şeyi kimseye bildirmez" geniş zaman.
 - Rize: "Bodrumda ise Jüpiter bekliyordu; ikisini aynı bakışta göremezdin" mekanik kalıp (Samsun'da da vardı).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 17 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1979-05-19 08:20 Edirne
+- 1993-09-03 21:45 Erzurum
+- 2010-01-15 14:05 Muğla
+- 1966-10-27 03:10 Gaziantep
+
+Bulgu: Muğla'da Güneş tutulması sahnesi "Ay, Güneş'in önünden geçti ve gündüz
+kısa bir süre karardı" diyordu; tespit yalnız yeniay-düğüm geometrisi (15,4°
+eşiği), 15 Ocak 2010 halkalı tutulması Türkiye'den görülmedi. Düzeltme: "tutulma
+mevsimiydi, Ay Güneş'in önünden geçebilecek kadar hizadaydı" (yerel iddia yok).
+Test: `test_gunes_tutulmasi_gunduz_yerel_kararma_iddia_etmez`.
+
+Açık gözlemler:
+- Erzurum: "İlk durağın arka kapı oldu" ve "Bodrumda ... ikisini aynı bakışta göremezdin" mekanik kalıp (Samsun/Rize'de de var).
+- Edirne: "taş ağırdır" element cümlesi Toprak 5 için iyi; kapanış kısa (185 kelime).
+- Gaziantep: gece 03:10 meclis cümlesi artık uyumlu; "Güneş ile Jüpiter aynı anda haklı olamazdı" iyi.
+- Mugla/Muğla: CLI'a ASCII girilirse ("Mugla") metinde ASCII kalıyor, yer adı kanonikleştirilmiyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
