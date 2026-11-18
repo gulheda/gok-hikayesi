@@ -608,3 +608,13 @@ def test_gunes_tutulmasi_gunduz_yerel_kararma_iddia_etmez():
     metin = uret(harita)[1]
     assert "tutulma mevsimiydi" in metin
     assert "kısa bir süre karardı" not in metin
+
+
+def test_safak_dogumunda_kapanis_o_gece_demez():
+    """Çanakkale 1972-02-09 07:15: Güneş ufkun altında ama sabah; kapanış 'O gece' diyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1972, 2, 9), birth_time=time(7, 15),
+        latitude=40.15, longitude=26.41, place_name="Çanakkale"))
+    metin = uret(harita)[1]
+    assert "O gece" not in metin and "o gece" not in metin
+    assert "sabah" in metin

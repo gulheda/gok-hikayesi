@@ -711,6 +711,12 @@ def bolum_kapanis(b: Baglam) -> List[str]:
         havuz = {True: KAPANISLAR, False: KAPANISLAR_GECE,
                  None: KAPANISLAR_BELIRSIZ}[b.gunduz]
         kapanis = b.sec(havuz).format(yer=b.yer_kisa)
+        # Güneş ufkun altında ama saat sabah (şafak): "o gece" yanlış olur.
+        if (b.gunduz is False and b.chart.birth.time_known
+                and gunun_vakti(b.chart.birth.birth_time.hour) == "sabahı"):
+            kapanis = (kapanis.replace("O gece", "O sabah")
+                       .replace("o gece", "o sabah")
+                       .replace("gece vardı", "şafak sökmemişti"))
     return [kapanis]
 
 

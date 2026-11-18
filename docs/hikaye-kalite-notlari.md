@@ -686,3 +686,23 @@ Açık gözlemler:
 - Gaziantep: gece 03:10 meclis cümlesi artık uyumlu; "Güneş ile Jüpiter aynı anda haklı olamazdı" iyi.
 - Mugla/Muğla: CLI'a ASCII girilirse ("Mugla") metinde ASCII kalıyor, yer adı kanonikleştirilmiyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 18 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1972-02-09 07:15 Çanakkale
+- 1995-08-21 17:40 Adana
+- 2008-12-05 22:30 Kars
+- 1981-06-12 13:00 Mardin
+
+Bulgu: Çanakkale'de 07:15 doğumu (Güneş ufkun 2° altında, şafak) sabah diye
+açılıp "O gece, Çanakkale üstünde…" diye kapanıyordu. Düzeltme: Güneş ufkun
+altında ve saat "sabahı" aralığındaysa gece kapanışı "o sabah" / "şafak
+sökmemişti" der. Test: `test_safak_dogumunda_kapanis_o_gece_demez`.
+
+Açık gözlemler:
+- Adana: "gündüzdü ve hiçbiri görünmüyordu" — yalnız Güneş'e gömülü Venüs görünmezdi, Jüpiter/Ay görünebilirdi; iddia fazla geniş.
+- Kars/Adana: "Yolun iki ucu da yerinden kımıldamadığı için yürümek kolaydı" kalıbı kavuşumlarda tekrar (Sivas'ta da vardı).
+- Çanakkale: "Kulede Neptün... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
+- Mardin: "Güneş ile Plüton hiç buluşmadılar" üçgen için okunabilir, "Yolun uçlarından biri geriye doğru kayıyordu" iyi.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

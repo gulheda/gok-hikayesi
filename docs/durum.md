@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 17 Kasım 2026 (Güneş tutulması sahnesinde yerel kararma iddiası kaldırıldı)
+Son güncelleme: 18 Kasım 2026 (Şafak doğumlarında kapanış "o gece" demiyor)
 
 ## Çalışan ve doğrulanmış
 
@@ -57,7 +57,7 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 17 Kasım — tutulma sahnesi "tutulma mevsimiydi" (yerel "gündüz karardı" iddiası yok).
+Son: 18 Kasım — Güneş ufkun altında ama saat sabahsa kapanış "o sabah" diyor (Çanakkale 07:15).
 
 ## Yapılmadı
 
