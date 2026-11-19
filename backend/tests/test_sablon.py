@@ -501,12 +501,12 @@ def test_ufuktaki_cisim_yukselme_suresi_dereceyle_uyumlu():
     """8° yükselmiş cisim için 'birkaç dakika önce' denmez (~32 dk)."""
     from app.story.sablon.gokyuzu import ufuktakiler
     erzurum = calculate_chart(BirthInput(
-        birth_date=date(1978, 12, 19), birth_time=time(2, 40),
+        birth_date=date(1978, 12, 19), birth_time=time(6, 20),
         latitude=39.9055, longitude=41.2658, place_name="Erzurum"))
     metin = " ".join(o.cumle for o in ufuktakiler(erzurum))
-    assert "Plüton doğu ufkunun" in metin
+    assert "Merkür doğu ufkunun 4 derece" in metin
     assert "birkaç dakika önce" not in metin
-    assert "yaklaşık 3" in metin and "dakika önce yükselmişti" in metin
+    assert "yaklaşık 17 dakika önce yükselmişti" in metin
 
 
 def test_gunes_batmissa_acilis_ikindi_demez():
@@ -618,3 +618,15 @@ def test_safak_dogumunda_kapanis_o_gece_demez():
     metin = uret(harita)[1]
     assert "O gece" not in metin and "o gece" not in metin
     assert "sabah" in metin
+
+
+def test_ufuk_cumlesi_yuksek_enlemli_cismi_kurmaz():
+    """Van 1969-09-17 04:40: Plüton enlemi ~15°, gerçekte ufkun üstündeydi;
+    boylam farkına dayanıp 'henüz doğmamıştı' denmemeli. Güneş kalır."""
+    from app.story.sablon.gokyuzu import ufuktakiler
+    van = calculate_chart(BirthInput(
+        birth_date=date(1969, 9, 17), birth_time=time(4, 40),
+        latitude=38.4891, longitude=43.4089, place_name="Van"))
+    anahtarlar = {o.ilgili[0] for o in ufuktakiler(van)}
+    assert "Pluto" not in anahtarlar
+    assert "Sun" in anahtarlar

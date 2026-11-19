@@ -107,3 +107,5 @@ uydurup kaynak başına sınırı tamamen atlayabilir.
 - 11 Kasım: geniş yayılımlı (>12°) meclis sahnesi "aynı dar diliminde" demiyor, yayılımı söylüyor (Muğla).
 - 12 Kasım: zincir bağlantı cümlesi ("X yine oradaydı") yalnızca X yeni sahnede de anılıyorsa ekleniyor (Erzurum).
 - 16 Kasım: Güneş ufkun altındayken meclis cümlesi özne uyumlu ("hepsi ... duruyordu") (Hatay).
+
+- 19 Kasım 2026: ufuk cümlesinden yüksek ekliptik enlemli cisimler (Plüton vb.) çıkarıldı; test eklendi.

@@ -135,6 +135,9 @@ def ay_evresi(chart: NatalChart) -> Optional[GokOlgusu]:
     )
 
 
+ENLEM_ESIGI = 3.0  # derece; ufuk cümlesi için en büyük ekliptik enlem
+
+
 def ufuktakiler(chart: NatalChart) -> List[GokOlgusu]:
     """Yükselen'e yakın cisimler: o anda doğu ufkunda ne vardı.
 
@@ -150,6 +153,12 @@ def ufuktakiler(chart: NatalChart) -> List[GokOlgusu]:
     for body in chart.bodies:
         fark = (body.longitude - asc + 180.0) % 360.0 - 180.0
         if abs(fark) > 8.0:
+            continue
+        # Boylam farkı yalnız ekliptik üzerindeki cisimler için ufuk
+        # konumunu verir; enlemi büyük cisim (Plüton ~15°, Ay ~5°) boylam
+        # hesabının söylediğinden çok önce/sonra doğar. Yanlış iddia
+        # kurmaktansa o cismi ufuk cümlesinden çıkar.
+        if abs(body.latitude) > ENLEM_ESIGI:
             continue
         if fark < 0:
             # Boylamı Yükselen'den küçük: çoktan doğmuş, ufkun üstünde.

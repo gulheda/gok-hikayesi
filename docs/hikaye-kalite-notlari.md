@@ -706,3 +706,26 @@ Açık gözlemler:
 - Çanakkale: "Kulede Neptün... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
 - Mardin: "Güneş ile Plüton hiç buluşmadılar" üçgen için okunabilir, "Yolun uçlarından biri geriye doğru kayıyordu" iyi.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 19 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1988-03-22 10:10 Trabzon
+- 1975-11-30 23:50 Konya
+- 2003-06-08 16:25 Antalya
+- 1969-09-17 04:40 Van
+
+Bulgu: Van'da "Plüton henüz doğmamıştı; ufkun 4 derece altında, ~14 dakika sonra
+çıkacaktı" deniyordu; oysa Plüton'un ekliptik enlemi 15° ve gerçekte (swisseph
+rise_trans) ~7 dk önce doğmuştu. Ufuk cümlesi yalnız boylam farkına dayanır,
+enlemi büyük cisimde (Plüton, Ay, Merkür) yanlış. Düzeltme: |enlem| > 3° olan
+cisim `ufuktakiler`den çıkarıldı (ENLEM_ESIGI). Test:
+`test_ufuk_cumlesi_yuksek_enlemli_cismi_kurmaz`; Erzurum testi Plüton yerine
+Merkür (06:20) örneğine taşındı (eski Plüton iddiası da yanlıştı).
+
+Açık gözlemler:
+- Antalya: başlık "KAPIDA DURANLAR" ama kapı sahnesi yok, 191 kelime kısa.
+- Van: şafaktan ~10 dk önce kapanış "Van üstünde gece vardı" alacakaranlık için sert.
+- Konya (gece yarısı): "Güneş'e o kadar yakındı ki hiçbiri görülemiyordu" gece için gereksiz gerekçe.
+- Trabzon/Konya/Van: "Bodrum/Kule ... ikisini aynı bakışta göremezdin" ve "Hangisinin sana yol gösterdiğini..." mekanik kalıplar sürüyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
