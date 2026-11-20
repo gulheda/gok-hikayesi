@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 18 Kasım 2026 (Şafak doğumlarında kapanış "o gece" demiyor)
+Son güncelleme: 20 Kasım 2026 (Gömülü cisim sahnesi önceki anışla çelişmiyor)
 
 ## Çalışan ve doğrulanmış
 
@@ -109,3 +109,4 @@ uydurup kaynak başına sınırı tamamen atlayabilir.
 - 16 Kasım: Güneş ufkun altındayken meclis cümlesi özne uyumlu ("hepsi ... duruyordu") (Hatay).
 
 - 19 Kasım 2026: ufuk cümlesinden yüksek ekliptik enlemli cisimler (Plüton vb.) çıkarıldı; test eklendi.
+- 20 Kasım 2026: gömülü cisim önceki sahnede 'X de oradaydı' diye anıldıysa 'bir kişi daha vardı' sahnesi atlanıyor (Sivas); test eklendi.

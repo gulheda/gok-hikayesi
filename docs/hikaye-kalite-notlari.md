@@ -729,3 +729,24 @@ Açık gözlemler:
 - Konya (gece yarısı): "Güneş'e o kadar yakındı ki hiçbiri görülemiyordu" gece için gereksiz gerekçe.
 - Trabzon/Konya/Van: "Bodrum/Kule ... ikisini aynı bakışta göremezdin" ve "Hangisinin sana yol gösterdiğini..." mekanik kalıplar sürüyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 20 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1982-04-14 12:30 Sivas
+- 1990-12-02 06:05 Malatya
+- 2001-08-25 20:15 Samsun
+- 1977-02-18 15:40 Denizli
+
+Bulgu: Sivas'ta Merkür kule sahnesinde "Merkür de oradaydı" diye anılıyor,
+hemen ardından "Ülkede bir kişi daha vardı ve onu hiç göremedin: Merkür"
+deniyordu (tekrar + çelişki). Düzeltme: gömülü cisim önceki sahnede
+"X de oradaydı" diye geçtiyse gömülü-cisim sahnesi atlanır. Test:
+`test_gomulu_cisim_onceki_sahnede_anildiysa_bir_kisi_daha_denmez`.
+
+Açık gözlemler:
+- Samsun: yalnız 216 kelime, kısa; "Anlattığını doğrulayacak kimse yoktur" geniş zaman.
+- Malatya: dolunay Ay'ı şafakta (ufuk altı Güneş) için kapanış "gökyüzündekilerin hepsi görünmüyordu" — Ay görünürdü, iddia geniş.
+- Denizli/Sivas: gündüz kapanışı "hiçbiri görünmüyordu" (Ay/Venüs görünebilir; Adana'daki gözlem sürüyor).
+- "Bodrum/Arka kapı ... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

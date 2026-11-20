@@ -606,6 +606,11 @@ def bolum_gomulu(b: Baglam) -> List[str]:
         if ad in [u.strip() for u in uyeler][:4]:
             return []
 
+    # Önceki bir sahnede "X de oradaydı" diye anılmışsa (kule/kapı ikilisi)
+    # aynı kişiyi "bir kişi daha" diye yeniden tanıtmak çelişir (Sivas 1982).
+    if f"{ad} de oradaydı" in (b.onceki_metin or ""):
+        return []
+
     return [
         f"Ülkede bir kişi daha vardı ve onu hiç göremedin: {ad}. Güneş'e "
         "öyle yakın duruyordu ki ışık onu yutmuştu. Ağırlığını hissettin, "

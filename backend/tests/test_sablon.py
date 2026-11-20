@@ -630,3 +630,13 @@ def test_ufuk_cumlesi_yuksek_enlemli_cismi_kurmaz():
     anahtarlar = {o.ilgili[0] for o in ufuktakiler(van)}
     assert "Pluto" not in anahtarlar
     assert "Sun" in anahtarlar
+
+
+def test_gomulu_cisim_onceki_sahnede_anildiysa_bir_kisi_daha_denmez():
+    """Sivas 1982-04-14 12:30: Merkür kulede 'de oradaydı' diye anılıp sonra 'bir kişi daha' diye tanıtılıyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1982, 4, 14), birth_time=time(12, 30),
+        latitude=39.75, longitude=37.02, place_name="Sivas"))
+    metin = uret(harita)[1]
+    assert "Merkür de oradaydı" in metin
+    assert "bir kişi daha vardı ve onu hiç göremedin: Merkür" not in metin
