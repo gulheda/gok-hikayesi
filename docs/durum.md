@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 20 Kasım 2026 (Gömülü cisim sahnesi önceki anışla çelişmiyor)
+Son güncelleme: 21 Kasım 2026 (Geri sahnesinde kopuk "ise" bağlacı düzeltildi)
 
 ## Çalışan ve doğrulanmış
 
@@ -57,7 +57,8 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 18 Kasım — Güneş ufkun altında ama saat sabahsa kapanış "o sabah" diyor (Çanakkale 07:15).
+Son: 21 Kasım — Geri sahnesi "X ise…" bağlacını yalnız hemen önceki paragraf X'i anıyorsa kullanıyor (Rize 02:15).
+Önceki: 18 Kasım — Güneş ufkun altında ama saat sabahsa kapanış "o sabah" diyor (Çanakkale 07:15).
 
 ## Yapılmadı
 

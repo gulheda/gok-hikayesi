@@ -750,3 +750,24 @@ Açık gözlemler:
 - Denizli/Sivas: gündüz kapanışı "hiçbiri görünmüyordu" (Ay/Venüs görünebilir; Adana'daki gözlem sürüyor).
 - "Bodrum/Arka kapı ... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 21 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1993-05-17 09:20 Eskişehir
+- 1966-10-03 18:50 Edirne
+- 2010-01-29 02:15 Rize
+- 1985-07-07 14:05 Gaziantep
+
+Bulgu: Rize'de geri sahnesi "Mars ise sen ona yaklaştıkça uzaklaşıyordu"
+diye, element paragrafının hemen ardından başlıyordu; Mars yalnız açılışta
+anılmıştı, "ise" karşıtlık bağlacı havada kalıyordu. Düzeltme: "ise" yalnız
+hemen önceki paragraf cismi anıyorsa kullanılır, yoksa "Mars, sen ona
+yaklaştıkça…". Test: `test_gerileyen_cisim_yalniz_acilista_anildiysa_ise_baglaci_kullanilmaz`.
+
+Açık gözlemler:
+- Eskişehir: gündüz doğumda Uranüs "batı ufkundan 3,3 derece ötede, tam orada bulurdun" deniyor, sonra "hiçbiri görünmüyordu" (görünmez dış gezegen için tutarlı ama gündüz/ufuk vurgusu zayıf).
+- Gaziantep/Eskişehir: gündüz kapanışı "hiçbiri görünmüyordu" iddiası sürüyor.
+- Rize: "ağırlık merkezine vardın; kapıda değildi" bodrum durağıyla biraz tuhaf.
+- "Kule/Arka kapı ... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

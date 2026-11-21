@@ -640,3 +640,14 @@ def test_gomulu_cisim_onceki_sahnede_anildiysa_bir_kisi_daha_denmez():
     metin = uret(harita)[1]
     assert "Merkür de oradaydı" in metin
     assert "bir kişi daha vardı ve onu hiç göremedin: Merkür" not in metin
+
+
+def test_gerileyen_cisim_yalniz_acilista_anildiysa_ise_baglaci_kullanilmaz():
+    """Rize 2010-01-29 02:15: Mars yalnız açılışta anıldı, geri sahnesi
+    'Mars ise…' diye element paragrafının ardından kopuk başlıyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(2010, 1, 29), birth_time=time(2, 15),
+        latitude=41.0201, longitude=40.5234, place_name="Rize"))
+    _, govde = uret(harita)
+    assert "Mars ise sen ona" not in govde
+    assert "Mars, sen ona yaklaştıkça uzaklaşıyordu" in govde

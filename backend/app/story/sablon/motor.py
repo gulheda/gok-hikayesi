@@ -78,6 +78,9 @@ class Baglam:
     # anılmadığına bakmak için ("yolda rastladın" demek yerine "görmüştün").
     onceki_metin: str = ""
 
+    # Bir önceki paragraf ("ise" gibi karşıtlık bağlaçları yalnız ona dayanabilir).
+    onceki_paragraf: str = ""
+
     # Omurgada şu an anlatılan durağın gök cisimleri (anahtar). Bölüm,
     # yapı seçerken omurganın seçtiğini izlemeli; yoksa bağlantı cümlesi
     # bir cisme gönderme yapar, sahne başka cisimleri anlatır.
@@ -570,7 +573,12 @@ def bolum_geri(b: Baglam) -> List[str]:
         return []
     if ad in b.onceki_metin:
         # Aynı cisim meclis/gömülü sahnesinde anılmış: yeni biri gibi tanıtma.
-        bas = f"{ad} ise sen ona yaklaştıkça uzaklaşıyordu."
+        # "ise" karşıtlık bağlacı: yalnız hemen önceki paragraf bu cismi
+        # anıyorsa anlamlı; yoksa (yalnız açılışta geçtiyse) havada kalır.
+        if ad in b.onceki_paragraf:
+            bas = f"{ad} ise sen ona yaklaştıkça uzaklaşıyordu."
+        else:
+            bas = f"{ad}, sen ona yaklaştıkça uzaklaşıyordu."
     else:
         bas = f"Bir de {ad} vardı ve sen ona yaklaştıkça o uzaklaşıyordu."
     return [
@@ -800,6 +808,7 @@ def uret(chart: NatalChart, ad: Optional[str] = None) -> tuple:
         if bolum is None or bolum in yazilanlar:
             continue
         baglam.onceki_metin = " ".join(paragraflar)
+        baglam.onceki_paragraf = paragraflar[-1] if paragraflar else ""
         baglam.durak_ilgili = tuple(durak.imza.ilgili)
         parcalar = [p for p in bolum(baglam) if p]
         if not parcalar:
