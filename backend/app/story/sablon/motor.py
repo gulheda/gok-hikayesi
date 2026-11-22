@@ -250,6 +250,23 @@ def bolum_ulke(b: Baglam) -> List[str]:
     return paragraflar
 
 
+def _kule_kapanis(b: "Baglam", cisim_adi: str) -> str:
+    """Açısal noktadaki cismin görünürlüğüne uygun kapanış cümlesi.
+
+    Güneş'in ışığında kaybolan cisim (yeni ay, Güneş'e yakın gezegen) için
+    "tam orada bulurdun" demek, aynı hikâyedeki "görünmüyordu" ile çelişir.
+    """
+    from ...astro.aspects import angular_separation
+
+    gunes = b.chart.body("Sun")
+    for body in b.chart.bodies:
+        if body.name_tr == cisim_adi and body.key != "Sun" and gunes:
+            if angular_separation(body.longitude, gunes.longitude) <= gokyuzu.GORUNMEZLIK_SINIRI:
+                return ("Gökyüzünde onu seçemezdin, ışığa karışmıştı; "
+                        "ama haritada tam oradaydı.")
+    return "O anda gökyüzüne bakabilseydin, onu tam orada bulurdun."
+
+
 def bolum_kapi(b: Baglam) -> List[str]:
     """Açısal noktalara yakın cisimler: dışarıdan ilk görünen."""
     acisal = b.imzalar.get("angular", [])
@@ -296,7 +313,7 @@ def bolum_kapi(b: Baglam) -> List[str]:
         f"{durak_cumlesi} {nokta.varis}; {nokta.ikinci}. "
         f"{buyuk_harf(bulunma(kurgu))} {b.olcumle(cisim_adi)} bekliyordu"
         + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
-        + f": {rol}. O anda gökyüzüne bakabilseydin, onu tam orada bulurdun."
+        + f": {rol}. {_kule_kapanis(b, cisim_adi)}"
     )
 
     if len(kullanilan) > 1:

@@ -111,3 +111,4 @@ uydurup kaynak başına sınırı tamamen atlayabilir.
 
 - 19 Kasım 2026: ufuk cümlesinden yüksek ekliptik enlemli cisimler (Plüton vb.) çıkarıldı; test eklendi.
 - 20 Kasım 2026: gömülü cisim önceki sahnede 'X de oradaydı' diye anıldıysa 'bir kişi daha vardı' sahnesi atlanıyor (Sivas); test eklendi.
+- 22 Kasım 2026: kule sahnesinde Güneş ışığında kaybolan cisim (yeni ay vb.) için 'tam orada bulurdun' yerine 'seçemezdin ama haritada oradaydı' deniyor (Giresun); test eklendi.

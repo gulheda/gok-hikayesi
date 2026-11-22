@@ -771,3 +771,24 @@ Açık gözlemler:
 - Rize: "ağırlık merkezine vardın; kapıda değildi" bodrum durağıyla biraz tuhaf.
 - "Kule/Arka kapı ... ikisini aynı bakışta göremezdin" mekanik kalıp sürüyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 22 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1996-03-09 11:45 Bolu
+- 1984-09-25 21:10 Kırıkkale
+- 2006-01-15 05:30 Erzincan
+- 1973-07-30 13:15 Giresun
+
+Bulgu: Giresun'da yeni ay Güneş'in ışığında kayıpken kule sahnesi "onu tam
+orada bulurdun" diyor, hikâyenin başı ise "gökyüzünde hiç görünmüyordu"
+diyordu (çelişki). Düzeltme: açısal noktadaki cisim Güneş'e ≤10° yakınsa
+kapanış "Gökyüzünde onu seçemezdin…; ama haritada tam oradaydı" olur. Test:
+`test_kule_sahnesi_gorunmez_cisim_icin_tam_orada_bulurdun_demez`.
+
+Açık gözlemler:
+- Kırıkkale: kapanış "bunların bir kısmı ufkun altındaydı" — üçü de ufuk altında olabilir; "bir kısmı" zayıf.
+- Kırıkkale: Ay Düğümü "doğu ufkunun 2 derece üstündeydi" cisim gibi anlatılıyor.
+- Giresun: "ağırlık merkezine vardın; kapıda değildi" tuhaf; "hiçbiri görünmüyordu" gündüz iddiası sürüyor.
+- Bolu/Erzincan: "Güneş'e o kadar yakındı ki hiçbiri görülemiyordu" Satürn gibi 17° uzak cisme de yazılabiliyor mu kontrol edilmeli.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

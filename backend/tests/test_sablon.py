@@ -651,3 +651,14 @@ def test_gerileyen_cisim_yalniz_acilista_anildiysa_ise_baglaci_kullanilmaz():
     _, govde = uret(harita)
     assert "Mars ise sen ona" not in govde
     assert "Mars, sen ona yaklaştıkça uzaklaşıyordu" in govde
+
+
+def test_kule_sahnesi_gorunmez_cisim_icin_tam_orada_bulurdun_demez():
+    """Giresun 1973-07-30 13:15: yeni ay Güneş'te kayıp; kulede 'onu tam orada bulurdun' çelişiyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1973, 7, 30), birth_time=time(13, 15),
+        latitude=40.9128, longitude=38.3895, place_name="Giresun"))
+    metin = uret(harita)[1]
+    assert "Kulede Ay" in metin
+    assert "tam orada bulurdun" not in metin
+    assert "haritada tam oradaydı" in metin
