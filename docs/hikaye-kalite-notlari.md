@@ -792,3 +792,23 @@ Açık gözlemler:
 - Giresun: "ağırlık merkezine vardın; kapıda değildi" tuhaf; "hiçbiri görünmüyordu" gündüz iddiası sürüyor.
 - Bolu/Erzincan: "Güneş'e o kadar yakındı ki hiçbiri görülemiyordu" Satürn gibi 17° uzak cisme de yazılabiliyor mu kontrol edilmeli.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 23 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1988-06-21 04:40 Trabzon
+- 1971-11-11 23:50 Van
+- 2003-03-30 16:25 Kayseri
+- 1995-09-09 08:10 Mardin
+
+Bulgu: Van'da Neptün Dip noktada (ufkun çok altı) iken bodrum sahnesi
+"gökyüzüne bakabilseydin onu tam orada bulurdun" diyordu; fiziksel olarak
+yanlış. Düzeltme: bodrumda kapanış "yerin altındaydı; ama haritada tam
+oradaydı". Test: `test_bodrum_sahnesi_dip_noktadaki_cisim_icin_gokyuzunde_bulurdun_demez`.
+
+Açık gözlemler:
+- Trabzon: Güneş ufkun 3° altındayken kapıda "tam orada bulurdun" (Yükselen için aynı sorun, ufuk altı Güneş/cisim).
+- Van: kapanış "gökyüzündekilerin hepsi görünmüyordu" belirsiz ("hiçbiri" demeli).
+- Kayseri: yalnız 199 kelime, kısa; gündüz kapanışı "hiçbiri görünmüyordu" sürüyor.
+- Mardin: Güneş'ten 5° uzak Venüs "kimse göremezdi" ile Merkür'ün şafak anlatımı tutarlı.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

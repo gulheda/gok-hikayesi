@@ -662,3 +662,14 @@ def test_kule_sahnesi_gorunmez_cisim_icin_tam_orada_bulurdun_demez():
     assert "Kulede Ay" in metin
     assert "tam orada bulurdun" not in metin
     assert "haritada tam oradaydı" in metin
+
+
+def test_bodrum_sahnesi_dip_noktadaki_cisim_icin_gokyuzunde_bulurdun_demez():
+    """Van 1971-11-11 23:50: Neptün Dip noktada (ufkun çok altında); 'tam orada bulurdun' yanlıştı."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1971, 11, 11), birth_time=time(23, 50),
+        latitude=38.4891, longitude=43.4089, place_name="Van"))
+    metin = uret(harita)[1]
+    assert "Bodrumda Neptün" in metin
+    assert "tam orada bulurdun" not in metin
+    assert "yerin altındaydı" in metin

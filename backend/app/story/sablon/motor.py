@@ -250,7 +250,7 @@ def bolum_ulke(b: Baglam) -> List[str]:
     return paragraflar
 
 
-def _kule_kapanis(b: "Baglam", cisim_adi: str) -> str:
+def _kule_kapanis(b: "Baglam", cisim_adi: str, kurgu: str = "") -> str:
     """Açısal noktadaki cismin görünürlüğüne uygun kapanış cümlesi.
 
     Güneş'in ışığında kaybolan cisim (yeni ay, Güneş'e yakın gezegen) için
@@ -258,6 +258,11 @@ def _kule_kapanis(b: "Baglam", cisim_adi: str) -> str:
     """
     from ...astro.aspects import angular_separation
 
+    if kurgu == "bodrum":
+        # Dip nokta ufkun çok altındadır; "gökyüzüne bakabilseydin bulurdun"
+        # fiziksel olarak yanlış olur.
+        return ("Gökyüzünden bakınca onu hiç göremezdin, yerin altındaydı; "
+                "ama haritada tam oradaydı.")
     gunes = b.chart.body("Sun")
     for body in b.chart.bodies:
         if body.name_tr == cisim_adi and body.key != "Sun" and gunes:
@@ -313,7 +318,7 @@ def bolum_kapi(b: Baglam) -> List[str]:
         f"{durak_cumlesi} {nokta.varis}; {nokta.ikinci}. "
         f"{buyuk_harf(bulunma(kurgu))} {b.olcumle(cisim_adi)} bekliyordu"
         + (f", {nokta.referans} yalnızca {derece} ötede" if derece else "")
-        + f": {rol}. {_kule_kapanis(b, cisim_adi)}"
+        + f": {rol}. {_kule_kapanis(b, cisim_adi, kurgu)}"
     )
 
     if len(kullanilan) > 1:
