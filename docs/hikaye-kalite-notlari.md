@@ -812,3 +812,23 @@ Açık gözlemler:
 - Kayseri: yalnız 199 kelime, kısa; gündüz kapanışı "hiçbiri görünmüyordu" sürüyor.
 - Mardin: Güneş'ten 5° uzak Venüs "kimse göremezdi" ile Merkür'ün şafak anlatımı tutarlı.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 24 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1979-12-02 07:35 Sivas
+- 2001-08-14 20:40 Muğla
+- 1990-02-18 12:10 Tekirdağ
+- 1968-04-25 03:05 Hakkari
+
+Bulgu: Sivas'ta Güneş ufkun altındayken (Yükselen'e 0,8° yakın, henüz doğmamış)
+kapı sahnesi "gökyüzüne bakabilseydin onu tam orada bulurdun" diyordu; Hakkari'de
+Ay için aynı yanlış. Düzeltme: kapıda boylamı Yükselen'den büyük (ufuk altı)
+cisim için "Henüz doğmamıştı, ufkun altındaydı; …ama haritada tam oradaydı".
+Test: `test_kapi_sahnesi_ufkun_altindaki_cisim_icin_gokyuzunde_bulurdun_demez`.
+
+Açık gözlemler:
+- Sivas/Hakkari: "Güneş ufkun altında olduğundan gökyüzünde seçilemezlerdi" ile Ay'ın sonraki sahnede "Ay'ı daha önce görmüştün" çelişkisi (Hakkari, Ay henüz doğmamışken).
+- Hakkari: Merkür "1.33 AB" ondalık ayracı noktalı (virgül olmalı).
+- Muğla: "ağırlık merkezi / kapıda değildi" tuhaflığı sürüyor; Tekirdağ gündüz Güneş kulede "bulurdun" kabul edilebilir.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

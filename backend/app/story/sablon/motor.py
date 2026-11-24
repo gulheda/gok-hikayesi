@@ -263,6 +263,13 @@ def _kule_kapanis(b: "Baglam", cisim_adi: str, kurgu: str = "") -> str:
         # fiziksel olarak yanlış olur.
         return ("Gökyüzünden bakınca onu hiç göremezdin, yerin altındaydı; "
                 "ama haritada tam oradaydı.")
+    if kurgu == "kapı" and b.chart.houses.ascendant is not None:
+        # Boylamı Yükselen'den büyük cisim henüz doğmamıştır (ufkun altında).
+        for body in b.chart.bodies:
+            fark = (body.longitude - b.chart.houses.ascendant + 180.0) % 360.0 - 180.0
+            if body.name_tr == cisim_adi and 0 < fark <= 8.0:
+                return ("Henüz doğmamıştı, ufkun altındaydı; gökyüzünde "
+                        "onu göremezdin, ama haritada tam oradaydı.")
     gunes = b.chart.body("Sun")
     for body in b.chart.bodies:
         if body.name_tr == cisim_adi and body.key != "Sun" and gunes:

@@ -673,3 +673,14 @@ def test_bodrum_sahnesi_dip_noktadaki_cisim_icin_gokyuzunde_bulurdun_demez():
     assert "Bodrumda Neptün" in metin
     assert "tam orada bulurdun" not in metin
     assert "yerin altındaydı" in metin
+
+
+def test_kapi_sahnesi_ufkun_altindaki_cisim_icin_gokyuzunde_bulurdun_demez():
+    """Sivas 1979-12-02 07:35: Güneş henüz doğmamışken kapıda 'tam orada bulurdun' deniyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1979, 12, 2), birth_time=time(7, 35),
+        latitude=39.7477, longitude=37.0179, place_name="Sivas"))
+    metin = uret(harita)[1]
+    assert "Kapıda Güneş" in metin
+    assert "tam orada bulurdun" not in metin
+    assert "Henüz doğmamıştı, ufkun altındaydı" in metin

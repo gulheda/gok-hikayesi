@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 23 Kasım 2026 (Bodrum sahnesinde "gökyüzünde bulurdun" iddiası kaldırıldı)
+Son güncelleme: 24 Kasım 2026 (Kapı sahnesinde ufuk altı cisim için "gökyüzünde bulurdun" iddiası kaldırıldı)
 
 ## Çalışan ve doğrulanmış
 
