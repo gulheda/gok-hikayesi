@@ -1,6 +1,6 @@
 # Durum
 
-Son güncelleme: 24 Kasım 2026 (Kapı sahnesinde ufuk altı cisim için "gökyüzünde bulurdun" iddiası kaldırıldı)
+Son güncelleme: 25 Kasım 2026 (Gece kapanışında "hepsi görünmüyordu" belirsizliği giderildi)
 
 ## Çalışan ve doğrulanmış
 

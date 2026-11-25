@@ -684,3 +684,12 @@ def test_kapi_sahnesi_ufkun_altindaki_cisim_icin_gokyuzunde_bulurdun_demez():
     assert "Kapıda Güneş" in metin
     assert "tam orada bulurdun" not in metin
     assert "Henüz doğmamıştı, ufkun altındaydı" in metin
+
+
+def test_gece_kapanislari_hepsi_gorunmuyordu_belirsizligi_tasimaz():
+    """'hepsi görünmüyordu' hem 'hiçbiri' hem 'hepsi değil' diye okunur;
+    gece kapanışı bunu net söylemeli."""
+    from app.story.sablon import sozluk
+    for k in sozluk.KAPANISLAR_GECE:
+        assert "hepsi görünmüyordu" not in k
+        assert "hiç görünmüyordu" not in k

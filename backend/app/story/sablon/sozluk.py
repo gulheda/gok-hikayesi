@@ -267,12 +267,12 @@ KAPANISLAR: List[str] = [
 # Güneş ufkun altındayken "gündüzdü, hiçbiri görünmüyordu" demek yanlış olur:
 # gece gezegenler görünür. Gece doğanlar için ayrı kapanışlar.
 KAPANISLAR_GECE: List[str] = [
-    "O gece, {yer} üstünde, bunların bir kısmı ufkun altındaydı ve hiç "
+    "O gece, {yer} üstünde, bunların bir kısmı ufkun altındaydı ve "
     "görünmüyordu. Ama diziliş oradaydı ve bir daha hiç aynı olmayacaktı.",
     "Bu ülke o gece kuruldu ve kurulduğu gibi kaldı. Gök bir daha aynı "
     "biçimde dizilmedi; dizilseydi bile aynı yerden bakan kimse olmayacaktı.",
-    "{yer} üstünde gece vardı; gökyüzündekilerin hepsi görünmüyordu. "
-    "Görünmemesi, olmadıkları anlamına gelmiyordu.",
+    "{yer} üstünde gece vardı; bunlardan bazılarını gökte bulabilirdin, "
+    "bazılarını bulamazdın. Bulamaman, olmadıkları anlamına gelmiyordu.",
 ]
 
 # Doğum saati bilinmiyorsa Güneş'in nerede olduğu da bilinmez; görünürlük

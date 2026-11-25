@@ -832,3 +832,23 @@ Açık gözlemler:
 - Hakkari: Merkür "1.33 AB" ondalık ayracı noktalı (virgül olmalı).
 - Muğla: "ağırlık merkezi / kapıda değildi" tuhaflığı sürüyor; Tekirdağ gündüz Güneş kulede "bulurdun" kabul edilebilir.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 25 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1982-05-17 10:20 Edirne
+- 1999-10-03 18:45 Sinop
+- 1977-01-28 02:15 Antalya
+- 2010-07-07 15:30 Erzurum
+
+Bulgu: Gece kapanışı "gökyüzündekilerin hepsi görünmüyordu" hem "hiçbiri"
+hem "hepsi değil" diye okunuyordu; öteki gece kapanışında da "bir kısmı …
+ve hiç görünmüyordu" çelişkisi vardı. Düzeltme: "bazılarını gökte
+bulabilirdin, bazılarını bulamazdın" ve "hiç" atıldı. Test:
+`test_gece_kapanislari_hepsi_gorunmuyordu_belirsizligi_tasimaz`.
+
+Açık gözlemler:
+- Erzurum: Ay batı ufkuna 1,6° iken kulede/arka kapıda "bulurdun", kapanış ise gündüz "hiçbiri görünmüyordu" diyor (çelişki sürüyor).
+- Edirne/Antalya: "ağırlık merkezine vardın; kapıda değildi" tuhaflığı sürüyor.
+- Sinop: Güneş/Ay evresi ve Mars "yalnız" sahnesi tutarlı; Antalya'da "Ay ile Uranüs karşı karşıya" listede görünmeyen 4,9° orb'lu karşıtlığı anıyor (kabul edilebilir).
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
