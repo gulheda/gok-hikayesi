@@ -57,7 +57,8 @@ motoru — ücretsiz, deterministik, günlük rutinle sürekli iyileşiyor.
 **Seslendirme.** TTS anahtarı yok. Parçalama ve maliyet hesabı test edildi;
 gerçek ses üretilmedi. Hediye ürünü kararıyla öncelik düşük.
 
-Son: 23 Kasım — Dip noktadaki cisim için "tam orada bulurdun" denmiyor (Van 23:50).
+Son: 26 Kasım — Arka kapıda batmış cisim için "tam orada bulurdun" denmiyor (Ordu 09:05).
+Önceki: 23 Kasım — Dip noktadaki cisim için "tam orada bulurdun" denmiyor (Van 23:50).
 Önceki: 21 Kasım — Geri sahnesi "X ise…" bağlacı düzeltildi (Rize 02:15).
 Önceki: 18 Kasım — Güneş ufkun altında ama saat sabahsa kapanış "o sabah" diyor (Çanakkale 07:15).
 

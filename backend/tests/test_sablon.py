@@ -693,3 +693,14 @@ def test_gece_kapanislari_hepsi_gorunmuyordu_belirsizligi_tasimaz():
     for k in sozluk.KAPANISLAR_GECE:
         assert "hepsi görünmüyordu" not in k
         assert "hiç görünmüyordu" not in k
+
+
+def test_arka_kapi_sahnesi_batmis_cisim_icin_gokyuzunde_bulurdun_demez():
+    """Ordu 1992-12-12 09:05: Ay batmışken arka kapıda 'tam orada bulurdun' deniyordu."""
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1992, 12, 12), birth_time=time(9, 5),
+        latitude=40.9839, longitude=37.8764, place_name="Ordu"))
+    metin = uret(harita)[1]
+    assert "Arka kapıda Ay" in metin
+    assert "tam orada bulurdun" not in metin
+    assert "Çoktan batmıştı, ufkun altındaydı" in metin

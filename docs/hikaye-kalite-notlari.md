@@ -852,3 +852,24 @@ Açık gözlemler:
 - Edirne/Antalya: "ağırlık merkezine vardın; kapıda değildi" tuhaflığı sürüyor.
 - Sinop: Güneş/Ay evresi ve Mars "yalnız" sahnesi tutarlı; Antalya'da "Ay ile Uranüs karşı karşıya" listede görünmeyen 4,9° orb'lu karşıtlığı anıyor (kabul edilebilir).
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 26 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1992-12-12 09:05 Ordu
+- 1985-04-03 22:30 Denizli
+- 2008-08-19 14:50 Malatya
+- 1975-10-21 00:40 Aydın
+
+Bulgu: Ordu'da Ay batı ufkunun 3° altında (6. ev, batmış) iken arka kapı
+sahnesi "gökyüzüne bakabilseydin onu tam orada bulurdun" diyordu. Düzeltme:
+arka kapıda boylamı Alçalan'dan küçük (≤8°) cisim için "Çoktan batmıştı,
+ufkun altındaydı; …ama haritada tam oradaydı". Test:
+`test_arka_kapi_sahnesi_batmis_cisim_icin_gokyuzunde_bulurdun_demez`.
+
+Açık gözlemler:
+- Denizli: Güneş ufkun altındaki gece sahnesinde "Güneş ufkun altında olduğundan" doğru, ama "Venüs ile Merkür ... yarım dereceden az" gece 22:30'da Güneş'le anılması garip ("gökyüzünde hiçbiri seçilemiyordu" gece için gereksiz).
+- Aydın: Uranüs Güneş'e 6° "o dönem boyunca hiç kimse onu göremezdi" gece yarısı için anlamsız; bodrum Güneş ve kapıda Satürn "ikisini aynı bakışta göremezdin" tutarsız (Güneş yerin altında).
+- Malatya: "Dümdüz yol" Ay–Plüton için "yarım dereceden az" sapma kalıbı; Satürn-Plüton "ağırlık merkezi" tuhaflığı sürüyor.
+- Ordu: "Güneş'i daha önce görmüştün" Güneş 11. evde, kapanışa kopuk bağlanıyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

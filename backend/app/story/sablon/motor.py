@@ -270,6 +270,14 @@ def _kule_kapanis(b: "Baglam", cisim_adi: str, kurgu: str = "") -> str:
             if body.name_tr == cisim_adi and 0 < fark <= 8.0:
                 return ("Henüz doğmamıştı, ufkun altındaydı; gökyüzünde "
                         "onu göremezdin, ama haritada tam oradaydı.")
+    if kurgu == "arka kapı" and b.chart.houses.ascendant is not None:
+        # Boylamı Alçalan'dan küçük cisim (6. ev) batmıştır, ufkun altındadır.
+        alcalan = (b.chart.houses.ascendant + 180.0) % 360.0
+        for body in b.chart.bodies:
+            fark = (body.longitude - alcalan + 180.0) % 360.0 - 180.0
+            if body.name_tr == cisim_adi and -8.0 <= fark < 0:
+                return ("Çoktan batmıştı, ufkun altındaydı; gökyüzünde "
+                        "onu göremezdin, ama haritada tam oradaydı.")
     gunes = b.chart.body("Sun")
     for body in b.chart.bodies:
         if body.name_tr == cisim_adi and body.key != "Sun" and gunes:
