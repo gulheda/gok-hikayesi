@@ -78,13 +78,23 @@ def gorunmeyenler(chart: NatalChart) -> List[GokOlgusu]:
     # Birden fazla cisim görünmezse aynı kalıbı arka arkaya tekrarlamak
     # yerine tek cümlede birleştiriyoruz; tekrar eden kalıp, şablonla
     # üretildiğini ele veren ilk şeydir.
+    gece = gunes.house is not None and gunes.house < 7
     if len(yakinlar) == 1:
         body, ayrim = yakinlar[0]
-        cumle = (
-            f"{body.name_tr} Güneş'e yalnızca {_derece_yazi(ayrim)} "
-            f"uzaktaydı; o dönem boyunca hiç kimse onu göremezdi, çünkü "
-            "ışığın içinde kaybolmuştu."
-        )
+        if gece:
+            # Güneş ufkun altındayken "ışığın içinde kaybolmuştu" o anın
+            # gökyüzünü değil, o günlerin genel durumunu anlatmalı.
+            cumle = (
+                f"{body.name_tr} Güneş'e yalnızca {_derece_yazi(ayrim)} "
+                "uzaktaydı; o günlerde gündüz de gece de hiç kimse onu "
+                "göremezdi, çünkü Güneş'le birlikte doğup batıyordu."
+            )
+        else:
+            cumle = (
+                f"{body.name_tr} Güneş'e yalnızca {_derece_yazi(ayrim)} "
+                f"uzaktaydı; o dönem boyunca hiç kimse onu göremezdi, çünkü "
+                "ışığın içinde kaybolmuştu."
+            )
     else:
         adlar = [b.name_tr for b, _ in yakinlar]
         liste = ", ".join(adlar[:-1]) + " ile " + adlar[-1]

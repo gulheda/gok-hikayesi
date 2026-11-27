@@ -704,3 +704,17 @@ def test_arka_kapi_sahnesi_batmis_cisim_icin_gokyuzunde_bulurdun_demez():
     assert "Arka kapıda Ay" in metin
     assert "tam orada bulurdun" not in metin
     assert "Çoktan batmıştı, ufkun altındaydı" in metin
+
+
+def test_gece_gorunmeyen_cisim_isik_icinde_kaybolmus_demez():
+    """Gaziantep 1969-07-20 20:17: Güneş ufkun altında, Merkür Güneş'e 2°.
+
+    'Işığın içinde kaybolmuştu' gece anlamsızdı; gece varyantı kullanılmalı.
+    """
+    harita = calculate_chart(BirthInput(
+        birth_date=date(1969, 7, 20), birth_time=time(20, 17),
+        latitude=37.0662, longitude=37.3833, place_name="Gaziantep"))
+    assert harita.body("Sun").house < 7
+    metin = uret(harita)[1]
+    assert "ışığın içinde kaybolmuştu" not in metin
+    assert "Güneş'le birlikte doğup batıyordu" in metin

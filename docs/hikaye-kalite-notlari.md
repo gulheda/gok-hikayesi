@@ -873,3 +873,22 @@ Açık gözlemler:
 - Malatya: "Dümdüz yol" Ay–Plüton için "yarım dereceden az" sapma kalıbı; Satürn-Plüton "ağırlık merkezi" tuhaflığı sürüyor.
 - Ordu: "Güneş'i daha önce görmüştün" Güneş 11. evde, kapanışa kopuk bağlanıyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 27 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1994-03-14 11:20 Samsun
+- 1969-07-20 20:17 Gaziantep
+- 2005-11-05 06:50 Bursa
+- 1983-09-01 17:35 Eskişehir
+
+Bulgu: Gaziantep'te Güneş ufkun altındayken (akşam 20:17) Merkür için "ışığın
+içinde kaybolmuştu" deniyordu; o an gökte ışık yok. Düzeltme: gece için
+"o günlerde gündüz de gece de hiç kimse onu göremezdi, çünkü Güneş'le birlikte
+doğup batıyordu". Test: `test_gece_gorunmeyen_cisim_isik_icinde_kaybolmus_demez`.
+
+Açık gözlemler:
+- Eskişehir: gündüz kapanışı "bunların hiçbiri görünmüyordu" meclisteki Güneş için çelişkili (sürüyor).
+- Gaziantep: "Ülkede bir kişi daha vardı… ışık onu yutmuştu" (motor.py ~660) gece varyantı hâlâ yok; çok cisimli gece varyantı da yok.
+- Bursa: kapıda Güneş "2 derece" (giriş) ve "1,5 derece" (kapı) iki farklı sayıyla anılıyor.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).
