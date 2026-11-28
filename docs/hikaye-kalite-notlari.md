@@ -892,3 +892,23 @@ Açık gözlemler:
 - Gaziantep: "Ülkede bir kişi daha vardı… ışık onu yutmuştu" (motor.py ~660) gece varyantı hâlâ yok; çok cisimli gece varyantı da yok.
 - Bursa: kapıda Güneş "2 derece" (giriş) ve "1,5 derece" (kapı) iki farklı sayıyla anılıyor.
 - LLM kıyası yapılmadı (GEMINI_API_KEY yok).
+
+## 28 Kasım 2026
+
+Denenen haritalar (tarih saat il):
+- 1988-06-21 13:10 Kars
+- 1971-02-09 05:25 Trabzon
+- 2001-12-30 23:50 Konya
+- 1996-08-14 16:05 Van
+
+Bulgu: Van'da gündüz kapanışı "bunların hiçbiri görünmüyordu. Gün ışığı
+hepsini örtmüştü" diyordu; ama gerilim üçlüsünden Jüpiter ve Satürn ufkun
+altındaydı (1. ve 3. ev), gün ışığı değil ufuk gizliyordu. Düzeltme:
+"hiçbiri seçilemiyordu; kimi ufkun altındaydı, kimini gün ışığı örtmüştü".
+Test: `test_gunduz_kapanislari_gun_isigi_hepsini_ortmustu_demez`.
+
+Açık gözlemler:
+- Trabzon: "Bodrumda ise Satürn bekliyordu; ikisini aynı bakışta göremezdin" - "ikisi" kimlerdir belirsiz (kapıdaki Merkür + Satürn).
+- Kars/Trabzon/Konya: "ağırlık merkezine vardın; kapıda değildi" tuhaflığı sürüyor.
+- Konya: Güneş altta, Venüs "birkaç adım ötede" ama 3. evde; kabul edilebilir.
+- LLM kıyası yapılmadı (GEMINI_API_KEY yok).

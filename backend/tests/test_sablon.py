@@ -718,3 +718,13 @@ def test_gece_gorunmeyen_cisim_isik_icinde_kaybolmus_demez():
     metin = uret(harita)[1]
     assert "ışığın içinde kaybolmuştu" not in metin
     assert "Güneş'le birlikte doğup batıyordu" in metin
+
+
+def test_gunduz_kapanislari_gun_isigi_hepsini_ortmustu_demez():
+    """Gündüz de bazı cisimler ufkun altında olabilir (Van 1996: Jüpiter,
+    Satürn 1-3. evde); 'gün ışığı hepsini örttü' yanlış olurdu."""
+    from app.story.sablon import sozluk
+    for k in sozluk.KAPANISLAR:
+        assert "hepsini" not in k
+        assert "hiçbiri görünmüyordu" not in k
+    assert any("ufkun altındaydı" in k for k in sozluk.KAPANISLAR)
